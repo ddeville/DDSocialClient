@@ -31,21 +31,21 @@
 	NOTE: You will need to change these ones to
 	match your application details.
  */
-#define FACEBOOK_API_ID @"980b3a83f198c37d82ce902994825078"
+#define FACEBOOK_API_ID @"nil"
 
 
-#define TWITTER_API_KEY @"t4epogUsHIqCGHxe33wEhw"
-#define TWITTER_CONSUMER_KEY @"t4epogUsHIqCGHxe33wEhw"
-#define TWITTER_CONSUMER_SECRET @"cRMUiWDefQpgN7VuhPqdig0qU1LqsDFs0ZiZxgLy4Ro"
+#define TWITTER_API_KEY @"nil"
+#define TWITTER_CONSUMER_KEY @"nil"
+#define TWITTER_CONSUMER_SECRET @"nil"
 
-#define BIT_LY_LOGIN @"acrossair"
-#define BIT_LY_API_KEY @"R_4bea911bf467b617965f8ebf0f2af305"
+#define BIT_LY_LOGIN @"nil"
+#define BIT_LY_API_KEY @"nil"
 
-#define TWITPIC_API_KEY @"4417a2db5d5174150bcbf6830d8f11d3"
+#define TWITPIC_API_KEY @"nil"
 
 
-#define FLICKR_API_KEY @"9685d96872ec4bbed722ae03b73685f0"
-#define FLICKR_API_SECRET @"96c157dc50ade3e1"
+#define FLICKR_API_KEY @"nil"
+#define FLICKR_API_SECRET @"nil"
 
 
 

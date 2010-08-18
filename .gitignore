@@ -1,5 +1,12 @@
-build/*
+build
+*xcodeproj/*mode*
+*xcodeproj/*pbxuser
+*xcodeproj/*per*
+*xcodeproj/project.xcworkspace
+*xcodeproj/xcuserdata
+*tmproj
 *.pbxuser
+profile
 *.mode1v3
 .DS_Store
 .svn

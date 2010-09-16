@@ -37,6 +37,7 @@ typedef enum
 	AAFacebookPostPhotoToAlbum,
 	AAFacebookPostArrayOfPhotos,
 	AAFacebookPostLinkPost,
+	AAFacebookPostNotePost,
 }
 AAFacebookPostType ;
 
@@ -98,6 +99,7 @@ AAFacebookPostType ;
 - (void)postPhoto:(UIImage *)photoFile toAlbum:(NSString *)albumID withCaption:(NSString *)photoCaption ;
 - (void)postPhotos:(NSArray *)photoArray toAlbum:(NSString *)albumID ;
 - (void)postLinkToFacebook:(NSString *)linkString withName:(NSString *)linkName withCaption:(NSString *)linkCaption withDescription:(NSString *)linkDescription withMessage:(NSString *)linkMessage withPicture:(NSString *)linkPicture ;
+- (void)postNoteToFacebook:(NSString *)noteText withSubjectMessage:(NSString *)subject ;
 
 
 @end

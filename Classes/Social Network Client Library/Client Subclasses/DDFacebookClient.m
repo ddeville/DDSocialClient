@@ -628,6 +628,41 @@
 
 
 
+- (void)postNoteToFacebook:(NSString *)noteText withSubjectMessage:(NSString *)subject
+{
+	// if there is no link, no point going further
+	if (noteText == nil || [noteText length] == 0)
+	{
+		NSError *error = [DDSocialNetworkClient generateErrorWithMessage: @"You need to post a note"] ;
+		if (delegate && [delegate respondsToSelector: @selector(facebookPost:failedWithError:)])
+			[delegate facebookPost: AAFacebookPostLinkPost failedWithError: error] ; 
+		return ;
+	}
+	
+	// if no token, we show the login window and get the hell outta here
+	if (![self serviceHasValidToken])
+	{
+		[self startLoginProcess] ;
+		return ;
+	}
+	
+	NSURL *url = [NSURL URLWithString:@"https://graph.facebook.com/me/notes"] ;
+	
+	ASIFormDataRequest *post = [ASIFormDataRequest requestWithURL: url] ;
+	[post setPostValue: token.key forKey: @"access_token"] ;
+	[post setPostValue: noteText forKey: @"message"] ;
+	if (subject && [subject length])
+		[post setPostValue: subject forKey: @"subject"] ;
+	[post setDidStartSelector: @selector(postToFacebookStarted:)] ;
+	[post setDidFinishSelector: @selector(postToFacebookFinished:)] ;
+	[post setDidFailSelector: @selector(postToFacebookFailed:)] ;
+	[post setDelegate: self] ;
+	[post setUserInfo: [NSDictionary dictionaryWithObject: @"notePost" forKey: @"whichPost"]] ;
+	[post startAsynchronous] ;
+}
+
+
+
 
 
 
@@ -769,6 +804,8 @@
 		facebookPostType = AAFacebookPostPhotoToAlbum ;
 	else if ([postType isEqualToString: @"linkPost"])
 		facebookPostType = AAFacebookPostLinkPost ;
+	else if ([postType isEqualToString: @"notePost"])
+		facebookPostType = AAFacebookPostNotePost ;
 	else
 		facebookPostType = AAFacebookPostUnknownType ;
 	
@@ -805,6 +842,8 @@
 		facebookPostType = AAFacebookPostPhotoToAlbum ;
 	else if ([postType isEqualToString: @"linkPost"])
 		facebookPostType = AAFacebookPostLinkPost ;
+	else if ([postType isEqualToString: @"notePost"])
+		facebookPostType = AAFacebookPostNotePost ;
 	else
 		facebookPostType = AAFacebookPostUnknownType ;
 	

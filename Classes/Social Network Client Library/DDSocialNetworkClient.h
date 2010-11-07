@@ -101,6 +101,7 @@ DDSocialNetworkClientType ;
 - (DDSocialNetworkClientType)clientType ;
 + (NSString *)clientServiceKey ;
 + (NSString *)clientDomain ;
+- (NSString *)name ;
 
 // OAuth authentication related methods
 + (BOOL)serviceHasValidToken ;

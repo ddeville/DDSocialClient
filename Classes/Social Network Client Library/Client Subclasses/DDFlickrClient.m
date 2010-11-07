@@ -73,7 +73,10 @@
 }
 
 
-
+- (NSString *)name
+{
+	return @"Flickr" ;
+}
 
 
 

@@ -65,6 +65,11 @@
 }
 
 
+- (NSString *)name
+{
+	return @"Facebook" ;
+}
+
 
 
 

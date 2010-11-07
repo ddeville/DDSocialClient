@@ -55,6 +55,11 @@
 }
 
 
+- (NSString *)name
+{
+	return nil ;
+}
+
 
 
 

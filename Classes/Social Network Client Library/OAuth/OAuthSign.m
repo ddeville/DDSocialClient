@@ -44,7 +44,7 @@ param ;
 
 @interface OAuthSign (Private)
 
-char* oauth_sign(char* consumer_key, char* consumer_key_secret, char* token, char* token_secret, char* method, char* url, char* callback, char* verifier, int paramc, char** paramv) ;
+char* oauth_sign(char* consumer_key, char* consumer_key_secret, char* token, char* token_secret, char* method, char* url, char* callback, char* verifier, int post_paramc, char** post_paramv, int header_style) ;
 
 @end
 
@@ -56,7 +56,7 @@ char* oauth_sign(char* consumer_key, char* consumer_key_secret, char* token, cha
 
 @implementation OAuthSign
 
-+ (NSString *)getOAuthSignatureForMethod:(NSString *)method URL:(NSString *)URL callback:(NSString *)callback consumerKey:(NSString *)consumerKey consumerKeySecret:(NSString *)consumerKeySecret token:(NSString *)token tokenSecret:(NSString *)tokenSecret verifier:(NSString *)verifier body:(NSDictionary *)body
++ (NSString *)getOAuthSignatureForMethod:(NSString *)method URL:(NSString *)URL callback:(NSString *)callback consumerKey:(NSString *)consumerKey consumerKeySecret:(NSString *)consumerKeySecret token:(NSString *)token tokenSecret:(NSString *)tokenSecret verifier:(NSString *)verifier postParameters:(NSDictionary *)postParameters headerStyle:(BOOL)headerStyle
 {
 	char *consumer_key ;
 	char *consumer_key_secret ;
@@ -66,6 +66,7 @@ char* oauth_sign(char* consumer_key, char* consumer_key_secret, char* token, cha
 	char *URL_c ;
 	char *callback_c ;
 	char *verifier_c ;
+	int c_header_style ;
 	
 	if (consumerKey)
 		consumer_key = (char *)[consumerKey UTF8String] ;
@@ -107,24 +108,31 @@ char* oauth_sign(char* consumer_key, char* consumer_key_secret, char* token, cha
 	else
 		verifier_c = "" ;
 	
-	int bodyNumber = [body count] ;
-	char *bodyArray[bodyNumber] ;
-	if (bodyNumber)
+	if (headerStyle && headerStyle == YES)
+		c_header_style = 1 ;
+	else
+		c_header_style = 0 ;
+	
+	
+	// POST parameters
+	int postParametersNumber = [postParameters count] ;
+	char *postParametersArray[postParametersNumber] ;
+	if (postParametersNumber)
 	{
 		int i = 0 ;
-		for (NSString *key in body)
+		for (NSString *key in postParameters)
 		{
 			NSString *value ;
-			if (value = [body objectForKey: key])
+			if (value = [postParameters objectForKey: key])
 			{
 				NSString *total = [NSString stringWithFormat: @"%@=%@", key, value] ;
-				bodyArray[i] = strdup([total UTF8String]) ;
+				postParametersArray[i] = strdup([total UTF8String]) ;
 			}
 			i++ ;
 		}
 	}
 	
-	char *sigResultC = oauth_sign(consumer_key, consumer_key_secret, token_c, token_secret, method_c, URL_c, callback_c, verifier_c, bodyNumber, &bodyArray[0]) ;
+	char *sigResultC = oauth_sign(consumer_key, consumer_key_secret, token_c, token_secret, method_c, URL_c, callback_c, verifier_c, postParametersNumber, &postParametersArray[0], c_header_style) ;
 	
 	NSString *sigResult = [NSString stringWithCString: sigResultC encoding: NSUTF8StringEncoding] ;
 	free(sigResultC) ;
@@ -138,7 +146,12 @@ char* oauth_sign(char* consumer_key, char* consumer_key_secret, char* token, cha
 
 
 
-
+/*
+	NOTE: Even if many parts of the following C function have
+	been modified by myself mainly for sake of clarity, it is
+	still widely based on the original function written by Jef
+	Poskanzer so here is his disclaimer.
+ */
 
 /* oauth_sign.c - sign an OAuth request
  **
@@ -178,83 +191,44 @@ char* oauth_sign(char* consumer_key, char* consumer_key_secret, char* token, cha
  ** For commentary on this license please see http://acme.com/license.html
  */
 
-char* oauth_sign(char* consumer_key, char* consumer_key_secret, char* token, char* token_secret, char* method, char* url, char* callback, char* verifier, int paramc, char** paramv)
+char* oauth_sign(char* consumer_key, char* consumer_key_secret, char* token, char* token_secret, char* method, char* url, char* callback, char* verifier, int post_paramc, char** post_paramv, int header_style)
 {
-	char* oauth_signature_method ;
-	char oauth_timestamp[20] ;
-	char oauth_nonce[20] ;
-	char* oauth_version ;
-	time_t now ;
-	unsigned long nonce1, nonce2 ;
-	char* qmark ;
+	// Add the URL and check if it contains URL query paramters
+	char* qmark = strchr(url, '?') ;
 	char* query_string ;
-	int n_ampers ;
-	int max_query_params, n_query_params ;
-	param* query_params ;
-	int max_post_params, n_post_params ;
-	param* post_params ;
-	int max_proto_params, n_proto_params ;
-	param* proto_params ;
-	int max_all_params, n_all_params ;
-	param* all_params ;
-	int i ;
-	char* cp ;
-	char* equal ;
-	char* value ;
-	char* amper ;
-	char* base_url ;
-	char* encoded_base_url ;
-	char* qmark2 ;
-	size_t params_string_len ;
-	char* params_string ;
-	char* encoded_params_string ;
-	char* encoded_consumer_key_secret ;
-	char* encoded_token_secret ;
-	size_t base_string_len ;
-	char* base_string ;
-	size_t key_len ;
-	char* key ;
-	unsigned char hmac_block[SHA_DIGEST_LENGTH] ;
-	char oauth_signature[SHA_DIGEST_LENGTH * 4/3 + 5] ;
-	size_t authorization_len ;
-	char* authorization ;
-	
-	/* Assign values to the rest of the required protocol params. */
-	oauth_signature_method = "HMAC-SHA1" ;
-	now = time( (time_t*) 0 ) ;
-	(void) snprintf( oauth_timestamp, sizeof(oauth_timestamp), "%ld", (long) now ) ;
-	srandomdev() ;
-	nonce1 = (unsigned long) random() ;
-	nonce2 = (unsigned long) random() ;
-	(void) snprintf( oauth_nonce, sizeof(oauth_nonce), "%08lx%08lx", nonce1, nonce2 ) ;
-	oauth_version = "1.0" ;
-
-	/* Parse the URL's query-string params. */
-	qmark = strchr( url, '?' ) ;
-	if ( qmark == (char*) 0 )
+	int max_query_params ;
+	// in case the URL has no parameters
+	if (qmark == (char*) 0)
 	{
-		STRDUP_CHECK_ASSIGN( query_string, "", (char*) 0 ) ;
-		max_query_params = 1 ;		/* avoid malloc(0) */
+		STRDUP_CHECK_ASSIGN(query_string, "", (char*) 0) ;
+		max_query_params = 1 ;
 	}
+	// in case the URL has parameters
 	else
 	{
-		STRDUP_CHECK_ASSIGN( query_string, qmark + 1, (char*) 0 ) ;
-		n_ampers = 0 ;
-		for ( i = 0; query_string[i] != '\0'; ++i )
-			if ( query_string[i] == '&' )
-				++n_ampers ;
-		max_query_params = n_ampers + 1 ;
+		STRDUP_CHECK_ASSIGN(query_string, qmark + 1, (char*) 0) ;
+		// count the number of parameters
+		int num_ampers = 0 ;
+		for (int i = 0 ; query_string[i] != '\0' ; ++i )
+			if (query_string[i] == '&')
+				++num_ampers ;
+		max_query_params = num_ampers + 1 ;
 	}
-	MALLOC_CHECK_ASSIGN( query_params, sizeof(param) * max_query_params, (char*) 0 ) ;
-	n_query_params = 0 ;
-	if ( qmark != (char*) 0 )
+	
+	
+	// add the optional URL query parameters
+	param* query_params ;
+	MALLOC_CHECK_ASSIGN(query_params, sizeof(param) * max_query_params, (char*) 0) ;
+	int n_query_params = 0 ;
+	if (qmark != (char*) 0)
 	{
-		cp = query_string ;
+		char* cp = query_string ;
 		for (;;)
 		{
-			equal = strchr( cp, '=' ) ;
-			amper = strchr( cp, '&' ) ;
-			if ( equal == (char*) 0 || ( amper != (char*) 0 && amper < equal ) )
+			char* equal = strchr(cp, '=') ;
+			char* amper = strchr( cp, '&' ) ;
+			char* value ;
+			if (equal == (char*) 0 || (amper != (char*) 0 && amper < equal))
 			{
 				value = "" ;
 			}
@@ -263,28 +237,30 @@ char* oauth_sign(char* consumer_key, char* consumer_key_secret, char* token, cha
 				*equal = '\0' ;
 				value = equal + 1 ;
 			}
-			if ( amper != (char*) 0 )
+			if (amper != (char*) 0)
 				*amper = '\0' ;
-			STRDUP_CHECK_ASSIGN( query_params[n_query_params].name, cp, (char*) 0 ) ;
-			STRDUP_CHECK_ASSIGN( query_params[n_query_params].value, value, (char*) 0 ) ;
-			url_decode( query_params[n_query_params].name, query_params[n_query_params].name ) ;
-			url_decode( query_params[n_query_params].value, query_params[n_query_params].value ) ;
+			STRDUP_CHECK_ASSIGN(query_params[n_query_params].name, cp, (char*) 0) ;
+			STRDUP_CHECK_ASSIGN(query_params[n_query_params].value, value, (char*) 0) ;
+			url_decode(query_params[n_query_params].name, query_params[n_query_params].name) ;
+			url_decode(query_params[n_query_params].value, query_params[n_query_params].value) ;
 			++n_query_params ;
-			if ( amper == (char*) 0 )
+			if (amper == (char*) 0)
 				break ;
 			cp = amper + 1 ;
 		}
 	}
 	
-    /* Add in the optional POST params. */
-	max_post_params = max( paramc, 1 ) ;		/* avoid malloc(0) */
-	MALLOC_CHECK_ASSIGN( post_params, sizeof(param) * max_post_params, (char*) 0 ) ;
-	n_post_params = 0 ;
-	for ( n_post_params = 0; n_post_params < paramc; ++n_post_params )
+	
+    // Add in the optional POST parameters
+	int max_post_params = max(post_paramc, 1) ;
+	param* post_params ;
+	MALLOC_CHECK_ASSIGN(post_params, sizeof(param) * max_post_params, (char*) 0) ;
+	int n_post_params = 0 ;
+	for (n_post_params = 0 ; n_post_params < post_paramc ; ++n_post_params)
 	{
-		STRDUP_CHECK_ASSIGN( post_params[n_post_params].name, paramv[n_post_params], (char*) 0 ) ;
-		equal = strchr( post_params[n_post_params].name, '=' ) ;
-		if ( equal == (char*) 0 )
+		STRDUP_CHECK_ASSIGN(post_params[n_post_params].name, post_paramv[n_post_params], (char*) 0) ;
+		char* equal = strchr(post_params[n_post_params].name, '=') ;
+		if (equal == (char*) 0)
 			post_params[n_post_params].value = "" ;
 		else
 		{
@@ -293,180 +269,234 @@ char* oauth_sign(char* consumer_key, char* consumer_key_secret, char* token, cha
 		}
 	}
 	
-	/* Make the protocol params. */
-	max_proto_params = 9 ;
-	MALLOC_CHECK_ASSIGN( proto_params, sizeof(param) * max_proto_params, (char*) 0 ) ;
-	n_proto_params = 0 ;
-	if ( strlen( consumer_key ) > 0 )
+	
+	// Assign values to the OAuth protocol parameters (some are optional)
+	int max_proto_params = 9 ;
+	param* proto_params ;
+	MALLOC_CHECK_ASSIGN(proto_params, sizeof(param) * max_proto_params, (char*) 0) ;
+	int n_proto_params = 0 ;
+	
+	// OAuth consumer key
+	if (strlen(consumer_key) > 0)
 	{
 		proto_params[n_proto_params].name = "oauth_consumer_key" ;
 		proto_params[n_proto_params].value = consumer_key ;
 		++n_proto_params ;
 	}
-	if ( strlen( token ) > 0 )
+	
+	// OAuth token
+	if (strlen(token) > 0)
 	{
 		proto_params[n_proto_params].name = "oauth_token" ;
 		proto_params[n_proto_params].value = token ;
 		++n_proto_params ;
 	}
-	if ( strlen( callback ) > 0 )
+	
+	// OAuth callback
+	if (strlen(callback) > 0)
 	{
 		proto_params[n_proto_params].name = "oauth_callback" ;
 		proto_params[n_proto_params].value = callback ;
 		++n_proto_params ;
 	}
-	if ( strlen( verifier ) > 0 )
+	
+	// OAuth verifier
+	if (strlen(verifier) > 0)
 	{
 		proto_params[n_proto_params].name = "oauth_verifier" ;
 		proto_params[n_proto_params].value = verifier ;
 		++n_proto_params ;
 	}
+	
+	// OAuth signature method
+	char* oauth_signature_method = "HMAC-SHA1" ;
 	proto_params[n_proto_params].name = "oauth_signature_method" ;
 	proto_params[n_proto_params].value = oauth_signature_method ;
 	++n_proto_params ;
+	
+	// OAuth time stamp
+	time_t now = time((time_t*) 0) ;
+	char oauth_timestamp[20] ;
+	(void) snprintf(oauth_timestamp, sizeof(oauth_timestamp), "%ld", (long) now) ;
 	proto_params[n_proto_params].name = "oauth_timestamp" ;
 	proto_params[n_proto_params].value = oauth_timestamp ;
 	++n_proto_params ;
+	
+	// OAuth nonce
+	srandomdev() ;
+	unsigned long nonce1 = (unsigned long) random() ;
+	unsigned long nonce2 = (unsigned long) random() ;
+	char oauth_nonce[20] ;
+	(void) snprintf(oauth_nonce, sizeof(oauth_nonce), "%08lx%08lx", nonce1, nonce2) ;
 	proto_params[n_proto_params].name = "oauth_nonce" ;
 	proto_params[n_proto_params].value = oauth_nonce ;
 	++n_proto_params ;
+	
+	// OAuth version
+	char* oauth_version = "1.0" ;
 	proto_params[n_proto_params].name = "oauth_version" ;
 	proto_params[n_proto_params].value = oauth_version ;
 	++n_proto_params ;
 	
-	/* Percent-encode and concatenate the parameter lists. */
-	max_all_params = max_query_params + max_post_params + max_proto_params  ;
-	MALLOC_CHECK_ASSIGN( all_params, sizeof(param) * max_all_params, (char*) 0 ) ;
-	n_all_params = 0 ;
-	for ( i = 0; i < n_query_params; ++i )
+	
+	// Percent-encode and concatenate the parameter lists
+	int max_all_params = max_query_params + max_post_params + max_proto_params ;
+	param* all_params ;
+	MALLOC_CHECK_ASSIGN(all_params, sizeof(param) * max_all_params, (char*) 0) ;
+	int n_all_params = 0 ;
+	// Query parameters
+	for (int i = 0 ; i < n_query_params ; ++i)
 	{
-		PERCENT_ENCODE_CHECK_ASSIGN( query_params[i].encoded_name, query_params[i].name, (char*) 0 ) ;
-		PERCENT_ENCODE_CHECK_ASSIGN( query_params[i].encoded_value, query_params[i].value, (char*) 0 ) ;
+		PERCENT_ENCODE_CHECK_ASSIGN(query_params[i].encoded_name, query_params[i].name, (char*) 0) ;
+		PERCENT_ENCODE_CHECK_ASSIGN(query_params[i].encoded_value, query_params[i].value, (char*) 0) ;
 		all_params[n_all_params] = query_params[i] ;
 		++n_all_params ;
 	}
-	for ( i = 0; i < n_post_params; ++i )
+	// POST parameters
+	for (int i = 0 ; i < n_post_params ; ++i)
 	{
-		PERCENT_ENCODE_CHECK_ASSIGN( post_params[i].encoded_name, post_params[i].name, (char*) 0 ) ;
-		PERCENT_ENCODE_CHECK_ASSIGN( post_params[i].encoded_value, post_params[i].value, (char*) 0 ) ;
+		PERCENT_ENCODE_CHECK_ASSIGN(post_params[i].encoded_name, post_params[i].name, (char*) 0) ;
+		PERCENT_ENCODE_CHECK_ASSIGN(post_params[i].encoded_value, post_params[i].value, (char*) 0) ;
 		all_params[n_all_params] = post_params[i] ;
 		++n_all_params ;
 	}
-	for ( i = 0; i < n_proto_params; ++i )
+	// Protocol parameters
+	for (int i = 0 ; i < n_proto_params ; ++i)
 	{
-		PERCENT_ENCODE_CHECK_ASSIGN( proto_params[i].encoded_name, proto_params[i].name, (char*) 0 ) ;
-		PERCENT_ENCODE_CHECK_ASSIGN( proto_params[i].encoded_value, proto_params[i].value, (char*) 0 ) ;
+		PERCENT_ENCODE_CHECK_ASSIGN(proto_params[i].encoded_name, proto_params[i].name, (char*) 0) ;
+		PERCENT_ENCODE_CHECK_ASSIGN(proto_params[i].encoded_value, proto_params[i].value, (char*) 0) ;
 		all_params[n_all_params] = proto_params[i] ;
 		++n_all_params ;
 	}
 	
-	/* Sort the combined & encoded parameters. */
-	qsort( all_params, n_all_params, sizeof(param), compare ) ;
 	
-	/* Construct the signature base string.  First get the base URL. */
-	STRDUP_CHECK_ASSIGN( base_url, url, (char*) 0 ) ;
-	qmark2 = strchr( base_url, '?' ) ;
-	if ( qmark2 != (char*) 0 )
+	// Sort the combined and encoded parameters
+	qsort(all_params, n_all_params, sizeof(param), compare) ;
+	
+	
+	// Construct the signature base string first getting the Base URL
+	char* base_url ;
+	STRDUP_CHECK_ASSIGN(base_url, url, (char*) 0) ;
+	char* qmark2 = strchr(base_url, '?') ;
+	if (qmark2 != (char*) 0)
 		*qmark2 = '\0' ;
-	PERCENT_ENCODE_CHECK_ASSIGN( encoded_base_url, base_url, (char*) 0 ) ;
+	char* encoded_base_url ;
+	PERCENT_ENCODE_CHECK_ASSIGN(encoded_base_url, base_url, (char*) 0) ;
 	
-	/* Next make the parameters string.
-	 **
-	 ** There's a weirdness with the spec here.  According to RFC5849
-	 ** sections 3.4.1.3.2 and 3.4.1.1, we should first concatenate the
-	 ** encoded parameters together using "=" and "&", then percent-encode
-	 ** the whole string.  However according to Twitter's implementation
-	 ** guide at http://dev.twitter.com/pages/auth we should concatenate
-	 ** the encoded parameters using "%3D" and "%26", which are the
-	 ** percent-encoded versions of "=" and "&", and then *not*
-	 ** percent-encode the whole string.  The difference is that
-	 ** if we use the RFC's method, then anything that got percent-encoded
-	 ** in the parameters gets percent-encoded a second time, resulting
-	 ** in constructs like "%25xx" instead of "%xx".  We currently implement
-	 ** the RFC's version, with the double-encoded percents, but
-	 ** may switch to the other if there are interoperability problems.
-	 */
-	params_string_len = 0 ;
-	for ( i = 0; i < n_all_params; ++i )
-		params_string_len += 3 + strlen( all_params[i].encoded_name ) + 3 + strlen( all_params[i].encoded_value ) ;
-	MALLOC_CHECK_ASSIGN( params_string, params_string_len + 1, (char*) 0 ) ;
+	
+	// Next make the parameters string
+	size_t params_string_len = 0 ;
+	for (int i = 0; i < n_all_params; ++i )
+		params_string_len += 3 + strlen(all_params[i].encoded_name) + 3 + strlen(all_params[i].encoded_value) ;
+	char* params_string ;
+	MALLOC_CHECK_ASSIGN(params_string, params_string_len + 1, (char*) 0) ;
 	params_string[0] = '\0' ;
-	for ( i = 0; i < n_all_params; ++i )
+	for (int i = 0 ; i < n_all_params ; ++i)
 	{
-		if ( i != 0 )
-			(void) strcat( params_string, "&" ) ;
-		(void) strcat( params_string, all_params[i].encoded_name ) ;
-		(void) strcat( params_string, "=" ) ;
-		(void) strcat( params_string, all_params[i].encoded_value ) ;
+		if (i != 0)
+			(void) strcat(params_string, "&") ;
+		(void) strcat(params_string, all_params[i].encoded_name) ;
+		(void) strcat(params_string, "=") ;
+		(void) strcat(params_string, all_params[i].encoded_value) ;
 	}
-	PERCENT_ENCODE_CHECK_ASSIGN( encoded_params_string, params_string, (char*) 0 ) ;
+	char* encoded_params_string ;
+	PERCENT_ENCODE_CHECK_ASSIGN(encoded_params_string, params_string, (char*) 0) ;
 	
-	/* Put together all the parts of the base string. */
-	base_string_len = strlen( method ) + 1 + strlen( encoded_base_url ) + 1 + strlen( encoded_params_string ) ;
-	MALLOC_CHECK_ASSIGN( base_string, base_string_len + 1, (char*) 0 ) ;
-	(void) sprintf( base_string, "%s&%s&%s", method, encoded_base_url, encoded_params_string ) ;
 	
-	/* Calculate the signature. */
-	PERCENT_ENCODE_CHECK_ASSIGN( encoded_consumer_key_secret, consumer_key_secret, (char*) 0 ) ;
-	PERCENT_ENCODE_CHECK_ASSIGN( encoded_token_secret, token_secret, (char*) 0 ) ;
-	key_len = strlen( encoded_consumer_key_secret ) + 1 + strlen( encoded_token_secret ) ;
-	MALLOC_CHECK_ASSIGN( key, key_len + 1 , (char*) 0 ) ;
-	(void) sprintf( key, "%s&%s", encoded_consumer_key_secret, encoded_token_secret ) ;
-	//(void) HMAC( EVP_sha1(), key, strlen( key ), base_string, strlen( base_string ), hmac_block, (unsigned int*) 0 ) ;	// for Apple we need the following
-	(void) HMAC( kCCHmacAlgSHA1, key, strlen( key ), base_string, strlen( base_string ), hmac_block, (unsigned int*) 0 ) ;
-	b64_encode( hmac_block, SHA_DIGEST_LENGTH, oauth_signature ) ;
+	// Put together all the parts of the base string
+	size_t base_string_len = strlen(method) + 1 + strlen(encoded_base_url) + 1 + strlen(encoded_params_string) ;
+	char* base_string ;
+	MALLOC_CHECK_ASSIGN(base_string, base_string_len + 1, (char*) 0) ;
+	(void) sprintf(base_string, "%s&%s&%s", method, encoded_base_url, encoded_params_string) ;
 	
-	/* Add the signature to the request too. */
+	
+	// Calculate the signature
+	char* encoded_consumer_key_secret ;
+	PERCENT_ENCODE_CHECK_ASSIGN(encoded_consumer_key_secret, consumer_key_secret, (char*) 0) ;
+	char* encoded_token_secret ;
+	PERCENT_ENCODE_CHECK_ASSIGN(encoded_token_secret, token_secret, (char*) 0) ;
+	size_t key_len = strlen(encoded_consumer_key_secret) + 1 + strlen(encoded_token_secret) ;
+	char* key ;
+	MALLOC_CHECK_ASSIGN(key, key_len + 1 , (char*) 0) ;
+	unsigned char hmac_block[SHA_DIGEST_LENGTH] ;
+	char oauth_signature[SHA_DIGEST_LENGTH * 4/3 + 5] ;
+	(void) sprintf(key, "%s&%s", encoded_consumer_key_secret, encoded_token_secret) ;
+	(void) HMAC(kCCHmacAlgSHA1, key, strlen(key), base_string, strlen(base_string), hmac_block, (unsigned int*) 0) ;
+	b64_encode(hmac_block, SHA_DIGEST_LENGTH, oauth_signature) ;
+	
+	
+	// Add the signature to the request too
 	proto_params[n_proto_params].name = "oauth_signature" ;
 	proto_params[n_proto_params].value = oauth_signature ;
-	PERCENT_ENCODE_CHECK_ASSIGN( proto_params[n_proto_params].encoded_name, proto_params[n_proto_params].name, (char*) 0 ) ;
-	PERCENT_ENCODE_CHECK_ASSIGN( proto_params[n_proto_params].encoded_value, proto_params[n_proto_params].value, (char*) 0 ) ;
+	PERCENT_ENCODE_CHECK_ASSIGN(proto_params[n_proto_params].encoded_name, proto_params[n_proto_params].name, (char*) 0) ;
+	PERCENT_ENCODE_CHECK_ASSIGN(proto_params[n_proto_params].encoded_value, proto_params[n_proto_params].value, (char*) 0) ;
 	all_params[n_all_params] = proto_params[n_proto_params] ;
 	++n_proto_params ;
 	++n_all_params ;
 	
-	/* Generate the Authorization header value. */
-	authorization_len = 6 ;
-	for ( i = 0; i < n_proto_params; ++i )
-		authorization_len += strlen( proto_params[i].encoded_name ) + 2 + strlen( proto_params[i].encoded_value ) + 3 ;
-	MALLOC_CHECK_ASSIGN( authorization, authorization_len + 1 , (char*) 0 ) ;
-	(void) strcpy( authorization, "OAuth " ) ;
-	for ( i = 0; i < n_proto_params; ++i )
+	
+	// In function of if the signature is a authorization header or plain normalized parameters
+	size_t authorization_len ;
+	if (header_style > 0)
+		authorization_len = 6 ;
+	else
+		authorization_len = 0 ;
+	for (int i = 0 ; i < n_proto_params ; ++i)
+		authorization_len += strlen(proto_params[i].encoded_name) + 2 + strlen(proto_params[i].encoded_value) + 3 ;
+	char* authorization ;
+	MALLOC_CHECK_ASSIGN(authorization, authorization_len + 1 , (char*) 0) ;
+	if (header_style > 0)
+		(void) strcpy(authorization, "OAuth ") ;
+	else
+		(void) strcpy(authorization, "") ;
+	for (int i = 0 ; i < n_proto_params ; ++i)
 	{
-		if ( i > 0 )
-			(void) strcat( authorization, ", " ) ;
-		(void) strcat( authorization, proto_params[i].encoded_name ) ;
-		(void) strcat( authorization, "=\"" ) ;
-		(void) strcat( authorization, proto_params[i].encoded_value ) ;
-		(void) strcat( authorization, "\"" ) ;
+		if (i > 0)
+		{
+			if (header_style > 0)
+				(void) strcat(authorization, ", ") ;
+			else
+				(void) strcat(authorization, "&") ;
+		}
+		(void) strcat(authorization, proto_params[i].encoded_name) ;
+		if (header_style > 0)
+			(void) strcat(authorization, "=\"") ;
+		else
+			(void) strcat(authorization, "=") ;
+		(void) strcat(authorization, proto_params[i].encoded_value) ;
+		if (header_style > 0)
+			(void) strcat(authorization, "\"") ;
 	}
 	
-	/* Free everything except authorization. */
-	free( query_string ) ;
-	for ( i = 0; i < n_query_params; ++i )
+	
+	// Free everything except authorization
+	free(query_string) ;
+	for (int i = 0 ; i < n_query_params ; ++i)
 	{
-		free( query_params[i].name ) ;
-		free( query_params[i].value ) ;
+		free(query_params[i].name) ;
+		free(query_params[i].value) ;
 	}
-	for ( i = 0; i < n_post_params; ++i )
-		free( post_params[i].name ) ;
-	for ( i = 0; i < n_all_params; ++i )
+	for (int i = 0 ; i < n_post_params ; ++i)
 	{
-		free( all_params[i].encoded_name ) ;
-		free( all_params[i].encoded_value ) ;
+		free(post_params[i].name) ;
 	}
-	free( query_params ) ;
-	free( post_params ) ;
-	free( proto_params ) ;
-	free( all_params ) ;
-	free( base_url ) ;
-	free( encoded_base_url ) ;
-	free( params_string ) ;
-	free( encoded_params_string ) ;
-	free( encoded_consumer_key_secret ) ;
-	free( encoded_token_secret ) ;
-	free( base_string ) ;
-	free( key ) ;
+	for (int i = 0 ; i < n_all_params ; ++i)
+	{
+		free(all_params[i].encoded_name) ;
+		free(all_params[i].encoded_value) ;
+	}
+	free(query_params) ;
+	free(post_params) ;
+	free(proto_params) ;
+	free(all_params) ;
+	free(base_url) ;
+	free(encoded_base_url) ;
+	free(params_string) ;
+	free(encoded_params_string) ;
+	free(encoded_consumer_key_secret) ;
+	free(encoded_token_secret) ;
+	free(base_string) ;
+	free(key) ;
 	
 	return authorization ;
 }

@@ -34,7 +34,13 @@
 	if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad)
 		[self.view setFrame: CGRectMake(0.0f, 0.0f, 540.0f, 620.0f)] ;
 	else
-		[self.view setFrame: CGRectMake(0.0f, 0.0f, 320.0f, 460.0f)] ;
+	{
+		float height = 460.0f ;
+		// if the app is full screen
+		if ([UIApplication sharedApplication].statusBarHidden)
+			height += 20.0f ;
+		[self.view setFrame: CGRectMake(0.0f, 0.0f, 320.0f, height)] ;
+	}
 	
 	[self.view setBackgroundColor: [UIColor lightGrayColor]] ;
 	

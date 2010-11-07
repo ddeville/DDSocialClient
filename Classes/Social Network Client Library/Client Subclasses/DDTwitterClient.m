@@ -70,6 +70,12 @@
 }
 
 
+- (NSString *)name
+{
+	return @"Twitter" ;
+}
+
+
 
 
 
@@ -107,14 +113,15 @@
 	
 	// Create the authorization header
 	NSString *oauth_header = [OAuthSign getOAuthSignatureForMethod: @"GET"
-															   URL: URL
+															   URL: URL 
 														  callback: @"about-blank"
 													   consumerKey: TWITTER_CONSUMER_KEY
 												 consumerKeySecret: TWITTER_CONSUMER_SECRET
 															 token: nil
 													   tokenSecret: nil
 														  verifier: nil
-															  body: nil] ;
+													postParameters: nil
+													   headerStyle: YES] ;
 	
 	ASIHTTPRequest *request = [ASIHTTPRequest requestWithURL: [NSURL URLWithString: URL]] ;
 	[request setRequestMethod: @"GET"] ;
@@ -177,14 +184,15 @@
 	NSString *URL = @"https://api.twitter.com/oauth/access_token" ;
 	
 	NSString *oauth_header = [OAuthSign getOAuthSignatureForMethod: @"GET"
-															   URL: URL
+															   URL: URL 
 														  callback: nil
 													   consumerKey: TWITTER_CONSUMER_KEY
 												 consumerKeySecret: TWITTER_CONSUMER_SECRET
 															 token: tempOAuthToken
 													   tokenSecret: nil
 														  verifier: tempOAuthIdentifier
-															  body: nil] ;
+													postParameters: nil
+													   headerStyle: YES] ;
 	
 	ASIHTTPRequest *request = [ASIHTTPRequest requestWithURL: [NSURL URLWithString: URL]] ;
 	[request setRequestMethod: @"GET"] ;
@@ -274,7 +282,8 @@
 															 token: token.key
 													   tokenSecret: token.secret
 														  verifier: nil
-															  body: postBody] ;
+													postParameters: postBody
+													   headerStyle: YES] ;
 	
 	ASIFormDataRequest *post = [ASIFormDataRequest requestWithURL: [NSURL URLWithString: postURL]] ;
 	for (NSString *key in postBody)

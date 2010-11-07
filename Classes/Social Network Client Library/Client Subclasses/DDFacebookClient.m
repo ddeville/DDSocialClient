@@ -8,7 +8,6 @@
 
 #import "DDFacebookClient.h"
 #import "JSON.h"
-#import "Reachability.h"
 
 
 @interface DDFacebookClient (Private)
@@ -102,17 +101,6 @@
 
 - (void)startLoginProcess
 {
-	// first check the reachability
-	Reachability *internet = [Reachability reachabilityForInternetConnection] ;
-	if (![internet isReachable])
-	{
-		// tell the delegate the login failed
-		NSError *error = [DDSocialNetworkClient generateErrorWithMessage: @"The authentication failed"] ;
-		if (delegate && [delegate respondsToSelector: @selector(socialMediaClient:authenticationDidFailWithError:)])
-			[delegate socialMediaClient: self authenticationDidFailWithError: error] ;
-		return ;
-	}
-	
 	// in the case of Facebook, the login process starts with showing the login dialog
 	[self showLoginDialog] ;
 }

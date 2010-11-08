@@ -707,20 +707,31 @@
 	NSLog(@"post finished") ;
 	DDFlickrPostType postType = [[post.userInfo objectForKey: flickrPostType] intValue] ;
 	
-	NSString *postInfo = [post.userInfo objectForKey: @"whichPost"] ;
 	NSString *responseString = [post responseString] ;
-	NSMutableDictionary *responseJSON = [responseString JSONValue] ;
 	
-	if ([[responseJSON objectForKey: @"stat"] isEqualToString: @"ok"])
+	if (postType == DDFlickrPostTypeImage)
 	{
+		// the response here is in XML...
+		
+		// for now assume that it means the post was successful (bad assumption, will have to change!)
 		if (delegate && [delegate respondsToSelector: @selector(flickrPost:didSucceedAndReturned:)])
-			[delegate flickrPost: postType didSucceedAndReturned: responseJSON] ;
+			[delegate flickrPost: postType didSucceedAndReturned: nil] ;
 	}
 	else
 	{
-		NSError *error = [DDSocialNetworkClient generateErrorWithMessage: [NSString stringWithFormat: @"The post %@ failed", postInfo]] ;
-		if (delegate && [delegate respondsToSelector: @selector(flickrPost:failedWithError:)])
-			[delegate flickrPost: postType failedWithError: error] ;
+		NSMutableDictionary *responseJSON = [responseString JSONValue] ;
+		
+		if ([[responseJSON objectForKey: @"stat"] isEqualToString: @"ok"])
+		{
+			if (delegate && [delegate respondsToSelector: @selector(flickrPost:didSucceedAndReturned:)])
+				[delegate flickrPost: postType didSucceedAndReturned: responseJSON] ;
+		}
+		else
+		{
+			NSError *error = [DDSocialNetworkClient generateErrorWithMessage: [NSString stringWithFormat: @"The post failed"]] ;
+			if (delegate && [delegate respondsToSelector: @selector(flickrPost:failedWithError:)])
+				[delegate flickrPost: postType failedWithError: error] ;
+		}
 	}
 }
 

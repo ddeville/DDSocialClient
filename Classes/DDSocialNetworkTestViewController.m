@@ -191,28 +191,28 @@
 #pragma mark -
 #pragma mark DDFacebookClient delegate methods
 
-- (void)facebookGotResponse:(NSMutableDictionary *)response forRequestType:(AAFacebookRequestType)requestType
+- (void)facebookGotResponse:(NSMutableDictionary *)response forRequestType:(DDFacebookRequestType)requestType
 {
 	[self appendToLog: @"Facebook got a response"] ;
 }
 
 
 
-- (void)facebookRequest:(AAFacebookRequestType)requestType failedWithError:(NSError *)error
+- (void)facebookRequest:(DDFacebookRequestType)requestType failedWithError:(NSError *)error
 {
 	[self appendToLog: [NSString stringWithFormat: @"Error: %@", [[error userInfo] objectForKey: @"info"]]] ;
 }
 
 
 
-- (void)facebookPostDidSucceed:(AAFacebookPostType)postType andReturned:(NSMutableDictionary *)response
+- (void)facebookPostDidSucceed:(DDFacebookPostType)postType andReturned:(NSMutableDictionary *)response
 {
 	[self appendToLog: @"Facebook post succeded"] ;
 }
 
 
 
-- (void)facebookPost:(AAFacebookPostType)postType failedWithError:(NSError *)error
+- (void)facebookPost:(DDFacebookPostType)postType failedWithError:(NSError *)error
 {
 	[self appendToLog: [NSString stringWithFormat: @"Error: %@", [[error userInfo] objectForKey: @"info"]]] ;
 }

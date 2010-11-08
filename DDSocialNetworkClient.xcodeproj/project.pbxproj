@@ -222,10 +222,10 @@
 			children = (
 				70A4A1EE121C3FCD00B7EBBA /* DDFacebookClient.h */,
 				70A4A1EF121C3FCD00B7EBBA /* DDFacebookClient.m */,
-				70A4A1F0121C3FCD00B7EBBA /* DDFlickrClient.h */,
-				70A4A1F1121C3FCD00B7EBBA /* DDFlickrClient.m */,
 				70A4A1F2121C3FCD00B7EBBA /* DDTwitterClient.h */,
 				70A4A1F3121C3FCD00B7EBBA /* DDTwitterClient.m */,
+				70A4A1F0121C3FCD00B7EBBA /* DDFlickrClient.h */,
+				70A4A1F1121C3FCD00B7EBBA /* DDFlickrClient.m */,
 			);
 			path = "Client Subclasses";
 			sourceTree = "<group>";

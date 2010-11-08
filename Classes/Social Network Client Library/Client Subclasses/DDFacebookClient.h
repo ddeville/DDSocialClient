@@ -14,32 +14,32 @@
 
 typedef enum
 {
-	AAFacebookRequestUnknownType,
-	AAFacebookRequestUserData,
-	AAFacebookRequestUserPicture,
-	AAFacebookRequestUserFriends,
-	AAFacebookRequestUserNewsFeeds,
-	AAFacebookRequestUserWallFeeds,
-	AAFacebookRequestUserPhotoAlbums,
-	AAFacebookRequestUserLikes,
-	AAFacebookRequestUserGroups,
-	AAFacebookRequestUserEvents,
+	DDFacebookRequestUnknownType,
+	DDFacebookRequestUserData,
+	DDFacebookRequestUserPicture,
+	DDFacebookRequestUserFriends,
+	DDFacebookRequestUserNewsFeeds,
+	DDFacebookRequestUserWallFeeds,
+	DDFacebookRequestUserPhotoAlbums,
+	DDFacebookRequestUserLikes,
+	DDFacebookRequestUserGroups,
+	DDFacebookRequestUserEvents,
 }
-AAFacebookRequestType ;
+DDFacebookRequestType ;
 
 
 typedef enum
 {
-	AAFacebookPostUnknownType,
-	AAFacebookPostStatusUpdate,
-	AAFacebookPostPhotoUpload,
-	AAFacebookPostAlbumCreation,
-	AAFacebookPostPhotoToAlbum,
-	AAFacebookPostArrayOfPhotos,
-	AAFacebookPostLinkPost,
-	AAFacebookPostNotePost,
+	DDFacebookPostUnknownType,
+	DDFacebookPostStatusUpdate,
+	DDFacebookPostPhotoUpload,
+	DDFacebookPostAlbumCreation,
+	DDFacebookPostPhotoToAlbum,
+	DDFacebookPostArrayOfPhotos,
+	DDFacebookPostLinkPost,
+	DDFacebookPostNotePost,
 }
-AAFacebookPostType ;
+DDFacebookPostType ;
 
 
 
@@ -54,10 +54,10 @@ AAFacebookPostType ;
 @protocol DDFacebookClientDelegate <DDSocialNetworkClientDelegate, NSObject>
 
 @optional
-- (void)facebookGotResponse:(NSMutableDictionary *)response forRequestType:(AAFacebookRequestType)requestType ;
-- (void)facebookRequest:(AAFacebookRequestType)requestType failedWithError:(NSError *)error ;
-- (void)facebookPostDidSucceed:(AAFacebookPostType)postType andReturned:(NSMutableDictionary *)response ;
-- (void)facebookPost:(AAFacebookPostType)postType failedWithError:(NSError *)error ;
+- (void)facebookGotResponse:(NSMutableDictionary *)response forRequestType:(DDFacebookRequestType)requestType ;
+- (void)facebookRequest:(DDFacebookRequestType)requestType failedWithError:(NSError *)error ;
+- (void)facebookPostDidSucceed:(DDFacebookPostType)postType andReturned:(NSMutableDictionary *)response ;
+- (void)facebookPost:(DDFacebookPostType)postType failedWithError:(NSError *)error ;
 
 @end
 

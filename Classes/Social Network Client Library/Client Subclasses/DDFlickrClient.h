@@ -11,6 +11,19 @@
 #import "ASIHTTPRequest.h"
 #import "ASIFormDataRequest.h"
 
+typedef enum
+{
+	DDFlickrRequestTypeUnknown,
+}
+DDFlickrRequestType ;
+
+typedef enum
+{
+	DDFlickrPostTypeUnknown,
+}
+DDFlickrPostType ;
+
+
 
 @class DDFlickrClient ;
 

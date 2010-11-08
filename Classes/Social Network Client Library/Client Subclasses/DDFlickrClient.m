@@ -231,12 +231,12 @@
 	}
 	
 	/*
-		Apparently Flickr does not give a shit about that and gives responses in XML...
+	 Apparently Flickr does not care about that and gives responses in XML...
 	 
-	[post addPostValue: @"json" forKey: @"format"] ;
-	sigString = [sigString stringByAppendingString: @"formatjson"] ;
-	[post addPostValue: @"1" forKey: @"nojsoncallback"] ;
-	sigString = [sigString stringByAppendingString: @"nojsoncallback1"] ;
+	 [post addPostValue: @"json" forKey: @"format"] ;
+	 sigString = [sigString stringByAppendingString: @"formatjson"] ;
+	 [post addPostValue: @"1" forKey: @"nojsoncallback"] ;
+	 sigString = [sigString stringByAppendingString: @"nojsoncallback1"] ;
 	 */
 	
 	if (title && [title length])
@@ -247,7 +247,6 @@
 	
 	NSString *APISig = [NSString MD5Hash: sigString] ;
 	[post addPostValue: APISig forKey: @"api_sig"] ;
-	
 	[post addData: UIImagePNGRepresentation(image) forKey: @"photo"] ;
 	[post setDidStartSelector: @selector(postToFlickrStarted:)] ;
 	[post setDidFinishSelector: @selector(postToFlickrFinished:)] ;
@@ -509,8 +508,8 @@
 #pragma mark Private helper methods
 
 /*
-	NOTE: we need this method because we have to perform a selector
-	with more than one object (argument) on the main thread...
+ NOTE: we need this method because we have to perform a selector
+ with more than one object (argument) on the main thread...
  */
 
 - (void)tellDelegateAuthenticationFailedWithError:(NSError *)error
@@ -566,18 +565,18 @@
 		NSString *responseString = [request responseString] ;
 		NSMutableDictionary *responseJSON = [responseString JSONValue] ;
 		
-		// we can now get the fucking Frob
-		NSString *theFuckingFrob = nil ;
+		// we can now get the Frob
+		NSString *theFrob = nil ;
 		if (responseJSON)
 		{
 			NSDictionary *frobDic = [responseJSON objectForKey: @"frob"] ;
 			if (frobDic)
-				theFuckingFrob = [frobDic objectForKey: @"_content"] ;
+				theFrob = [frobDic objectForKey: @"_content"] ;
 		}
 		
-		if (theFuckingFrob)
+		if (theFrob)
 		{
-			self.frob = theFuckingFrob ;
+			self.frob = theFrob ;
 			[self showLoginDialog] ;
 		}
 		else
@@ -606,8 +605,8 @@
 		NSMutableDictionary *responseJSON = [responseString JSONValue] ;
 		
 		// we can now get the fucking Token
-		NSString *theFuckingToken = nil ;
-		NSString *theFuckingUserID = nil ;
+		NSString *theToken = nil ;
+		NSString *theUserID = nil ;
 		if (responseJSON)
 		{
 			NSDictionary *authDic = [responseJSON objectForKey: @"auth"] ;
@@ -616,20 +615,20 @@
 				NSDictionary *tokenDic = [authDic objectForKey: @"token"] ;
 				if (tokenDic)
 				{
-					theFuckingToken = [tokenDic objectForKey: @"_content"] ;
+					theToken = [tokenDic objectForKey: @"_content"] ;
 				}
 				NSDictionary *userDic = [authDic objectForKey: @"user"] ;
 				if (userDic)
 				{
-					theFuckingUserID = [userDic objectForKey: @"nsid"] ;
+					theUserID = [userDic objectForKey: @"nsid"] ;
 				}
 			}
 		}
 		
-		if (theFuckingToken)
+		if (theToken)
 		{
 			// we can now store the token
-			OAuthToken *newToken = [[[OAuthToken alloc] initWithService: [[self class] clientServiceKey] andKey: theFuckingToken andSecret: @"NoSecretForFlickr" andCreationDate: nil andDuration: nil andUserID: theFuckingUserID] autorelease] ;
+			OAuthToken *newToken = [[[OAuthToken alloc] initWithService: [[self class] clientServiceKey] andKey: theToken andSecret: @"NoSecretForFlickr" andCreationDate: nil andDuration: nil andUserID: theUserID] autorelease] ;
 			[self setToken: newToken] ;
 			[self.token storeToUserDefaults] ;
 			
@@ -707,7 +706,7 @@
 	NSString *postInfo = [post.userInfo objectForKey: @"whichPost"] ;
 	NSString *responseString = [post responseString] ;
 	NSMutableDictionary *responseJSON = [responseString JSONValue] ;
-		
+	
 	if ([[responseJSON objectForKey: @"stat"] isEqualToString: @"ok"])
 	{
 		if (delegate && [delegate respondsToSelector: @selector(flickrRequestDidSucceedAndReturned:)])

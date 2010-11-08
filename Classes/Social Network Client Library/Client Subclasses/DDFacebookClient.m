@@ -9,6 +9,9 @@
 #import "DDFacebookClient.h"
 #import "JSON.h"
 
+#define facebookPostType		@"FacebookPostType"
+#define facebookRequestType		@"FacebookRequestType"
+
 
 @interface DDFacebookClient (Private)
 
@@ -183,7 +186,7 @@
 	[request setDidFinishSelector: @selector(requestToFacebookFinished:)] ;
 	[request setDidFailSelector: @selector(requestToFacebookFailed:)] ;
 	[request setDelegate: self] ;
-	[request setUserInfo: [NSDictionary dictionaryWithObject: @"userDataRequest" forKey: @"whichRequest"]] ;
+	[request setUserInfo: [NSDictionary dictionaryWithObject: [NSNumber numberWithInt: DDFacebookRequestUserData] forKey: facebookRequestType]] ;
 	[request startAsynchronous] ;
 }
 
@@ -206,7 +209,7 @@
 	[request setDidFinishSelector: @selector(requestToFacebookFinished:)] ;
 	[request setDidFailSelector: @selector(requestToFacebookFailed:)] ;
 	[request setDelegate: self] ;
-	[request setUserInfo: [NSDictionary dictionaryWithObject: @"userPictureRequest" forKey: @"whichRequest"]] ;
+	[request setUserInfo: [NSDictionary dictionaryWithObject: [NSNumber numberWithInt: DDFacebookRequestUserPicture] forKey: facebookRequestType]] ;
 	[request startAsynchronous] ;
 }
 
@@ -229,7 +232,7 @@
 	[request setDidFinishSelector: @selector(requestToFacebookFinished:)] ;
 	[request setDidFailSelector: @selector(requestToFacebookFailed:)] ;
 	[request setDelegate: self] ;
-	[request setUserInfo: [NSDictionary dictionaryWithObject: @"userFriendsRequest" forKey: @"whichRequest"]] ;
+	[request setUserInfo: [NSDictionary dictionaryWithObject: [NSNumber numberWithInt: DDFacebookRequestUserFriends] forKey: facebookRequestType]] ;
 	[request startAsynchronous] ;
 }
 
@@ -252,7 +255,7 @@
 	[request setDidFinishSelector: @selector(requestToFacebookFinished:)] ;
 	[request setDidFailSelector: @selector(requestToFacebookFailed:)] ;
 	[request setDelegate: self] ;
-	[request setUserInfo: [NSDictionary dictionaryWithObject: @"userNewsFeedsRequest" forKey: @"whichRequest"]] ;
+	[request setUserInfo: [NSDictionary dictionaryWithObject: [NSNumber numberWithInt: DDFacebookRequestUserNewsFeeds] forKey: facebookRequestType]] ;
 	[request startAsynchronous] ;
 }
 
@@ -275,7 +278,7 @@
 	[request setDidFinishSelector: @selector(requestToFacebookFinished:)] ;
 	[request setDidFailSelector: @selector(requestToFacebookFailed:)] ;
 	[request setDelegate: self] ;
-	[request setUserInfo: [NSDictionary dictionaryWithObject: @"userWallFeedsRequest" forKey: @"whichRequest"]] ;
+	[request setUserInfo: [NSDictionary dictionaryWithObject: [NSNumber numberWithInt: DDFacebookRequestUserWallFeeds] forKey: facebookRequestType]] ;
 	[request startAsynchronous] ;
 }
 
@@ -298,7 +301,7 @@
 	[request setDidFinishSelector: @selector(requestToFacebookFinished:)] ;
 	[request setDidFailSelector: @selector(requestToFacebookFailed:)] ;
 	[request setDelegate: self] ;
-	[request setUserInfo: [NSDictionary dictionaryWithObject: @"userPhotoAlbums" forKey: @"whichRequest"]] ;
+	[request setUserInfo: [NSDictionary dictionaryWithObject: [NSNumber numberWithInt: DDFacebookRequestUserPhotoAlbums] forKey: facebookRequestType]] ;
 	[request startAsynchronous] ;
 }
 
@@ -321,7 +324,7 @@
 	[request setDidFinishSelector: @selector(requestToFacebookFinished:)] ;
 	[request setDidFailSelector: @selector(requestToFacebookFailed:)] ;
 	[request setDelegate: self] ;
-	[request setUserInfo: [NSDictionary dictionaryWithObject: @"userLikesRequest" forKey: @"whichRequest"]] ;
+	[request setUserInfo: [NSDictionary dictionaryWithObject: [NSNumber numberWithInt: DDFacebookRequestUserLikes] forKey: facebookRequestType]] ;
 	[request startAsynchronous] ;
 }
 
@@ -344,7 +347,7 @@
 	[request setDidFinishSelector: @selector(requestToFacebookFinished:)] ;
 	[request setDidFailSelector: @selector(requestToFacebookFailed:)] ;
 	[request setDelegate: self] ;
-	[request setUserInfo: [NSDictionary dictionaryWithObject: @"userGroupsRequest" forKey: @"whichRequest"]] ;
+	[request setUserInfo: [NSDictionary dictionaryWithObject: [NSNumber numberWithInt: DDFacebookRequestUserGroups] forKey: facebookRequestType]] ;
 	[request startAsynchronous] ;
 }
 
@@ -367,7 +370,7 @@
 	[request setDidFinishSelector: @selector(requestToFacebookFinished:)] ;
 	[request setDidFailSelector: @selector(requestToFacebookFailed:)] ;
 	[request setDelegate: self] ;
-	[request setUserInfo: [NSDictionary dictionaryWithObject: @"userEventsRequest" forKey: @"whichRequest"]] ;
+	[request setUserInfo: [NSDictionary dictionaryWithObject: [NSNumber numberWithInt: DDFacebookRequestUserEvents] forKey: facebookRequestType]] ;
 	[request startAsynchronous] ;
 }
 
@@ -412,7 +415,7 @@
 	[post setDidFinishSelector: @selector(postToFacebookFinished:)] ;
 	[post setDidFailSelector: @selector(postToFacebookFailed:)] ;
 	[post setDelegate: self] ;
-	[post setUserInfo: [NSDictionary dictionaryWithObject: @"statusUpdate" forKey: @"whichPost"]] ;
+	[post setUserInfo: [NSDictionary dictionaryWithObject: [NSNumber numberWithInt: DDFacebookPostStatusUpdate] forKey: facebookPostType]] ;
 	[post startAsynchronous] ;
 }
 
@@ -451,7 +454,7 @@
 	[post setDidFinishSelector: @selector(postToFacebookFinished:)] ;
 	[post setDidFailSelector: @selector(postToFacebookFailed:)] ;
 	[post setDelegate: self] ;
-	[post setUserInfo: [NSDictionary dictionaryWithObject: @"photoUpload" forKey: @"whichPost"]] ;
+	[post setUserInfo: [NSDictionary dictionaryWithObject: [NSNumber numberWithInt: DDFacebookPostPhotoUpload] forKey: facebookPostType]] ;
 	[post startAsynchronous] ;
 }
 
@@ -486,7 +489,7 @@
 	[post setDidFinishSelector: @selector(postToFacebookFinished:)] ;
 	[post setDidFailSelector: @selector(postToFacebookFailed:)] ;
 	[post setDelegate: self] ;
-	[post setUserInfo: [NSDictionary dictionaryWithObject: @"albumCreation" forKey: @"whichPost"]] ;
+	[post setUserInfo: [NSDictionary dictionaryWithObject: [NSNumber numberWithInt: DDFacebookPostAlbumCreation] forKey: facebookPostType]] ;
 	[post startAsynchronous] ;
 }
 
@@ -529,7 +532,7 @@
 	[post setDidFinishSelector: @selector(postToFacebookFinished:)] ;
 	[post setDidFailSelector: @selector(postToFacebookFailed:)] ;
 	[post setDelegate: self] ;
-	[post setUserInfo: [NSDictionary dictionaryWithObject: @"photoUploadToAlbum" forKey: @"whichPost"]] ;
+	[post setUserInfo: [NSDictionary dictionaryWithObject: [NSNumber numberWithInt: DDFacebookPostPhotoToAlbum] forKey: facebookPostType]] ;
 	[post startAsynchronous] ;
 }
 
@@ -627,7 +630,7 @@
 	[post setDidFinishSelector: @selector(postToFacebookFinished:)] ;
 	[post setDidFailSelector: @selector(postToFacebookFailed:)] ;
 	[post setDelegate: self] ;
-	[post setUserInfo: [NSDictionary dictionaryWithObject: @"linkPost" forKey: @"whichPost"]] ;
+	[post setUserInfo: [NSDictionary dictionaryWithObject: [NSNumber numberWithInt: DDFacebookPostLinkPost] forKey: facebookPostType]] ;
 	[post startAsynchronous] ;
 }
 
@@ -662,7 +665,7 @@
 	[post setDidFinishSelector: @selector(postToFacebookFinished:)] ;
 	[post setDidFailSelector: @selector(postToFacebookFailed:)] ;
 	[post setDelegate: self] ;
-	[post setUserInfo: [NSDictionary dictionaryWithObject: @"notePost" forKey: @"whichPost"]] ;
+	[post setUserInfo: [NSDictionary dictionaryWithObject: [NSNumber numberWithInt: DDFacebookPostNotePost] forKey: facebookPostType]] ;
 	[post startAsynchronous] ;
 }
 
@@ -708,40 +711,19 @@
 	NSMutableDictionary *responseJSON = [responseString JSONValue] ;
 	
 	// we can now call our delegate with the response for the given request
-	NSString *requestType = [request.userInfo objectForKey: @"whichRequest"] ;
-	DDFacebookRequestType facebookRequestType ;
-	if ([requestType isEqualToString: @"userDataRequest"])
-		facebookRequestType = DDFacebookRequestUserData ;
-	else if ([requestType isEqualToString: @"userPictureRequest"])
-		facebookRequestType = DDFacebookRequestUserPicture ;
-	else if ([requestType isEqualToString: @"userFriendsRequest"])
-		facebookRequestType = DDFacebookRequestUserFriends ;
-	else if ([requestType isEqualToString: @"userNewsFeedsRequest"])
-		facebookRequestType = DDFacebookRequestUserNewsFeeds ;
-	else if ([requestType isEqualToString: @"userWallFeedsRequest"])
-		facebookRequestType = DDFacebookRequestUserWallFeeds ;
-	else if ([requestType isEqualToString: @"userPhotoAlbums"])
-		facebookRequestType = DDFacebookRequestUserPhotoAlbums ;
-	else if ([requestType isEqualToString: @"userLikesRequest"])
-		facebookRequestType = DDFacebookRequestUserLikes ;
-	else if ([requestType isEqualToString: @"userGroupsRequest"])
-		facebookRequestType = DDFacebookRequestUserGroups ;
-	else if ([requestType isEqualToString: @"userEventsRequest"])
-		facebookRequestType = DDFacebookRequestUserEvents ;
-	else
-		facebookRequestType = DDFacebookRequestUnknownType ;
+	DDFacebookRequestType requestType = [[request.userInfo objectForKey: facebookRequestType] intValue] ;
 	
 	// we simply check if there response is an error
 	if ([responseJSON objectForKey: @"error"])
 	{
 		NSError *error = [DDSocialNetworkClient generateErrorWithMessage: [[responseJSON objectForKey: @"error"] objectForKey: @"message"]] ;
 		if (delegate && [delegate respondsToSelector: @selector(facebookRequest:failedWithError:)])
-			[delegate facebookRequest: facebookRequestType failedWithError: error] ;
+			[delegate facebookRequest: requestType failedWithError: error] ;
 	}
 	else
 	{
 		if (delegate && [delegate respondsToSelector: @selector(facebookGotResponse:forRequestType:)])
-			[delegate facebookGotResponse: responseJSON forRequestType: facebookRequestType] ;
+			[delegate facebookGotResponse: responseJSON forRequestType: requestType] ;
 	}
 }
 
@@ -752,32 +734,11 @@
 	NSLog(@"request failed...") ;
 	
 	// we can now call our delegate with the response for the given request
-	NSString *requestType = [request.userInfo objectForKey: @"whichRequest"] ;
-	DDFacebookRequestType facebookRequestType ;
-	if ([requestType isEqualToString: @"userDataRequest"])
-		facebookRequestType = DDFacebookRequestUserData ;
-	else if ([requestType isEqualToString: @"userPictureRequest"])
-		facebookRequestType = DDFacebookRequestUserPicture ;
-	else if ([requestType isEqualToString: @"userFriendsRequest"])
-		facebookRequestType = DDFacebookRequestUserFriends ;
-	else if ([requestType isEqualToString: @"userNewsFeedsRequest"])
-		facebookRequestType = DDFacebookRequestUserNewsFeeds ;
-	else if ([requestType isEqualToString: @"userWallFeedsRequest"])
-		facebookRequestType = DDFacebookRequestUserWallFeeds ;
-	else if ([requestType isEqualToString: @"userPhotoAlbums"])
-		facebookRequestType = DDFacebookRequestUserPhotoAlbums ;
-	else if ([requestType isEqualToString: @"userLikesRequest"])
-		facebookRequestType = DDFacebookRequestUserLikes ;
-	else if ([requestType isEqualToString: @"userGroupsRequest"])
-		facebookRequestType = DDFacebookRequestUserGroups ;
-	else if ([requestType isEqualToString: @"userEventsRequest"])
-		facebookRequestType = DDFacebookRequestUserEvents ;
-	else
-		facebookRequestType = DDFacebookRequestUnknownType ;
+	DDFacebookRequestType requestType = [[request.userInfo objectForKey: facebookRequestType] intValue] ;
 	
 	NSError *error = [DDSocialNetworkClient generateErrorWithMessage: @"The request to Facebook failed"] ;
 	if (delegate && [delegate respondsToSelector: @selector(facebookRequest:failedWithError:)])
-		[delegate facebookRequest: facebookRequestType failedWithError: error] ;
+		[delegate facebookRequest: requestType failedWithError: error] ;
 }
 
 
@@ -797,34 +758,19 @@
 	NSMutableDictionary *responseJSON = [responseString JSONValue] ;
 	
 	// we can now call our delegate with the response for the given request
-	NSString *postType = [post.userInfo objectForKey: @"whichPost"] ;
-	DDFacebookPostType facebookPostType ;
-	if ([postType isEqualToString: @"statusUpdate"])
-		facebookPostType = DDFacebookPostStatusUpdate ;
-	else if ([postType isEqualToString: @"photoUpload"])
-		facebookPostType = DDFacebookPostPhotoUpload ;
-	else if ([postType isEqualToString: @"albumCreation"])
-		facebookPostType = DDFacebookPostAlbumCreation ;
-	else if ([postType isEqualToString: @"photoUploadToAlbum"])
-		facebookPostType = DDFacebookPostPhotoToAlbum ;
-	else if ([postType isEqualToString: @"linkPost"])
-		facebookPostType = DDFacebookPostLinkPost ;
-	else if ([postType isEqualToString: @"notePost"])
-		facebookPostType = DDFacebookPostNotePost ;
-	else
-		facebookPostType = DDFacebookPostUnknownType ;
+	DDFacebookPostType postType = [[post.userInfo objectForKey: facebookPostType] intValue] ;
 	
 	// we simply check if there response is an error
 	if ([responseJSON objectForKey: @"error"])
 	{
 		NSError *error = [DDSocialNetworkClient generateErrorWithMessage: [[responseJSON objectForKey: @"error"] objectForKey: @"message"]] ;
 		if (delegate && [delegate respondsToSelector: @selector(facebookPost:failedWithError:)])
-			[delegate facebookPost: facebookPostType failedWithError: error] ;
+			[delegate facebookPost: postType failedWithError: error] ;
 	}
 	else
 	{
 		if (delegate && [delegate respondsToSelector: @selector(facebookPostDidSucceed:andReturned:)])
-			[delegate facebookPostDidSucceed: facebookPostType andReturned:responseJSON] ;
+			[delegate facebookPostDidSucceed: postType andReturned:responseJSON] ;
 	}
 }
 
@@ -835,26 +781,11 @@
 	NSLog(@"post failed...") ;
 	
 	// we can now call our delegate with the response for the given request
-	NSString *postType = [post.userInfo objectForKey: @"whichPost"] ;
-	DDFacebookPostType facebookPostType ;
-	if ([postType isEqualToString: @"statusUpdate"])
-		facebookPostType = DDFacebookPostStatusUpdate ;
-	else if ([postType isEqualToString: @"photoUpload"])
-		facebookPostType = DDFacebookPostPhotoUpload ;
-	else if ([postType isEqualToString: @"albumCreation"])
-		facebookPostType = DDFacebookPostAlbumCreation ;
-	else if ([postType isEqualToString: @"photoUploadToAlbum"])
-		facebookPostType = DDFacebookPostPhotoToAlbum ;
-	else if ([postType isEqualToString: @"linkPost"])
-		facebookPostType = DDFacebookPostLinkPost ;
-	else if ([postType isEqualToString: @"notePost"])
-		facebookPostType = DDFacebookPostNotePost ;
-	else
-		facebookPostType = DDFacebookPostUnknownType ;
+	DDFacebookPostType postType = [[post.userInfo objectForKey: facebookPostType] intValue] ;
 	
 	NSError *error = [DDSocialNetworkClient generateErrorWithMessage: @"The post to Facebook failed"] ;
 	if (delegate && [delegate respondsToSelector: @selector(facebookPost:failedWithError:)])
-		[delegate facebookPost: facebookPostType failedWithError: error] ;
+		[delegate facebookPost: postType failedWithError: error] ;
 }
 
 

@@ -10,6 +10,11 @@
 #import "NSString+MD5.h"
 #import "JSON.h"
 
+#define flickrPostType		@"FlickrPostType"
+#define flickrRequestType	@"FlickrRequestType"
+
+
+
 
 @interface DDFlickrClient (Private)
 
@@ -120,7 +125,7 @@
 	[request setDidFinishSelector: @selector(requestToFlickrFinished:)] ;
 	[request setDidFailSelector: @selector(requestToFlickrFailed:)] ;
 	[request setDelegate: self] ;
-	[request setUserInfo: [NSDictionary dictionaryWithObject: @"frobRequest" forKey: @"whichRequest"]] ;
+	[request setUserInfo: [NSDictionary dictionaryWithObject: [NSNumber numberWithInt: DDFlickrRequestTypeFrob] forKey: flickrRequestType]] ;
 	[request startAsynchronous] ;
 }
 
@@ -154,7 +159,7 @@
 	[request setDidFinishSelector: @selector(requestToFlickrFinished:)] ;
 	[request setDidFailSelector: @selector(requestToFlickrFailed:)] ;
 	[request setDelegate: self] ;
-	[request setUserInfo: [NSDictionary dictionaryWithObject: @"tokenRequest" forKey: @"whichRequest"]] ;
+	[request setUserInfo: [NSDictionary dictionaryWithObject: [NSNumber numberWithInt: DDFlickrRequestTypeToken] forKey: flickrRequestType]] ;
 	[request startAsynchronous] ;
 }
 
@@ -191,7 +196,7 @@
 	[request setDidFinishSelector: @selector(requestToFlickrFinished:)] ;
 	[request setDidFailSelector: @selector(requestToFlickrFailed:)] ;
 	[request setDelegate: self] ;
-	[request setUserInfo: [NSDictionary dictionaryWithObject: @"userInfoRequest" forKey: @"whichRequest"]] ;
+	[request setUserInfo: [NSDictionary dictionaryWithObject: [NSNumber numberWithInt: DDFlickrRequestTypeUserInfo] forKey: flickrRequestType]] ;
 	[request startAsynchronous] ;
 }
 
@@ -252,7 +257,7 @@
 	[post setDidFinishSelector: @selector(postToFlickrFinished:)] ;
 	[post setDidFailSelector: @selector(postToFlickrFailed:)] ;
 	[post setDelegate: self] ;
-	[post setUserInfo: [NSDictionary dictionaryWithObject: @"postImage" forKey: @"whichPost"]] ;
+	[post setUserInfo: [NSDictionary dictionaryWithObject: [NSNumber numberWithInt: DDFlickrPostTypeImage] forKey: flickrPostType]] ;
 	[post startAsynchronous] ;
 }
 
@@ -275,7 +280,7 @@
 	[request setDidFinishSelector: @selector(requestToFlickrFinished:)] ;
 	[request setDidFailSelector: @selector(requestToFlickrFailed:)] ;
 	[request setDelegate: self] ;
-	[request setUserInfo: [NSDictionary dictionaryWithObject: @"galleryListRequest" forKey: @"whichRequest"]] ;
+	[request setUserInfo: [NSDictionary dictionaryWithObject: [NSNumber numberWithInt: DDFlickrRequestTypeGalleryList] forKey: flickrRequestType]] ;
 	[request startAsynchronous] ;
 }
 
@@ -319,7 +324,7 @@
 	[post setDidFinishSelector: @selector(postToFlickrFinished:)] ;
 	[post setDidFailSelector: @selector(postToFlickrFailed:)] ;
 	[post setDelegate: self] ;
-	[post setUserInfo: [NSDictionary dictionaryWithObject: @"createGallery" forKey: @"whichPost"]] ;
+	[post setUserInfo: [NSDictionary dictionaryWithObject: [NSNumber numberWithInt: DDFlickrPostTypeCreateGallery] forKey: flickrPostType]] ;
 	[post startAsynchronous] ;
 }
 
@@ -372,7 +377,7 @@
 	[post setDidFinishSelector: @selector(postToFlickrFinished:)] ;
 	[post setDidFailSelector: @selector(postToFlickrFailed:)] ;
 	[post setDelegate: self] ;
-	[post setUserInfo: [NSDictionary dictionaryWithObject: @"addImageToGallery" forKey: @"whichPost"]] ;
+	[post setUserInfo: [NSDictionary dictionaryWithObject: [NSNumber numberWithInt: DDFlickrPostTypeImageGallery] forKey: flickrPostType]] ;
 	[post startAsynchronous] ;
 }
 
@@ -395,7 +400,7 @@
 	[request setDidFinishSelector: @selector(requestToFlickrFinished:)] ;
 	[request setDidFailSelector: @selector(requestToFlickrFailed:)] ;
 	[request setDelegate: self] ;
-	[request setUserInfo: [NSDictionary dictionaryWithObject: @"photosetListRequest" forKey: @"whichRequest"]] ;
+	[request setUserInfo: [NSDictionary dictionaryWithObject: [NSNumber numberWithInt: DDFlickrRequestTypePhotoSetList] forKey: flickrRequestType]] ;
 	[request startAsynchronous] ;
 }
 
@@ -440,7 +445,7 @@
 	[post setDidFinishSelector: @selector(postToFlickrFinished:)] ;
 	[post setDidFailSelector: @selector(postToFlickrFailed:)] ;
 	[post setDelegate: self] ;
-	[post setUserInfo: [NSDictionary dictionaryWithObject: @"createPhotoset" forKey: @"whichPost"]] ;
+	[post setUserInfo: [NSDictionary dictionaryWithObject: [NSNumber numberWithInt: DDFlickrPostTypeCreatePhotoSet] forKey: flickrPostType]] ;
 	[post startAsynchronous] ;
 }
 
@@ -484,7 +489,7 @@
 	[post setDidFinishSelector: @selector(postToFlickrFinished:)] ;
 	[post setDidFailSelector: @selector(postToFlickrFailed:)] ;
 	[post setDelegate: self] ;
-	[post setUserInfo: [NSDictionary dictionaryWithObject: @"addImageToPhotoset" forKey: @"whichPost"]] ;
+	[post setUserInfo: [NSDictionary dictionaryWithObject: [NSNumber numberWithInt: DDFlickrPostTypeImagePhotoSet] forKey: flickrPostType]] ;
 	[post startAsynchronous] ;
 }
 
@@ -548,9 +553,9 @@
 - (void)requestToFlickrFinished:(ASIHTTPRequest *)request
 {
 	NSLog(@"finished") ;
-	NSLog(@"%@", request.responseString) ;
+	DDFlickrRequestType requestType = [[request.userInfo objectForKey: flickrRequestType] intValue] ;
 	
-	if ([[request.userInfo objectForKey: @"whichRequest"] isEqualToString: @"frobRequest"])
+	if (requestType == DDFlickrRequestTypeFrob)
 	{
 		if ([request error])
 		{
@@ -589,7 +594,7 @@
 			return ;
 		}
 	}
-	else if ([[request.userInfo objectForKey: @"whichRequest"] isEqualToString: @"tokenRequest"])
+	else if (requestType == DDFlickrRequestTypeToken)
 	{
 		if ([request error])
 		{
@@ -646,22 +651,21 @@
 	}
 	else
 	{
-		NSString *requestInfo = [request.userInfo objectForKey: @"whichRequest"] ;
-		if ([requestInfo isEqualToString: @"userInfoRequest"] || [requestInfo isEqualToString: @"userInfoRequest"] || [requestInfo isEqualToString: @"userInfoRequest"] || [requestInfo isEqualToString: @"userInfoRequest"])
+		if ((requestType == DDFlickrRequestTypeUserInfo) || (requestType == DDFlickrRequestTypeGalleryList) || (requestType == DDFlickrRequestTypePhotoSetList))
 		{
 			NSString *responseString = [request responseString] ;
 			NSMutableDictionary *responseJSON = [responseString JSONValue] ;
 			
 			if ([[responseJSON objectForKey: @"stat"] isEqualToString: @"ok"])
 			{
-				if (delegate && [delegate respondsToSelector: @selector(flickrRequestDidSucceedAndReturned:)])
-					[delegate flickrPostDidSucceedAndReturned: responseJSON] ;
+				if (delegate && [delegate respondsToSelector: @selector(flickrRequest:didSucceedAndReturned:)])
+					[delegate flickrRequest: requestType didSucceedAndReturned: responseJSON] ;
 			}
 			else
 			{
-				NSError *error = [DDSocialNetworkClient generateErrorWithMessage: [NSString stringWithFormat: @"The request %@ failed", requestInfo]] ;
-				if (delegate && [delegate respondsToSelector: @selector(flickrPostFailedWithError:)])
-					[delegate flickrPostFailedWithError: error] ;
+				NSError *error = [DDSocialNetworkClient generateErrorWithMessage: [NSString stringWithFormat: @"The request failed"]] ;
+				if (delegate && [delegate respondsToSelector: @selector(flickrRequest:failedWithError:)])
+					[delegate flickrRequest: requestType failedWithError: error] ;
 			}
 		}
 	}
@@ -672,8 +676,9 @@
 - (void)requestToFlickrFailed:(ASIHTTPRequest *)request
 {
 	NSLog(@"failed") ;
+	DDFlickrRequestType requestType = [[request.userInfo objectForKey: flickrRequestType] intValue] ;
 	
-	if ([[request.userInfo objectForKey: @"whichRequest"] isEqualToString: @"frobRequest"] || [[request.userInfo objectForKey: @"whichRequest"] isEqualToString: @"tokenRequest"])
+	if ((requestType == DDFlickrRequestTypeFrob) || (requestType == DDFlickrRequestTypeToken))
 	{
 		// we send a shout to the delegate that the authentication failed
 		NSError *error = [DDSocialNetworkClient generateErrorWithMessage: @"The authentication failed"] ;
@@ -682,10 +687,9 @@
 	}
 	else
 	{
-		NSString *requestInfo = [request.userInfo objectForKey: @"whichRequest"] ;
-		NSError *error = [DDSocialNetworkClient generateErrorWithMessage: [NSString stringWithFormat: @"The request %@ failed", requestInfo]] ;
-		if (delegate && [delegate respondsToSelector: @selector(flickrPostFailedWithError:)])
-			[delegate flickrPostFailedWithError: error] ;
+		NSError *error = [DDSocialNetworkClient generateErrorWithMessage: [NSString stringWithFormat: @"The request failed"]] ;
+		if (delegate && [delegate respondsToSelector: @selector(flickrRequest:failedWithError:)])
+			[delegate flickrRequest: requestType failedWithError: error] ;
 	}
 }
 
@@ -701,7 +705,7 @@
 - (void)postToFlickrFinished:(ASIFormDataRequest *)post
 {
 	NSLog(@"post finished") ;
-	NSLog(@"%@", post.responseString) ;
+	DDFlickrPostType postType = [[post.userInfo objectForKey: flickrPostType] intValue] ;
 	
 	NSString *postInfo = [post.userInfo objectForKey: @"whichPost"] ;
 	NSString *responseString = [post responseString] ;
@@ -709,14 +713,14 @@
 	
 	if ([[responseJSON objectForKey: @"stat"] isEqualToString: @"ok"])
 	{
-		if (delegate && [delegate respondsToSelector: @selector(flickrRequestDidSucceedAndReturned:)])
-			[delegate flickrPostDidSucceedAndReturned: responseJSON] ;
+		if (delegate && [delegate respondsToSelector: @selector(flickrPost:didSucceedAndReturned:)])
+			[delegate flickrPost: postType didSucceedAndReturned: responseJSON] ;
 	}
 	else
 	{
 		NSError *error = [DDSocialNetworkClient generateErrorWithMessage: [NSString stringWithFormat: @"The post %@ failed", postInfo]] ;
-		if (delegate && [delegate respondsToSelector: @selector(flickrPostFailedWithError:)])
-			[delegate flickrPostFailedWithError: error] ;
+		if (delegate && [delegate respondsToSelector: @selector(flickrPost:failedWithError:)])
+			[delegate flickrPost: postType failedWithError: error] ;
 	}
 }
 
@@ -725,11 +729,12 @@
 - (void)postToFlickrFailed:(ASIFormDataRequest *)post
 {
 	NSLog(@"post failed") ;
+	DDFlickrPostType postType = [[post.userInfo objectForKey: flickrPostType] intValue] ;
 	
 	NSString *postInfo = [post.userInfo objectForKey: @"whichPost"] ;
 	NSError *error = [DDSocialNetworkClient generateErrorWithMessage: [NSString stringWithFormat: @"The post %@ failed", postInfo]] ;
-	if (delegate && [delegate respondsToSelector: @selector(flickrPostFailedWithError:)])
-		[delegate flickrPostFailedWithError: error] ;
+	if (delegate && [delegate respondsToSelector: @selector(flickrPost:failedWithError:)])
+		[delegate flickrPost: postType failedWithError: error] ;
 }
 
 

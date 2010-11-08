@@ -14,12 +14,22 @@
 typedef enum
 {
 	DDFlickrRequestTypeUnknown,
+	DDFlickrRequestTypeFrob,
+	DDFlickrRequestTypeToken,
+	DDFlickrRequestTypeUserInfo,
+	DDFlickrRequestTypeGalleryList,
+	DDFlickrRequestTypePhotoSetList,
 }
 DDFlickrRequestType ;
 
 typedef enum
 {
 	DDFlickrPostTypeUnknown,
+	DDFlickrPostTypeImage,
+	DDFlickrPostTypeCreateGallery,
+	DDFlickrPostTypeImageGallery,
+	DDFlickrPostTypeCreatePhotoSet,
+	DDFlickrPostTypeImagePhotoSet,
 }
 DDFlickrPostType ;
 
@@ -34,10 +44,10 @@ DDFlickrPostType ;
 @protocol DDFlickrClientDelegate <DDSocialNetworkClientDelegate, NSObject>
 
 @optional
-- (void)flickrPostDidSucceedAndReturned:(NSMutableDictionary *)response ;
-- (void)flickrPostFailedWithError:(NSError *)error ;
-- (void)flickrRequestDidSucceedAndReturned:(NSMutableDictionary *)response ;
-- (void)flickrRequestFailedWithError:(NSError *)error ;
+- (void)flickrPost:(DDFlickrPostType)postType didSucceedAndReturned:(NSMutableDictionary *)response ;
+- (void)flickrPost:(DDFlickrPostType)postType failedWithError:(NSError *)error ;
+- (void)flickrRequest:(DDFlickrRequestType)requestType didSucceedAndReturned:(NSMutableDictionary *)response ;
+- (void)flickrRequest:(DDFlickrRequestType)requestType failedWithError:(NSError *)error ;
 
 @end
 

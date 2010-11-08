@@ -245,14 +245,14 @@
 #pragma mark -
 #pragma mark DDFlickrClient delegate methods
 
-- (void)flickrPostDidSucceedAndReturned:(NSMutableDictionary *)response
+- (void)flickrPost:(DDFlickrPostType)postType didSucceedAndReturned:(NSMutableDictionary *)response ;
 {
 	[self appendToLog: @"Flickr post succeded"] ;
 }
 
 
 
-- (void)flickrPostFailedWithError:(NSError *)error
+- (void)flickrPost:(DDFlickrPostType)postType failedWithError:(NSError *)error ;
 {
 	[self appendToLog: [NSString stringWithFormat: @"Error: %@", [[error userInfo] objectForKey: @"info"]]] ;
 }

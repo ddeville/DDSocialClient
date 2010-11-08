@@ -11,6 +11,10 @@
 #import "JSON.h"
 
 
+#define twitterPostType		@"TwitterPostType"
+#define twitterRequestType	@"TwitterRequestType"
+
+
 @interface DDTwitterClient (Private)
 
 - (void)asynchronousRequestInitialTwitterToken ;
@@ -130,7 +134,7 @@
 	[request setDidFinishSelector: @selector(requestToTwitterFinished:)] ;
 	[request setDidFailSelector: @selector(requestToTwitterFailed:)] ;
 	[request setDelegate: self] ;
-	[request setUserInfo: [NSDictionary dictionaryWithObject: @"initialTokenRequest" forKey: @"whichRequest"]] ;
+	[request setUserInfo: [NSDictionary dictionaryWithObject: @"initialTokenRequest" forKey: twitterRequestType]] ;
 	[request startAsynchronous] ;
 }
 
@@ -201,7 +205,7 @@
 	[request setDidFinishSelector: @selector(requestToTwitterFinished:)] ;
 	[request setDidFailSelector: @selector(requestToTwitterFailed:)] ;
 	[request setDelegate: self] ;
-	[request setUserInfo: [NSDictionary dictionaryWithObject: @"validationTokenRequest" forKey: @"whichRequest"]] ;
+	[request setUserInfo: [NSDictionary dictionaryWithObject: @"validationTokenRequest" forKey: twitterRequestType]] ;
 	[request startAsynchronous] ;
 }
 
@@ -293,7 +297,7 @@
 	[post setDidFinishSelector: @selector(postToTwitterFinished:)] ;
 	[post setDidFailSelector: @selector(postToTwitterFailed:)] ;
 	[post setDelegate: self] ;
-	[post setUserInfo: [NSDictionary dictionaryWithObject: @"postTweet" forKey: @"whichPost"]] ;
+	[post setUserInfo: [NSDictionary dictionaryWithObject: @"postTweet" forKey: twitterPostType]] ;
 	[post startAsynchronous] ;
 }
 
@@ -377,7 +381,7 @@
 	[post setDidFinishSelector: @selector(postToTwitterFinished:)] ;
 	[post setDidFailSelector: @selector(postToTwitterFailed:)] ;
 	[post setDelegate: self] ;
-	[post setUserInfo: [NSDictionary dictionaryWithObject: @"postTweetAndImage" forKey: @"whichPost"]] ;
+	[post setUserInfo: [NSDictionary dictionaryWithObject: @"postTweetAndImage" forKey: twitterPostType]] ;
 	[post startAsynchronous] ;
 }
 
@@ -459,7 +463,7 @@
 {
 	NSLog(@"finished") ;
 	
-	NSString *requestType = [request.userInfo objectForKey: @"whichRequest"] ;
+	NSString *requestType = [request.userInfo objectForKey: twitterRequestType] ;
 	
 	if ([requestType isEqualToString: @"initialTokenRequest"])
 	{
@@ -565,7 +569,7 @@
 {
 	NSLog(@"failed") ;
 	
-	NSString *requestType = [request.userInfo objectForKey: @"whichRequest"] ;
+	NSString *requestType = [request.userInfo objectForKey: twitterRequestType] ;
 	
 	if ([requestType isEqualToString: @"initialTokenRequest"] || [requestType isEqualToString: @"validationTokenRequest"])
 	{
@@ -598,7 +602,7 @@
 {
 	NSLog(@"post finished") ;
 	
-	NSString *postType = [post.userInfo objectForKey: @"whichPost"] ;
+	NSString *postType = [post.userInfo objectForKey: twitterPostType] ;
 	
 	// for both Twitter and Twitpic, we parse the same data
 	NSString *responseString = [post responseString] ;
@@ -645,7 +649,7 @@
 {
 	NSLog(@"post failed") ;
 	
-	NSString *postType = [post.userInfo objectForKey: @"whichPost"] ;
+	NSString *postType = [post.userInfo objectForKey: twitterPostType] ;
 	
 	if ([postType isEqualToString: @"postTweet"])
 	{

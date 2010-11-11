@@ -17,17 +17,16 @@
 
 - (void)viewDidAppear:(BOOL)animated
 {
-	_client = [[DDFacebookClient alloc] initWithDelegate: self] ;
-	//_client = [[DDTwitterClient alloc] initWithDelegate: self] ;
-	//_client = [[DDFlickrClient alloc] initWithDelegate: self] ;
+//	_client = [[DDFacebookClient alloc] initWithDelegate: self] ;
+//	_client = [[DDTwitterClient alloc] initWithDelegate: self] ;
+//	_client = [[DDFlickrClient alloc] initWithDelegate: self] ;
+	_client = [[DDLinkedInClient alloc] initWithDelegate: self] ;
 }
 
 
 
 - (IBAction)send:(id)sender
 {
-	//[_client startLoginProcess] ;
-	
 	if (!_client)
 	{
 		[self appendToLog: @"Warning: no client object created"] ;
@@ -84,6 +83,10 @@
 	switch(_uploading)
 	{
 		case UploadingText:
+			//[_client postMessage: @"small API test" visibilityConnectionsOnly: NO] ;
+			//[_client postLinkWithTitle: @"a title" andLink: @"http://www.apple.com" andLinkImage: @"http://hothardware.com/newsimages/Item8124/apple-logo.jpg" andLinkDescription: @"a description" visibilityConnectionsOnly: NO] ;
+			[_client postMessage: @"small test" withLinkTitle: @"a title" andLink: @"http://www.apple.com" andLinkImage: @"http://hothardware.com/newsimages/Item8124/apple-logo.jpg" andLinkDescription: @"a description" visibilityConnectionsOnly: NO] ;
+			
 			//[_client getListOfGalleries] ;
 			//[_client getUserInfo] ;
 			//[_client createGallery: @"damien" withDescription: @"ciao bella"] ;
@@ -92,7 +95,7 @@
 			//[_client createPhotoset: @"ciao bella" withDescription: @"ahooo" withPrimaryPhoto: @"4883410620"] ;
 			//[_client postImage: @"4876529455" toPhotoset: @"72157624580399559"] ;
 			
-			[_client updateFacebookStatus: _message.text] ;
+			//[_client updateFacebookStatus: _message.text] ;
 			//[_client postMessageToTwitter: _message.text] ;
 			
 			//[_client postMessageToTwitter: @"testing some operation queue stuff and other borinf stuff you do not want to know about that is why Twitter will cut all the additional shit for us!"] ;
@@ -258,6 +261,21 @@
 }
 
 
+
+
+#pragma mark -
+#pragma mark DDLinkedInClient delegate methods
+
+- (void)linkedInPostDidSucceed:(DDLinkedInPostType)type
+{
+	[self appendToLog: @"LinkedIn post succeded"] ;
+}
+
+
+- (void)linkedInPost:(DDLinkedInPostType)type failedWithError:(NSError *)error
+{
+	[self appendToLog: [NSString stringWithFormat: @"Error: %@", [[error userInfo] objectForKey: @"info"]]] ;
+}
 
 
 

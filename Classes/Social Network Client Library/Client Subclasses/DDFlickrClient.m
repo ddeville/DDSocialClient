@@ -545,14 +545,13 @@
 
 - (void)requestToFlickrStarted:(ASIHTTPRequest *)request
 {
-	NSLog(@"started") ;
+	
 }
 
 
 
 - (void)requestToFlickrFinished:(ASIHTTPRequest *)request
 {
-	NSLog(@"finished") ;
 	DDFlickrRequestType requestType = [[request.userInfo objectForKey: flickrRequestType] intValue] ;
 	
 	if (requestType == DDFlickrRequestTypeFrob)
@@ -675,7 +674,6 @@
 
 - (void)requestToFlickrFailed:(ASIHTTPRequest *)request
 {
-	NSLog(@"failed") ;
 	DDFlickrRequestType requestType = [[request.userInfo objectForKey: flickrRequestType] intValue] ;
 	
 	if ((requestType == DDFlickrRequestTypeFrob) || (requestType == DDFlickrRequestTypeToken))
@@ -697,14 +695,13 @@
 
 - (void)postToFlickrStarted:(ASIFormDataRequest *)post
 {
-	NSLog(@"post started") ;
+	
 }
 
 
 
 - (void)postToFlickrFinished:(ASIFormDataRequest *)post
 {
-	NSLog(@"post finished") ;
 	DDFlickrPostType postType = [[post.userInfo objectForKey: flickrPostType] intValue] ;
 	
 	NSString *responseString = [post responseString] ;
@@ -739,7 +736,6 @@
 
 - (void)postToFlickrFailed:(ASIFormDataRequest *)post
 {
-	NSLog(@"post failed") ;
 	DDFlickrPostType postType = [[post.userInfo objectForKey: flickrPostType] intValue] ;
 	
 	NSString *postInfo = [post.userInfo objectForKey: @"whichPost"] ;

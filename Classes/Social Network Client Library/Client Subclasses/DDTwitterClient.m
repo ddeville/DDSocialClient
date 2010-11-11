@@ -454,15 +454,13 @@
 
 - (void)requestToTwitterStarted:(ASIHTTPRequest *)request
 {
-	NSLog(@"started") ;
+	
 }
 
 
 
 - (void)requestToTwitterFinished:(ASIHTTPRequest *)request
 {
-	NSLog(@"finished") ;
-	
 	NSString *requestType = [request.userInfo objectForKey: twitterRequestType] ;
 	
 	if ([requestType isEqualToString: @"initialTokenRequest"])
@@ -567,8 +565,6 @@
 
 - (void)requestToTwitterFailed:(ASIHTTPRequest *)request
 {
-	NSLog(@"failed") ;
-	
 	NSString *requestType = [request.userInfo objectForKey: twitterRequestType] ;
 	
 	if ([requestType isEqualToString: @"initialTokenRequest"] || [requestType isEqualToString: @"validationTokenRequest"])
@@ -593,15 +589,13 @@
 
 - (void)postToTwitterStarted:(ASIFormDataRequest *)post
 {
-	NSLog(@"post started") ;
+	
 }
 
 
 
 - (void)postToTwitterFinished:(ASIFormDataRequest *)post
 {
-	NSLog(@"post finished") ;
-	
 	NSString *postType = [post.userInfo objectForKey: twitterPostType] ;
 	
 	// for both Twitter and Twitpic, we parse the same data
@@ -647,8 +641,6 @@
 
 - (void)postToTwitterFailed:(ASIFormDataRequest *)post
 {
-	NSLog(@"post failed") ;
-	
 	NSString *postType = [post.userInfo objectForKey: twitterPostType] ;
 	
 	if ([postType isEqualToString: @"postTweet"])

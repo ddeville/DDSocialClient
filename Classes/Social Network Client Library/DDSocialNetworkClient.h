@@ -19,34 +19,39 @@
 
 
 
-#define FACEBOOK_DOMAIN @"facebook.com"
-#define TWITTER_DOMAIN @"twitter.com"
-#define FLICKR_DOMAIN @"flickr.com"
+#define FACEBOOK_DOMAIN			@"facebook.com"
+#define TWITTER_DOMAIN			@"twitter.com"
+#define FLICKR_DOMAIN			@"flickr.com"
+#define LINKEDIN_DOMAIN			@"linkedin.com"
 
-#define FACEBOOK_SERVICE_KEY @"Facebook"
-#define TWITTER_SERVICE_KEY @"Twitter"
-#define FLICKR_SERVICE_KEY @"Flickr"
+#define FACEBOOK_SERVICE_KEY	@"Facebook"
+#define TWITTER_SERVICE_KEY		@"Twitter"
+#define FLICKR_SERVICE_KEY		@"Flickr"
+#define LINKEDIN_SERVICE_KEY	@"LinkedIn"
 
 /*
 	NOTE: You will need to change these ones to
 	match your application details.
  */
-#define FACEBOOK_API_ID @"nil"
+#define FACEBOOK_API_ID			@"nil"
 
 
-#define TWITTER_API_KEY @"nil"
-#define TWITTER_CONSUMER_KEY @"nil"
-#define TWITTER_CONSUMER_SECRET @"nil"
+#define TWITTER_API_KEY			@"nil"
+#define TWITTER_CONSUMER_KEY	@"nil"
+#define TWITTER_CONSUMER_SECRET	@"nil"
 
-#define BIT_LY_LOGIN @"nil"
-#define BIT_LY_API_KEY @"nil"
+#define BIT_LY_LOGIN			@"nil"
+#define BIT_LY_API_KEY			@"nil"
 
-#define TWITPIC_API_KEY @"nil"
+#define TWITPIC_API_KEY			@"nil"
 
 
-#define FLICKR_API_KEY @"nil"
-#define FLICKR_API_SECRET @"nil"
+#define FLICKR_API_KEY			@"nil"
+#define FLICKR_API_SECRET		@"nil"
 
+
+#define LINKEDIN_API_KEY		@"nil"
+#define LINKEDIN_API_SECRET		@"nil"
 
 
 typedef enum

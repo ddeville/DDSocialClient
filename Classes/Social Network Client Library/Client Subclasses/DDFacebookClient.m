@@ -699,14 +699,12 @@
 
 - (void)requestToFacebookStarted:(ASIHTTPRequest *)request
 {
-	NSLog(@"started request...") ;
+	
 }
 
 
 - (void)requestToFacebookFinished:(ASIHTTPRequest *)request
 {
-	NSLog(@"started parsing request...") ;
-	
 	NSString *responseString = [request responseString] ;
 	NSMutableDictionary *responseJSON = [responseString JSONValue] ;
 	
@@ -731,8 +729,6 @@
 
 - (void)requestToFacebookFailed:(ASIHTTPRequest *)request
 {
-	NSLog(@"request failed...") ;
-	
 	// we can now call our delegate with the response for the given request
 	DDFacebookRequestType requestType = [[request.userInfo objectForKey: facebookRequestType] intValue] ;
 	
@@ -745,15 +741,13 @@
 
 - (void)postToFacebookStarted:(ASIFormDataRequest *)post
 {
-	NSLog(@"started post...") ;
+	
 }
 
 
 
 - (void)postToFacebookFinished:(ASIFormDataRequest *)post
 {
-	NSLog(@"post finished...") ;
-	
 	NSString *responseString = [post responseString] ;
 	NSMutableDictionary *responseJSON = [responseString JSONValue] ;
 	
@@ -778,8 +772,6 @@
 
 - (void)postToFacebookFailed:(ASIFormDataRequest *)post
 {
-	NSLog(@"post failed...") ;
-	
 	// we can now call our delegate with the response for the given request
 	DDFacebookPostType postType = [[post.userInfo objectForKey: facebookPostType] intValue] ;
 	
@@ -792,15 +784,13 @@
 
 - (void)queuedPostsToFacebookStarted:(ASINetworkQueue *)queue
 {
-	NSLog(@"queued posts started...") ;
+	
 }
 
 
 
 - (void)queuedPostsToFacebookFinished:(ASINetworkQueue *)queue
 {
-	NSLog(@"queued posts finished...") ;
-	
 	if (delegate && [delegate respondsToSelector: @selector(facebookPostDidSucceed:andReturned:)])
 		[delegate facebookPostDidSucceed: DDFacebookPostArrayOfPhotos andReturned: nil] ;
 }
@@ -809,8 +799,6 @@
 
 - (void)queuedPostsToFacebookFailed:(ASINetworkQueue *)queue
 {
-	NSLog(@"queued posts failed...") ;
-	
 	NSError *error = [DDSocialNetworkClient generateErrorWithMessage: @"The queued posts to Facebook failed"] ;
 	if (delegate && [delegate respondsToSelector: @selector(facebookPost:failedWithError:)])
 		[delegate facebookPost: DDFacebookPostArrayOfPhotos failedWithError: error] ;

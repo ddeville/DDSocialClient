@@ -42,7 +42,7 @@
 
 @interface DDTwitterClient : DDSocialNetworkClient <ASIHTTPRequestDelegate>
 {
-	@private
+@private
 	NSString *initialToken ;
 }
 

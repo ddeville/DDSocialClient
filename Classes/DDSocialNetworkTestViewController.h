@@ -12,6 +12,7 @@
 #import "DDFacebookClient.h"
 #import "DDTwitterClient.h"
 #import "DDFlickrClient.h"
+#import "DDLinkedInClient.h"
 
 typedef enum
 {
@@ -31,9 +32,10 @@ Uploading ;
 	IBOutlet UIButton *_sendMessageAndPhoto ;
 	IBOutlet UIButton *_forgetCredentials ;
 
-	DDFacebookClient *_client ;
-	//DDTwitterClient *_client ;
-	//DDFlickrClient *_client ;
+//	DDFacebookClient *_client ;
+//	DDTwitterClient *_client ;
+//	DDFlickrClient *_client ;
+	DDLinkedInClient *_client ;
 	
 	Uploading _uploading ;
 }

@@ -16,6 +16,7 @@
 		6DE1A9A4120B566100D385C7 /* DDSocialNetworkTestViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6DE1A9A3120B566100D385C7 /* DDSocialNetworkTestViewController.m */; };
 		70180CD9120C00430051BDC5 /* CoreLocation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 70180CD8120C00430051BDC5 /* CoreLocation.framework */; };
 		702212AF1201C85900AC308D /* Security.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 702212AE1201C85900AC308D /* Security.framework */; };
+		702C871D128BF33E0069FD8C /* DDLinkedInClient.m in Sources */ = {isa = PBXBuildFile; fileRef = 702C871C128BF33E0069FD8C /* DDLinkedInClient.m */; };
 		705A8F29120B29C200E8CEC9 /* libz.1.2.3.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 705A8F28120B29C200E8CEC9 /* libz.1.2.3.dylib */; };
 		705A8F33120B29ED00E8CEC9 /* MobileCoreServices.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 705A8F32120B29ED00E8CEC9 /* MobileCoreServices.framework */; };
 		705A8F3F120B2A1600E8CEC9 /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 705A8F3E120B2A1600E8CEC9 /* SystemConfiguration.framework */; };
@@ -60,6 +61,8 @@
 		6DE1A9A3120B566100D385C7 /* DDSocialNetworkTestViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DDSocialNetworkTestViewController.m; sourceTree = "<group>"; };
 		70180CD8120C00430051BDC5 /* CoreLocation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreLocation.framework; path = System/Library/Frameworks/CoreLocation.framework; sourceTree = SDKROOT; };
 		702212AE1201C85900AC308D /* Security.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Security.framework; path = System/Library/Frameworks/Security.framework; sourceTree = SDKROOT; };
+		702C871B128BF33E0069FD8C /* DDLinkedInClient.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DDLinkedInClient.h; sourceTree = "<group>"; };
+		702C871C128BF33E0069FD8C /* DDLinkedInClient.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DDLinkedInClient.m; sourceTree = "<group>"; };
 		705A8F28120B29C200E8CEC9 /* libz.1.2.3.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libz.1.2.3.dylib; path = usr/lib/libz.1.2.3.dylib; sourceTree = SDKROOT; };
 		705A8F32120B29ED00E8CEC9 /* MobileCoreServices.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MobileCoreServices.framework; path = System/Library/Frameworks/MobileCoreServices.framework; sourceTree = SDKROOT; };
 		705A8F3E120B2A1600E8CEC9 /* SystemConfiguration.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SystemConfiguration.framework; path = System/Library/Frameworks/SystemConfiguration.framework; sourceTree = SDKROOT; };
@@ -226,6 +229,8 @@
 				70A4A1F3121C3FCD00B7EBBA /* DDTwitterClient.m */,
 				70A4A1F0121C3FCD00B7EBBA /* DDFlickrClient.h */,
 				70A4A1F1121C3FCD00B7EBBA /* DDFlickrClient.m */,
+				702C871B128BF33E0069FD8C /* DDLinkedInClient.h */,
+				702C871C128BF33E0069FD8C /* DDLinkedInClient.m */,
 			);
 			path = "Client Subclasses";
 			sourceTree = "<group>";
@@ -391,6 +396,7 @@
 				70A4A236121C3FCD00B7EBBA /* Reachability.m in Sources */,
 				70A4A238121C3FCD00B7EBBA /* OAuthToken.m in Sources */,
 				6D1B70411285CDEC00ADB68F /* OAuthSign.m in Sources */,
+				702C871D128BF33E0069FD8C /* DDLinkedInClient.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

@@ -8,6 +8,10 @@
 
 #import <Foundation/Foundation.h>
 
+#ifndef kCFCoreFoundationVersionNumber_iPhoneOS_4_0
+#define kCFCoreFoundationVersionNumber_iPhoneOS_4_0 550.32
+#endif
+
 
 @interface OAuthToken : NSObject
 {

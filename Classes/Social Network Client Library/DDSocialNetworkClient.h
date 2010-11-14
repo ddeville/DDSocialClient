@@ -12,12 +12,6 @@
 #import "ASINetworkQueue.h"
 
 
-#if __IPHONE_OS_VERSION_MAX_ALLOWED >= 40000
-#define RUNNING_IOS4_0_OR_GREATER
-#endif
-
-
-
 
 #define FACEBOOK_DOMAIN			@"facebook.com"
 #define TWITTER_DOMAIN			@"twitter.com"

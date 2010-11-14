@@ -8,6 +8,7 @@
 
 #import "OAuthToken.h"
 
+
 @interface OAuthToken (Private)
 
 + (NSString *)userDefaultsSignature:(NSString *)aService ;
@@ -106,15 +107,18 @@
 {
 	if (creationDate && duration)
 	{
-#if RUNNING_IOS4_0_OR_GREATER
-		// for iOS 4.0
-		if ([[creationDate dateByAddingTimeInterval: [duration intValue]] compare: [NSDate date]] == NSOrderedAscending)
-			return YES ;
-#else
-		// prior to iOS 4.0 --> deprecated on iOS 4.0
-		if ([[creationDate addTimeInterval: [duration intValue]] compare: [NSDate date]] == NSOrderedAscending)
-			return YES ;
-#endif
+		if (kCFCoreFoundationVersionNumber >= kCFCoreFoundationVersionNumber_iPhoneOS_4_0)
+		{
+			// for iOS 4.0
+			if ([[creationDate dateByAddingTimeInterval: [duration intValue]] compare: [NSDate date]] == NSOrderedAscending)
+				return YES ;
+		}
+		else
+		{
+			// prior to iOS 4.0 --> deprecated on iOS 4.0
+			if ([[creationDate addTimeInterval: [duration intValue]] compare: [NSDate date]] == NSOrderedAscending)
+				return YES ;
+		}
 	}
 	return NO ;
 }

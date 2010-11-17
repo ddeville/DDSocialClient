@@ -147,7 +147,7 @@
 	{
 		if ([[response substringToIndex: 41] isEqualToString: @"https://api.twitter.com/oauth/about-blank"])
 		{
-			// we have got what we are looking for, start parsing the shit
+			// we have got what we are looking for, start parsing it
 			NSMutableDictionary *responseDictionary = [[NSMutableDictionary alloc] initWithCapacity: 2]  ;
 			
 			NSRange oauthTokenRange = [response rangeOfString: @"oauth_token="] ;
@@ -262,7 +262,7 @@
 	
 	NSMutableDictionary *postBody = [NSMutableDictionary dictionaryWithObject: message forKey: @"status"] ;
 	
-	// we need this one if we want to add URL or other meta-shit
+	// we need this one if we want to add URL or other meta
 	[postBody setObject: @"true" forKey: @"include_entities"] ;
 	
 	if (geolocalize)

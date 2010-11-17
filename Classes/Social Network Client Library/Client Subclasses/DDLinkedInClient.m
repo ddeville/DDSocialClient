@@ -135,7 +135,7 @@
 	{
 		if ([[response substringToIndex: 56] isEqualToString: @"https://www.linkedin.com/uas/oauth/authorize/about-blank"])
 		{
-			// we have got what we are looking for, start parsing the shit
+			// we have got what we are looking for, start parsing it
 			NSMutableDictionary *responseDictionary = [[NSMutableDictionary alloc] initWithCapacity: 2]  ;
 			
 			NSRange oauthTokenRange = [response rangeOfString: @"oauth_token="] ;

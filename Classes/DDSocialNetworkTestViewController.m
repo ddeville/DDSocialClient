@@ -98,8 +98,8 @@
 			//[_client updateFacebookStatus: _message.text] ;
 			//[_client postMessageToTwitter: _message.text] ;
 			
-			//[_client postMessageToTwitter: @"testing some operation queue stuff and other borinf stuff you do not want to know about that is why Twitter will cut all the additional shit for us!"] ;
-			//[_client postMessageToTwitter: @"testing some operation queue stuff and other borinf stuff you do not want to know about that is why Twitter will cut all the additional shit for us!" withURL: @"http://www.ddeville.me"] ;
+			//[_client postMessageToTwitter: @"testing some operation queue stuff and other borinf stuff you do not want to know about that is why Twitter will cut all the additional stuff for us!"] ;
+			//[_client postMessageToTwitter: @"testing some operation queue stuff and other borinf stuff you do not want to know about that is why Twitter will cut all the additional stuff for us!" withURL: @"http://www.ddeville.me"] ;
 			break ;
 		case UploadingTextAndImage:
 			//[_client postImageToFlickr: _photo.image withTitle: _message.text andDescription: @"boh"] ;
@@ -107,7 +107,7 @@
 			//[_client postPhotoToFacebook: _photo.image withCaption: _message.text] ;
 			//[_client postPhotoToFacebook: _photo.image withCaption: _message.text] ;
 			
-			//[_client postImageToTwitter: _photo.image withMessage: @"testing some operation queue stuff and other borinf stuff you do not want to know about that is why Twitter will cut all the additional shit for us!"] ;
+			//[_client postImageToTwitter: _photo.image withMessage: @"testing some operation queue stuff and other borinf stuff you do not want to know about that is why Twitter will cut all the additional stuff for us!"] ;
 			//[_client postImageToTwitter: _photo.image withMessage: _message.text] ;
 		default:
 			break ;

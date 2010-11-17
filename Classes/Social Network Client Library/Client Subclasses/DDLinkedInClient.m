@@ -372,7 +372,7 @@
 - (void)postMessage:(NSString *)message withLinkTitle:(NSString *)linkTitle andLink:(NSString *)URL andLinkImage:(NSString *)imageURL andLinkDescription:(NSString *)description visibilityConnectionsOnly:(BOOL)connectionsOnly
 {
 	// if there is no message and no title, no point going further, this is an error
-	if ((message == nil || [message length] == 0) && (linkTitle == nil || [linkTitle length] == 0) && (imageURL == nil || [imageURL length] == 0))
+	if ((message == nil || [message length] == 0) && (linkTitle == nil || [linkTitle length] == 0) && (URL == nil || [URL length] == 0))
 	{
 		NSError *error = [DDSocialNetworkClient generateErrorWithMessage: @"You need to post a message or a title"] ;
 		if (delegate && [delegate respondsToSelector: @selector(linkedInPostFailedWithError:)])

@@ -342,7 +342,7 @@
 	[request setDidFailSelector: @selector(requestToTwitterFailed:)] ;
 	[request setDelegate: self] ;
 	// we keep a copy of the message in the request user info dictionary
-	[request setUserInfo: [NSDictionary dictionaryWithObjectsAndKeys: @"shortenURLRequest", @"whichRequest", message, @"twitterMessage", nil]] ;
+	[request setUserInfo: [NSDictionary dictionaryWithObjectsAndKeys: @"shortenURLRequest", twitterRequestType, message, @"twitterMessage", nil]] ;
 	[request startAsynchronous] ;
 }
 

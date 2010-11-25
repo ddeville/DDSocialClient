@@ -312,6 +312,13 @@
 		return ;
 	}
 	
+	// if no token, we show the login window and get the hell outta here
+	if (![self serviceHasValidToken])
+	{
+		[self startLoginProcess] ;
+		return ;
+	}
+	
 	// we first request a shorten URL
 	[self shortenURL: URL withMessage: message] ;
 	

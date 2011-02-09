@@ -1,0 +1,13 @@
+DDSocialNetworkClient is a handy library that makes access to social networking clients easy!
+
+<<<<<<< HEAD
+At the moment, it supports Facebook, Twitter and Flickr.
+I am planning to add support for Last.fm, LinkedIn and Foursquare.
+=======
+At the moment, it supports Facebook, Twitter, Flickr and LinkedIn.
+I am planning to add support for Last.fm and Foursqure.
+>>>>>>> 4ebd403e128a6b09ffdca5f5b6cc6525d16612c0
+
+The authentication is based on OAuth.
+
+Most of the server communication is done with the *excellent* ASIHTTPRequest library from Ben Copsey!

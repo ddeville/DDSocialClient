@@ -1,5 +1,5 @@
 //
-//  UIView+Pulse.h
+//  UIView+PulseLogin.h
 //  SocialNetworkClient
 //
 //  Created by Damien DeVille on 7/12/10.
@@ -9,7 +9,7 @@
 #import <UIKit/UIKit.h>
 
 
-@interface UIView (Pulse)
+@interface UIView (PulseLogin)
 
 - (void)pulse ;
 

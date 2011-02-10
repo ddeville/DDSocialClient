@@ -1,12 +1,12 @@
 //
-//  UIView+Pulse.m
+//  UIView+PulseLogin.m
 //  SocialNetworkClient
 //
 //  Created by Damien DeVille on 7/12/10.
 //  Copyright 2010 Snappy Code. All rights reserved.
 //
 
-#import "UIView+Pulse.h"
+#import "UIView+PulseLogin.h"
 
 
 @interface UIView (Private)
@@ -17,7 +17,7 @@
 @end
 
 
-@implementation UIView (Pulse)
+@implementation UIView (PulseLogin)
 
 - (void)pulse
 {

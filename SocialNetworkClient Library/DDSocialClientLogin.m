@@ -8,7 +8,7 @@
 
 #import "DDSocialClientLogin.h"
 #import <QuartzCore/QuartzCore.h>
-#import "UIView+Pulse.h"
+#import "UIView+PulseLogin.h"
 
 #define CONTENT_INSET	10.0f
 

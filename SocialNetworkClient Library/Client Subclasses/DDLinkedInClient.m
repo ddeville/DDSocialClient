@@ -118,7 +118,7 @@
 														  verifier: nil
 													postParameters: nil
 													   headerStyle: YES] ;
-	NSLog(@"%@", oauth_header) ;
+	
 	ASIHTTPRequest *request = [ASIHTTPRequest requestWithURL: [NSURL URLWithString: URL]] ;
 	[request setRequestMethod: @"POST"] ;
 	[request addRequestHeader: @"Authorization" value: oauth_header] ;

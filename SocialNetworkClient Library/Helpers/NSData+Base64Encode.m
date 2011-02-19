@@ -22,30 +22,34 @@ static char base64EncodingTable[64] =
 {
 	NSData *data = self ;
 	
-	unsigned long ixtext, lentext ;
-	long ctremaining ;
-	unsigned char input[3], output[4] ;
-	short i, charsonline = 0, ctcopy ;
-	const unsigned char *raw ;
+	unsigned long ixtext ;
+	unsigned long dataLength ;
+	long remaining ;
+	unsigned char input[3] ;
+	unsigned char output[4] ;
+	short i ;
+	short charsonline = 0 ;
+	short ctcopy ;
+	const unsigned char *rawData ;
 	NSMutableString *result ;
 	
-	lentext = [data length] ;
-	if (lentext < 1)
+	dataLength = [data length] ;
+	if (dataLength < 1)
 		return @"" ;
-	result = [NSMutableString stringWithCapacity: lentext] ;
-	raw = [data bytes] ;
+	result = [NSMutableString stringWithCapacity: dataLength] ;
+	rawData = [data bytes] ;
 	ixtext = 0 ;
 	
 	while (true)
 	{
-		ctremaining = lentext - ixtext ;
-		if (ctremaining <= 0)
+		remaining = dataLength - ixtext ;
+		if (remaining <= 0)
 			break ;
 		for (i = 0 ; i < 3 ; i++)
 		{
 			unsigned long ix = ixtext + i ;
-			if (ix < lentext)
-				input[i] = raw[ix] ;
+			if (ix < dataLength)
+				input[i] = rawData[ix] ;
 			else
 				input[i] = 0 ;
 		}
@@ -54,7 +58,7 @@ static char base64EncodingTable[64] =
 		output[2] = ((input[1] & 0x0F) << 2) | ((input[2] & 0xC0) >> 6) ;
 		output[3] = input[2] & 0x3F ;
 		ctcopy = 4 ;
-		switch (ctremaining)
+		switch (remaining)
 		{
 			case 1: 
 				ctcopy = 2 ;
@@ -73,8 +77,8 @@ static char base64EncodingTable[64] =
 		ixtext += 3 ;
 		charsonline += 4 ;
 		
-//		if ((length > 0) && (charsonline >= length))
-//			charsonline = 0 ;
+		if ((length > 0) && (charsonline >= length))
+			charsonline = 0 ;
 	}
 	return result ;
 }

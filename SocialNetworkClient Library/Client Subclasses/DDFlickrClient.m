@@ -80,7 +80,7 @@
 	if (frob)
 	{
 		NSString *sigString = [NSString stringWithFormat: @"%@api_key%@frob%@permswrite", FLICKR_API_SECRET, FLICKR_API_KEY, frob] ;
-		NSString *api_sig = [NSString MD5Hash: sigString] ;
+		NSString *api_sig = [sigString MD5Hash] ;
 		
 		return [NSString stringWithFormat: @"http://api.flickr.com/services/auth/?api_key=%@&perms=write&frob=%@&api_sig=%@", FLICKR_API_KEY, frob, api_sig] ;
 	}
@@ -115,7 +115,7 @@
 - (void)asynchronousRequestFlickrFrob
 {
 	NSString *sigString = [NSString stringWithFormat: @"%@api_key%@formatjsonmethodflickr.auth.getFrobnojsoncallback1", FLICKR_API_SECRET, FLICKR_API_KEY] ;
-	NSString *api_sig = [NSString MD5Hash: sigString] ;
+	NSString *api_sig = [sigString MD5Hash] ;
 	
 	NSString *URL = [NSString stringWithFormat: @"http://api.flickr.com/services/rest/?method=flickr.auth.getFrob&format=json&nojsoncallback=1&api_key=%@&api_sig=%@", FLICKR_API_KEY, api_sig] ;
 	
@@ -144,7 +144,7 @@
 - (void)asynchronousRequestFlickrToken
 {
 	NSString *sigString = [NSString stringWithFormat: @"%@api_key%@formatjsonfrob%@methodflickr.auth.getTokennojsoncallback1", FLICKR_API_SECRET, FLICKR_API_KEY, frob] ;
-	NSString *api_sig = [NSString MD5Hash: sigString] ;
+	NSString *api_sig = [sigString MD5Hash] ;
 	
 	// We create the URL for the token request, generate the request and the connection
 	NSString *URL = [NSString stringWithFormat: @"http://api.flickr.com/services/rest/?method=flickr.auth.getToken&format=json&nojsoncallback=1&api_key=%@&api_sig=%@&frob=%@", FLICKR_API_KEY, api_sig, frob] ;
@@ -234,7 +234,7 @@
 		sigString = [sigString stringByAppendingFormat: @"title%@", title] ;
 	}
 	
-	NSString *APISig = [NSString MD5Hash: sigString] ;
+	NSString *APISig = [sigString MD5Hash] ;
 	[post addPostValue: APISig forKey: @"api_sig"] ;
 	[post addData: UIImagePNGRepresentation(image) forKey: @"photo"] ;
 	[post setDidStartSelector: @selector(postToFlickrStarted:)] ;
@@ -297,7 +297,7 @@
 	[post addPostValue: @"1" forKey: @"nojsoncallback"] ;
 	
 	NSString *sigString = [NSString stringWithFormat: @"%@api_key%@auth_token%@description%@formatjsonmethodflickr.galleries.createnojsoncallback1title%@", FLICKR_API_SECRET, FLICKR_API_KEY, token.key, description, galleryName] ;
-	NSString *APISig = [NSString MD5Hash: sigString] ;
+	NSString *APISig = [sigString MD5Hash] ;
 	[post addPostValue: APISig forKey: @"api_sig"] ;
 	
 	[post setDidStartSelector: @selector(postToFlickrStarted:)] ;
@@ -348,7 +348,7 @@
 	[post addPostValue: @"1" forKey: @"nojsoncallback"] ;
 	
 	sigString = [sigString stringByAppendingFormat: @"formatjsongallery_id%@methodflickr.galleries.addPhotonojsoncallback1photo_id%@", galleryID, imageID] ;
-	NSString *APISig = [NSString MD5Hash: sigString] ;
+	NSString *APISig = [sigString MD5Hash] ;
 	[post addPostValue: APISig forKey: @"api_sig"] ;
 	
 	[post setDidStartSelector: @selector(postToFlickrStarted:)] ;
@@ -412,7 +412,7 @@
 	[post addPostValue: @"1" forKey: @"nojsoncallback"] ;
 	
 	NSString *sigString = [NSString stringWithFormat: @"%@api_key%@auth_token%@description%@formatjsonmethodflickr.photosets.createnojsoncallback1primary_photo_id%@title%@", FLICKR_API_SECRET, FLICKR_API_KEY, token.key, description, photoID, photosetName] ;
-	NSString *APISig = [NSString MD5Hash: sigString] ;
+	NSString *APISig = [sigString MD5Hash] ;
 	[post addPostValue: APISig forKey: @"api_sig"] ;
 	
 	[post setDidStartSelector: @selector(postToFlickrStarted:)] ;
@@ -454,7 +454,7 @@
 	[post addPostValue: @"1" forKey: @"nojsoncallback"] ;
 	
 	NSString *sigString = [NSString stringWithFormat: @"%@api_key%@auth_token%@formatjsonmethodflickr.photosets.addPhotonojsoncallback1photo_id%@photoset_id%@", FLICKR_API_SECRET, FLICKR_API_KEY, token.key, imageID, photosetID] ;
-	NSString *APISig = [NSString MD5Hash: sigString] ;
+	NSString *APISig = [sigString MD5Hash] ;
 	[post addPostValue: APISig forKey: @"api_sig"] ;
 	
 	[post setDidStartSelector: @selector(postToFlickrStarted:)] ;

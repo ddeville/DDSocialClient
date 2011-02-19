@@ -9,8 +9,8 @@
 #import <Foundation/Foundation.h>
 
 /*
-	OAuthSign is a wrapper around the excellent C function
-	oauth_sign written by Jef Poskanzer.
+	OAuthSign defines a single method than compute a HMAC-SHA1 signature
+	and returns an authorization string according to the OAuth protocol
 	Arguments are optional so you are free to pass nil if
 	you don't have or require something.
 	

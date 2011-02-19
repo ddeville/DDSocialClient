@@ -45,12 +45,12 @@
 		6D0E841112EC28FE00B760CA /* DDiPadView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 6D0E840F12EC28FE00B760CA /* DDiPadView.xib */; };
 		6DD87B2B13102C3C007BB930 /* NSString+PercentEncode.m in Sources */ = {isa = PBXBuildFile; fileRef = 6DD87B2A13102C3C007BB930 /* NSString+PercentEncode.m */; };
 		6DD87B751310380D007BB930 /* NSData+Base64Encode.m in Sources */ = {isa = PBXBuildFile; fileRef = 6DD87B741310380D007BB930 /* NSData+Base64Encode.m */; };
+		6DEA0AC0131061E9008EF2D6 /* Security.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6DEA0ABF131061E9008EF2D6 /* Security.framework */; };
 		7000D14712EF42570073891A /* Default.png in Resources */ = {isa = PBXBuildFile; fileRef = 7000D14412EF42570073891A /* Default.png */; };
 		7000D14812EF42570073891A /* Default@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 7000D14512EF42570073891A /* Default@2x.png */; };
 		7000D18A12EF4C650073891A /* Default_iPad.png in Resources */ = {isa = PBXBuildFile; fileRef = 7000D18912EF4C650073891A /* Default_iPad.png */; };
 		70200C8C12F2BD1200CF497E /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 70200C8B12F2BD1200CF497E /* SystemConfiguration.framework */; };
 		70200C9A12F2BF4100CF497E /* MobileCoreServices.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 70200C9912F2BF4100CF497E /* MobileCoreServices.framework */; };
-		70200C9E12F2BF8F00CF497E /* Security.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 70200C9D12F2BF8F00CF497E /* Security.framework */; };
 		70200CA212F2BFAC00CF497E /* libz.1.2.3.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 70200CA112F2BFAC00CF497E /* libz.1.2.3.dylib */; };
 		703A29A213042D950026BE30 /* UIView+PulseLogin.m in Sources */ = {isa = PBXBuildFile; fileRef = 703A29A113042D950026BE30 /* UIView+PulseLogin.m */; };
 		7096DB0E12ED846A0096310B /* Facebook.png in Resources */ = {isa = PBXBuildFile; fileRef = 7096DB0A12ED846A0096310B /* Facebook.png */; };
@@ -138,12 +138,12 @@
 		6DD87B2A13102C3C007BB930 /* NSString+PercentEncode.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSString+PercentEncode.m"; sourceTree = "<group>"; };
 		6DD87B731310380D007BB930 /* NSData+Base64Encode.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSData+Base64Encode.h"; sourceTree = "<group>"; };
 		6DD87B741310380D007BB930 /* NSData+Base64Encode.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSData+Base64Encode.m"; sourceTree = "<group>"; };
+		6DEA0ABF131061E9008EF2D6 /* Security.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Security.framework; path = System/Library/Frameworks/Security.framework; sourceTree = SDKROOT; };
 		7000D14412EF42570073891A /* Default.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = Default.png; path = Shared/Default.png; sourceTree = "<group>"; };
 		7000D14512EF42570073891A /* Default@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "Default@2x.png"; path = "Shared/Default@2x.png"; sourceTree = "<group>"; };
 		7000D18912EF4C650073891A /* Default_iPad.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = Default_iPad.png; path = Shared/Default_iPad.png; sourceTree = "<group>"; };
 		70200C8B12F2BD1200CF497E /* SystemConfiguration.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SystemConfiguration.framework; path = System/Library/Frameworks/SystemConfiguration.framework; sourceTree = SDKROOT; };
 		70200C9912F2BF4100CF497E /* MobileCoreServices.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MobileCoreServices.framework; path = System/Library/Frameworks/MobileCoreServices.framework; sourceTree = SDKROOT; };
-		70200C9D12F2BF8F00CF497E /* Security.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Security.framework; path = System/Library/Frameworks/Security.framework; sourceTree = SDKROOT; };
 		70200CA112F2BFAC00CF497E /* libz.1.2.3.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libz.1.2.3.dylib; path = usr/lib/libz.1.2.3.dylib; sourceTree = SDKROOT; };
 		703A29A013042D950026BE30 /* UIView+PulseLogin.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIView+PulseLogin.h"; sourceTree = "<group>"; };
 		703A29A113042D950026BE30 /* UIView+PulseLogin.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIView+PulseLogin.m"; sourceTree = "<group>"; };
@@ -170,8 +170,8 @@
 				6D0E83DA12EC285900B760CA /* CFNetwork.framework in Frameworks */,
 				70200C8C12F2BD1200CF497E /* SystemConfiguration.framework in Frameworks */,
 				70200C9A12F2BF4100CF497E /* MobileCoreServices.framework in Frameworks */,
-				70200C9E12F2BF8F00CF497E /* Security.framework in Frameworks */,
 				70200CA212F2BFAC00CF497E /* libz.1.2.3.dylib in Frameworks */,
+				6DEA0AC0131061E9008EF2D6 /* Security.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -259,7 +259,7 @@
 				70200C8B12F2BD1200CF497E /* SystemConfiguration.framework */,
 				70200C9912F2BF4100CF497E /* MobileCoreServices.framework */,
 				70200CA112F2BFAC00CF497E /* libz.1.2.3.dylib */,
-				70200C9D12F2BF8F00CF497E /* Security.framework */,
+				6DEA0ABF131061E9008EF2D6 /* Security.framework */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";

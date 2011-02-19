@@ -43,6 +43,8 @@
 		6D0E83DA12EC285900B760CA /* CFNetwork.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6D0E83D912EC285900B760CA /* CFNetwork.framework */; };
 		6D0E841012EC28FE00B760CA /* DDiPadViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6D0E840E12EC28FE00B760CA /* DDiPadViewController.m */; };
 		6D0E841112EC28FE00B760CA /* DDiPadView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 6D0E840F12EC28FE00B760CA /* DDiPadView.xib */; };
+		6DD87B2B13102C3C007BB930 /* NSString+PercentEncode.m in Sources */ = {isa = PBXBuildFile; fileRef = 6DD87B2A13102C3C007BB930 /* NSString+PercentEncode.m */; };
+		6DD87B751310380D007BB930 /* NSData+Base64Encode.m in Sources */ = {isa = PBXBuildFile; fileRef = 6DD87B741310380D007BB930 /* NSData+Base64Encode.m */; };
 		7000D14712EF42570073891A /* Default.png in Resources */ = {isa = PBXBuildFile; fileRef = 7000D14412EF42570073891A /* Default.png */; };
 		7000D14812EF42570073891A /* Default@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 7000D14512EF42570073891A /* Default@2x.png */; };
 		7000D18A12EF4C650073891A /* Default_iPad.png in Resources */ = {isa = PBXBuildFile; fileRef = 7000D18912EF4C650073891A /* Default_iPad.png */; };
@@ -132,6 +134,10 @@
 		6D0E840D12EC28FE00B760CA /* DDiPadViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DDiPadViewController.h; sourceTree = "<group>"; };
 		6D0E840E12EC28FE00B760CA /* DDiPadViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DDiPadViewController.m; sourceTree = "<group>"; };
 		6D0E840F12EC28FE00B760CA /* DDiPadView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = DDiPadView.xib; sourceTree = "<group>"; };
+		6DD87B2913102C3C007BB930 /* NSString+PercentEncode.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSString+PercentEncode.h"; sourceTree = "<group>"; };
+		6DD87B2A13102C3C007BB930 /* NSString+PercentEncode.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSString+PercentEncode.m"; sourceTree = "<group>"; };
+		6DD87B731310380D007BB930 /* NSData+Base64Encode.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSData+Base64Encode.h"; sourceTree = "<group>"; };
+		6DD87B741310380D007BB930 /* NSData+Base64Encode.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSData+Base64Encode.m"; sourceTree = "<group>"; };
 		7000D14412EF42570073891A /* Default.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = Default.png; path = Shared/Default.png; sourceTree = "<group>"; };
 		7000D14512EF42570073891A /* Default@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "Default@2x.png"; path = "Shared/Default@2x.png"; sourceTree = "<group>"; };
 		7000D18912EF4C650073891A /* Default_iPad.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = Default_iPad.png; path = Shared/Default_iPad.png; sourceTree = "<group>"; };
@@ -299,6 +305,10 @@
 				703A29A013042D950026BE30 /* UIView+PulseLogin.h */,
 				703A29A113042D950026BE30 /* UIView+PulseLogin.m */,
 				6D0E839312EC26B600B760CA /* Reachability */,
+				6DD87B2913102C3C007BB930 /* NSString+PercentEncode.h */,
+				6DD87B2A13102C3C007BB930 /* NSString+PercentEncode.m */,
+				6DD87B731310380D007BB930 /* NSData+Base64Encode.h */,
+				6DD87B741310380D007BB930 /* NSData+Base64Encode.m */,
 			);
 			path = Helpers;
 			sourceTree = "<group>";
@@ -483,6 +493,8 @@
 				6D0E83B712EC270A00B760CA /* DDiPhoneViewController.m in Sources */,
 				6D0E841012EC28FE00B760CA /* DDiPadViewController.m in Sources */,
 				703A29A213042D950026BE30 /* UIView+PulseLogin.m in Sources */,
+				6DD87B2B13102C3C007BB930 /* NSString+PercentEncode.m in Sources */,
+				6DD87B751310380D007BB930 /* NSData+Base64Encode.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

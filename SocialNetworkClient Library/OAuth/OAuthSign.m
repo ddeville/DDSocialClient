@@ -150,19 +150,19 @@ char* oauth_sign(char* consumer_key, char* consumer_key_secret, char* token, cha
 	// add all paramters
 	for (NSString *encodedName in sortedEncodedNames)
 	{
-		if (headerStyle == NO)
-			[authorization appendFormat: @"%@=%@", encodedName, [encodedParameters objectForKey: encodedName]] ;
-		else
+		if (headerStyle)
 			[authorization appendFormat: @"%@=\"%@\"", encodedName, [encodedParameters objectForKey: encodedName]] ;
-		
-		if (headerStyle == NO)
-			[authorization appendString: @"&"] ;
 		else
+			[authorization appendFormat: @"%@=%@", encodedName, [encodedParameters objectForKey: encodedName]] ;
+		
+		if (headerStyle)
 			[authorization appendString: @", "] ;
+		else
+			[authorization appendString: @"&"] ;
 	}
 	
 	// finally append the signature
-	if (headerStyle == NO)
+	if (headerStyle)
 		[authorization appendFormat: @"%@=\"%@\"", [@"oauth_signature" percentEncode], [oauthSignature percentEncode]] ;
 	else
 		[authorization appendFormat: @"%@=%@", [@"oauth_signature" percentEncode], [oauthSignature percentEncode]] ;

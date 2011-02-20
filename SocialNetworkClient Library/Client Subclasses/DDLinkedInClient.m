@@ -129,22 +129,22 @@
 	[request startAsynchronous] ;
 }
 
-- (NSDictionary *)pleaseParseThisURLResponseForMe:(NSString *)response
+- (NSDictionary *)parseURL:(NSString *)URL
 {
 	// 56 is the length of the original substring
-	if ([response length] > 56)
+	if ([URL length] > 56)
 	{
-		if ([[response substringToIndex: 56] isEqualToString: @"https://www.linkedin.com/uas/oauth/authorize/about-blank"])
+		if ([[URL substringToIndex: 56] isEqualToString: @"https://www.linkedin.com/uas/oauth/authorize/about-blank"])
 		{
 			// we have got what we are looking for, start parsing it
 			NSMutableDictionary *responseDictionary = [[NSMutableDictionary alloc] initWithCapacity: 2]  ;
 			
-			NSRange oauthTokenRange = [response rangeOfString: @"oauth_token="] ;
+			NSRange oauthTokenRange = [URL rangeOfString: @"oauth_token="] ;
 			if (oauthTokenRange.length > 0)
 			{
 				NSString *oauthToken ;
 				int fromIndex = oauthTokenRange.location + oauthTokenRange.length ;
-				oauthToken = [response substringFromIndex: fromIndex] ;
+				oauthToken = [URL substringFromIndex: fromIndex] ;
 				oauthToken = [oauthToken stringByReplacingPercentEscapesUsingEncoding: NSUTF8StringEncoding] ;
 				NSRange periodRange = [oauthToken rangeOfString: @"&"] ;
 				oauthToken = [oauthToken substringToIndex: periodRange.location] ;
@@ -152,12 +152,12 @@
 				// we print the token and build a dictionary that we return
 				[responseDictionary setObject: oauthToken forKey: @"TempOAuthToken"] ;
 			}
-			NSRange oauthVerifierRange = [response rangeOfString: @"oauth_verifier="] ;
+			NSRange oauthVerifierRange = [URL rangeOfString: @"oauth_verifier="] ;
 			if (oauthVerifierRange.length > 0)
 			{
 				NSString *oauthIdentifier ;
 				int fromIndex = oauthVerifierRange.location + oauthVerifierRange.length ;
-				oauthIdentifier = [response substringFromIndex: fromIndex] ;
+				oauthIdentifier = [URL substringFromIndex: fromIndex] ;
 				oauthIdentifier = [oauthIdentifier stringByReplacingPercentEscapesUsingEncoding: NSUTF8StringEncoding] ;
 				
 				// we print the token and build a dictionary that we return

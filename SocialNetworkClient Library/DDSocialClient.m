@@ -232,9 +232,9 @@
 	are different for each client, each subclass has to implement its
 	own version of this one
  */
-- (NSDictionary *)pleaseParseThisURLResponseForMe:(NSString *)response
+- (NSDictionary *)parseURL:(NSString *)URL
 {
-	// Go fuck yourself, I'll tell my subclass to do it ;)
+	// No way, I'll tell my subclass to do it ;)
 	return nil ;
 }
 

@@ -8,6 +8,7 @@
 
 #import "DDSocialClientLogin.h"
 #import <QuartzCore/QuartzCore.h>
+#import "OAuthToken.h"
 #import "UIView+PulseLogin.h"
 
 #define CONTENT_INSET	10.0f
@@ -24,11 +25,12 @@
 
 @implementation DDSocialClientLogin
 
+@synthesize delegate ;
 @synthesize requestURL ;
 
 - (id)initWithURL:(NSURL *)aRequestURL delegate:(id<DDSocialClientLoginDelegate>)aDelegate
 {
-	if (self = [super init])
+	if ((self = [super init]))
 	{
 		requestURL = [aRequestURL retain] ;
 		delegate = aDelegate ;
@@ -49,8 +51,8 @@
 	[[UIDevice currentDevice] endGeneratingDeviceOrientationNotifications] ;
 	[[NSNotificationCenter defaultCenter] removeObserver: self] ;
 	
-	if (firstResponder)
-		[firstResponder becomeFirstResponder] ;
+	// give back the responder to the first responder
+	[firstResponder becomeFirstResponder] ;
 	[firstResponder release], firstResponder = nil ;
 	
 	[requestURL release], requestURL = nil ;
@@ -326,8 +328,8 @@
 {
 	// we ask the delegate to parse this one itself
 	NSDictionary *responseDictionary ;
-	if (delegate && [delegate respondsToSelector: @selector(pleaseParseThisURLResponseForMe:)])
-		responseDictionary = [delegate pleaseParseThisURLResponseForMe: urlString] ;
+	if (delegate && [delegate respondsToSelector: @selector(parseURL:)])
+		responseDictionary = [delegate parseURL: urlString] ;
 	
 	if (responseDictionary)
 	{

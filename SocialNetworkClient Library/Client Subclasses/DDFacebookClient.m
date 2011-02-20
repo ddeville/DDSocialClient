@@ -108,14 +108,14 @@
 	[self showLoginDialog] ;
 }
 
-- (NSDictionary *)pleaseParseThisURLResponseForMe:(NSString *)response
+- (NSDictionary *)parseURL:(NSString *)URL
 {
-	NSRange accessTokenRange = [response rangeOfString: @"access_token="] ;
+	NSRange accessTokenRange = [URL rangeOfString: @"access_token="] ;
 	if (accessTokenRange.length > 0)
 	{
 		NSString *accessToken ;
 		int fromIndex = accessTokenRange.location + accessTokenRange.length ;
-		accessToken = [response substringFromIndex: fromIndex] ;
+		accessToken = [URL substringFromIndex: fromIndex] ;
 		accessToken = [accessToken stringByReplacingPercentEscapesUsingEncoding: NSUTF8StringEncoding] ;
 		NSRange periodRange = [accessToken rangeOfString: @"&"] ;
 		accessToken = [accessToken substringToIndex: periodRange.location] ;

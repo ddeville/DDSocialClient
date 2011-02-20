@@ -7,13 +7,13 @@
 //
 
 #import <UIKit/UIKit.h>
-#import "OAuthToken.h"
 
 @protocol DDSocialClientLoginDelegate ;
+@class OAuthToken ;
 
 @interface DDSocialClientLogin : UIViewController <UIWebViewDelegate>
 {
-	id <DDSocialClientLoginDelegate> delegate ;
+	id<DDSocialClientLoginDelegate> delegate ;
 	
 	@private
 	UIResponder *firstResponder ;
@@ -23,6 +23,7 @@
 	UIActivityIndicatorView *activityIndicator ;
 }
 
+@property (nonatomic,assign) id<DDSocialClientLoginDelegate> delegate ;
 @property (nonatomic,retain) NSURL *requestURL ;
 
 - (id)initWithURL:(NSURL *)aRequestURL delegate:(id<DDSocialClientLoginDelegate>)aDelegate ;
@@ -37,7 +38,7 @@
 @required
 - (void)oAuthTokenFound:(OAuthToken *)accessToken ;
 - (NSString *)serviceName ;
-- (NSDictionary *)pleaseParseThisURLResponseForMe:(NSString *)response ;
+- (NSDictionary *)parseURL:(NSString *)URL ;
 @optional
 - (void)validateOAuthToken:(NSString *)tempOAuthToken withIdentifier:(NSString *)tempOAuthIdentifier ;
 - (void)closeTapped:(DDSocialClientLogin *)loginVC ;

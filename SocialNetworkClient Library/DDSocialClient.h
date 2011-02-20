@@ -35,7 +35,6 @@
 
 // ---------------------------------------------------------------------------------------------------
 
-
 typedef enum
 {
 	kDDSocialClientUnknown,
@@ -109,7 +108,6 @@ DDSocialClientType ;
 - (void)showLoginDialog ;
 
 @end
-
 
 
 @protocol DDSocialClientDelegate <NSObject>

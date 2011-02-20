@@ -129,9 +129,9 @@
 	[request startAsynchronous] ;
 }
 
-- (NSDictionary *)pleaseParseThisURLResponseForMe:(NSString *)response
+- (NSDictionary *)parseURL:(NSString *)URL
 {
-	if ([response isEqualToString: @"http://m.flickr.com/#/services/auth/"])
+	if ([URL isEqualToString: @"http://m.flickr.com/#/services/auth/"])
 	{
 		// we can now make a new request for the final token
 		[self asynchronousRequestFlickrToken] ;

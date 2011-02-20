@@ -43,5 +43,4 @@
 - (void)store ;
 + (void)deleteTokenForService:(NSString *)aService ;
 
-
 @end

@@ -8,7 +8,6 @@
 
 #import "UIView+PulseLogin.h"
 
-
 @interface UIView (Private)
 
 - (void)pulseGrowAnimationDidStop:(NSString *)animationID finished:(NSNumber *)finished context:(void *)context ;

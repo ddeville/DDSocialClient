@@ -33,7 +33,6 @@
 		6D0E83AB12EC26B600B760CA /* SBJsonBase.m in Sources */ = {isa = PBXBuildFile; fileRef = 6D0E838C12EC26B600B760CA /* SBJsonBase.m */; };
 		6D0E83AC12EC26B600B760CA /* SBJsonParser.m in Sources */ = {isa = PBXBuildFile; fileRef = 6D0E838E12EC26B600B760CA /* SBJsonParser.m */; };
 		6D0E83AD12EC26B600B760CA /* SBJsonWriter.m in Sources */ = {isa = PBXBuildFile; fileRef = 6D0E839012EC26B600B760CA /* SBJsonWriter.m */; };
-		6D0E83AE12EC26B600B760CA /* NSString+MD5.m in Sources */ = {isa = PBXBuildFile; fileRef = 6D0E839212EC26B600B760CA /* NSString+MD5.m */; };
 		6D0E83AF12EC26B600B760CA /* Reachability.m in Sources */ = {isa = PBXBuildFile; fileRef = 6D0E839512EC26B600B760CA /* Reachability.m */; };
 		6D0E83B012EC26B600B760CA /* OAuthSign.m in Sources */ = {isa = PBXBuildFile; fileRef = 6D0E839812EC26B600B760CA /* OAuthSign.m */; };
 		6D0E83B112EC26B600B760CA /* OAuthToken.m in Sources */ = {isa = PBXBuildFile; fileRef = 6D0E839A12EC26B600B760CA /* OAuthToken.m */; };
@@ -43,8 +42,10 @@
 		6D0E83DA12EC285900B760CA /* CFNetwork.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6D0E83D912EC285900B760CA /* CFNetwork.framework */; };
 		6D0E841012EC28FE00B760CA /* DDiPadViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6D0E840E12EC28FE00B760CA /* DDiPadViewController.m */; };
 		6D0E841112EC28FE00B760CA /* DDiPadView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 6D0E840F12EC28FE00B760CA /* DDiPadView.xib */; };
-		6DD87B2B13102C3C007BB930 /* NSString+PercentEncode.m in Sources */ = {isa = PBXBuildFile; fileRef = 6DD87B2A13102C3C007BB930 /* NSString+PercentEncode.m */; };
-		6DD87B751310380D007BB930 /* NSData+Base64Encode.m in Sources */ = {isa = PBXBuildFile; fileRef = 6DD87B741310380D007BB930 /* NSData+Base64Encode.m */; };
+		6D163EC61311DDD30035CF03 /* NSData+Base64Encode.m in Sources */ = {isa = PBXBuildFile; fileRef = 6D163EC11311DDD30035CF03 /* NSData+Base64Encode.m */; };
+		6D163EC71311DDD30035CF03 /* NSString+MD5.m in Sources */ = {isa = PBXBuildFile; fileRef = 6D163EC31311DDD30035CF03 /* NSString+MD5.m */; };
+		6D163EC81311DDD30035CF03 /* NSString+PercentEncode.m in Sources */ = {isa = PBXBuildFile; fileRef = 6D163EC51311DDD30035CF03 /* NSString+PercentEncode.m */; };
+		6D163ED31311DE370035CF03 /* UIView+PulseLogin.m in Sources */ = {isa = PBXBuildFile; fileRef = 6D163ED21311DE370035CF03 /* UIView+PulseLogin.m */; };
 		6DEA0AC0131061E9008EF2D6 /* Security.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6DEA0ABF131061E9008EF2D6 /* Security.framework */; };
 		7000D14712EF42570073891A /* Default.png in Resources */ = {isa = PBXBuildFile; fileRef = 7000D14412EF42570073891A /* Default.png */; };
 		7000D14812EF42570073891A /* Default@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 7000D14512EF42570073891A /* Default@2x.png */; };
@@ -52,7 +53,6 @@
 		70200C8C12F2BD1200CF497E /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 70200C8B12F2BD1200CF497E /* SystemConfiguration.framework */; };
 		70200C9A12F2BF4100CF497E /* MobileCoreServices.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 70200C9912F2BF4100CF497E /* MobileCoreServices.framework */; };
 		70200CA212F2BFAC00CF497E /* libz.1.2.3.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 70200CA112F2BFAC00CF497E /* libz.1.2.3.dylib */; };
-		703A29A213042D950026BE30 /* UIView+PulseLogin.m in Sources */ = {isa = PBXBuildFile; fileRef = 703A29A113042D950026BE30 /* UIView+PulseLogin.m */; };
 		7096DB0E12ED846A0096310B /* Facebook.png in Resources */ = {isa = PBXBuildFile; fileRef = 7096DB0A12ED846A0096310B /* Facebook.png */; };
 		7096DB0F12ED846A0096310B /* Flickr.png in Resources */ = {isa = PBXBuildFile; fileRef = 7096DB0B12ED846A0096310B /* Flickr.png */; };
 		7096DB1012ED846A0096310B /* LinkedIn.png in Resources */ = {isa = PBXBuildFile; fileRef = 7096DB0C12ED846A0096310B /* LinkedIn.png */; };
@@ -118,8 +118,6 @@
 		6D0E838E12EC26B600B760CA /* SBJsonParser.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SBJsonParser.m; sourceTree = "<group>"; };
 		6D0E838F12EC26B600B760CA /* SBJsonWriter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SBJsonWriter.h; sourceTree = "<group>"; };
 		6D0E839012EC26B600B760CA /* SBJsonWriter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SBJsonWriter.m; sourceTree = "<group>"; };
-		6D0E839112EC26B600B760CA /* NSString+MD5.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSString+MD5.h"; sourceTree = "<group>"; };
-		6D0E839212EC26B600B760CA /* NSString+MD5.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSString+MD5.m"; sourceTree = "<group>"; };
 		6D0E839412EC26B600B760CA /* Reachability.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Reachability.h; sourceTree = "<group>"; };
 		6D0E839512EC26B600B760CA /* Reachability.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Reachability.m; sourceTree = "<group>"; };
 		6D0E839712EC26B600B760CA /* OAuthSign.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OAuthSign.h; sourceTree = "<group>"; };
@@ -134,10 +132,14 @@
 		6D0E840D12EC28FE00B760CA /* DDiPadViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DDiPadViewController.h; sourceTree = "<group>"; };
 		6D0E840E12EC28FE00B760CA /* DDiPadViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DDiPadViewController.m; sourceTree = "<group>"; };
 		6D0E840F12EC28FE00B760CA /* DDiPadView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = DDiPadView.xib; sourceTree = "<group>"; };
-		6DD87B2913102C3C007BB930 /* NSString+PercentEncode.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSString+PercentEncode.h"; sourceTree = "<group>"; };
-		6DD87B2A13102C3C007BB930 /* NSString+PercentEncode.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSString+PercentEncode.m"; sourceTree = "<group>"; };
-		6DD87B731310380D007BB930 /* NSData+Base64Encode.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSData+Base64Encode.h"; sourceTree = "<group>"; };
-		6DD87B741310380D007BB930 /* NSData+Base64Encode.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSData+Base64Encode.m"; sourceTree = "<group>"; };
+		6D163EC01311DDD30035CF03 /* NSData+Base64Encode.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSData+Base64Encode.h"; sourceTree = "<group>"; };
+		6D163EC11311DDD30035CF03 /* NSData+Base64Encode.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSData+Base64Encode.m"; sourceTree = "<group>"; };
+		6D163EC21311DDD30035CF03 /* NSString+MD5.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSString+MD5.h"; sourceTree = "<group>"; };
+		6D163EC31311DDD30035CF03 /* NSString+MD5.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSString+MD5.m"; sourceTree = "<group>"; };
+		6D163EC41311DDD30035CF03 /* NSString+PercentEncode.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSString+PercentEncode.h"; sourceTree = "<group>"; };
+		6D163EC51311DDD30035CF03 /* NSString+PercentEncode.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSString+PercentEncode.m"; sourceTree = "<group>"; };
+		6D163ED11311DE370035CF03 /* UIView+PulseLogin.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIView+PulseLogin.h"; sourceTree = "<group>"; };
+		6D163ED21311DE370035CF03 /* UIView+PulseLogin.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIView+PulseLogin.m"; sourceTree = "<group>"; };
 		6DEA0ABF131061E9008EF2D6 /* Security.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Security.framework; path = System/Library/Frameworks/Security.framework; sourceTree = SDKROOT; };
 		7000D14412EF42570073891A /* Default.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = Default.png; path = Shared/Default.png; sourceTree = "<group>"; };
 		7000D14512EF42570073891A /* Default@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "Default@2x.png"; path = "Shared/Default@2x.png"; sourceTree = "<group>"; };
@@ -145,8 +147,6 @@
 		70200C8B12F2BD1200CF497E /* SystemConfiguration.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SystemConfiguration.framework; path = System/Library/Frameworks/SystemConfiguration.framework; sourceTree = SDKROOT; };
 		70200C9912F2BF4100CF497E /* MobileCoreServices.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MobileCoreServices.framework; path = System/Library/Frameworks/MobileCoreServices.framework; sourceTree = SDKROOT; };
 		70200CA112F2BFAC00CF497E /* libz.1.2.3.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libz.1.2.3.dylib; path = usr/lib/libz.1.2.3.dylib; sourceTree = SDKROOT; };
-		703A29A013042D950026BE30 /* UIView+PulseLogin.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIView+PulseLogin.h"; sourceTree = "<group>"; };
-		703A29A113042D950026BE30 /* UIView+PulseLogin.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIView+PulseLogin.m"; sourceTree = "<group>"; };
 		7096DB0A12ED846A0096310B /* Facebook.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Facebook.png; sourceTree = "<group>"; };
 		7096DB0B12ED846A0096310B /* Flickr.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Flickr.png; sourceTree = "<group>"; };
 		7096DB0C12ED846A0096310B /* LinkedIn.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = LinkedIn.png; sourceTree = "<group>"; };
@@ -298,17 +298,10 @@
 		6D0E837112EC26B600B760CA /* Helpers */ = {
 			isa = PBXGroup;
 			children = (
+				6D163ED01311DE370035CF03 /* Categories */,
 				6D0E837212EC26B600B760CA /* ASIHTTPRequest */,
 				6D0E838312EC26B600B760CA /* JSON */,
-				6D0E839112EC26B600B760CA /* NSString+MD5.h */,
-				6D0E839212EC26B600B760CA /* NSString+MD5.m */,
-				703A29A013042D950026BE30 /* UIView+PulseLogin.h */,
-				703A29A113042D950026BE30 /* UIView+PulseLogin.m */,
 				6D0E839312EC26B600B760CA /* Reachability */,
-				6DD87B2913102C3C007BB930 /* NSString+PercentEncode.h */,
-				6DD87B2A13102C3C007BB930 /* NSString+PercentEncode.m */,
-				6DD87B731310380D007BB930 /* NSData+Base64Encode.h */,
-				6DD87B741310380D007BB930 /* NSData+Base64Encode.m */,
 			);
 			path = Helpers;
 			sourceTree = "<group>";
@@ -372,8 +365,31 @@
 				6D0E839812EC26B600B760CA /* OAuthSign.m */,
 				6D0E839912EC26B600B760CA /* OAuthToken.h */,
 				6D0E839A12EC26B600B760CA /* OAuthToken.m */,
+				6D163EBF1311DDD30035CF03 /* Categories */,
 			);
 			path = OAuth;
+			sourceTree = "<group>";
+		};
+		6D163EBF1311DDD30035CF03 /* Categories */ = {
+			isa = PBXGroup;
+			children = (
+				6D163EC01311DDD30035CF03 /* NSData+Base64Encode.h */,
+				6D163EC11311DDD30035CF03 /* NSData+Base64Encode.m */,
+				6D163EC21311DDD30035CF03 /* NSString+MD5.h */,
+				6D163EC31311DDD30035CF03 /* NSString+MD5.m */,
+				6D163EC41311DDD30035CF03 /* NSString+PercentEncode.h */,
+				6D163EC51311DDD30035CF03 /* NSString+PercentEncode.m */,
+			);
+			path = Categories;
+			sourceTree = "<group>";
+		};
+		6D163ED01311DE370035CF03 /* Categories */ = {
+			isa = PBXGroup;
+			children = (
+				6D163ED11311DE370035CF03 /* UIView+PulseLogin.h */,
+				6D163ED21311DE370035CF03 /* UIView+PulseLogin.m */,
+			);
+			path = Categories;
 			sourceTree = "<group>";
 		};
 		7096DB0912ED846A0096310B /* Resources */ = {
@@ -486,15 +502,15 @@
 				6D0E83AB12EC26B600B760CA /* SBJsonBase.m in Sources */,
 				6D0E83AC12EC26B600B760CA /* SBJsonParser.m in Sources */,
 				6D0E83AD12EC26B600B760CA /* SBJsonWriter.m in Sources */,
-				6D0E83AE12EC26B600B760CA /* NSString+MD5.m in Sources */,
 				6D0E83AF12EC26B600B760CA /* Reachability.m in Sources */,
 				6D0E83B012EC26B600B760CA /* OAuthSign.m in Sources */,
 				6D0E83B112EC26B600B760CA /* OAuthToken.m in Sources */,
 				6D0E83B712EC270A00B760CA /* DDiPhoneViewController.m in Sources */,
 				6D0E841012EC28FE00B760CA /* DDiPadViewController.m in Sources */,
-				703A29A213042D950026BE30 /* UIView+PulseLogin.m in Sources */,
-				6DD87B2B13102C3C007BB930 /* NSString+PercentEncode.m in Sources */,
-				6DD87B751310380D007BB930 /* NSData+Base64Encode.m in Sources */,
+				6D163EC61311DDD30035CF03 /* NSData+Base64Encode.m in Sources */,
+				6D163EC71311DDD30035CF03 /* NSString+MD5.m in Sources */,
+				6D163EC81311DDD30035CF03 /* NSString+PercentEncode.m in Sources */,
+				6D163ED31311DE370035CF03 /* UIView+PulseLogin.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

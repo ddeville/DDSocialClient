@@ -40,7 +40,6 @@ DDLinkedInPostType ;
 @end
 
 
-
 @protocol DDLinkedInClientDelegate <DDSocialClientDelegate, NSObject>
 
 @optional

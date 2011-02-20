@@ -15,105 +15,187 @@
 
 @implementation OAuthSign
 
-+ (NSString *)getOAuthSignatureForMethod:(NSString *)method URL:(NSString *)URL callback:(NSString *)callback consumerKey:(NSString *)consumerKey consumerKeySecret:(NSString *)consumerKeySecret token:(NSString *)token tokenSecret:(NSString *)tokenSecret verifier:(NSString *)verifier postParameters:(NSDictionary *)postParameters headerStyle:(BOOL)headerStyle
++ (NSString *)generateOAuthAuthorizationHeaderForMethod:(NSString *)method URL:(NSString *)URL callback:(NSString *)callback consumerKey:(NSString *)consumerKey consumerKeySecret:(NSString *)consumerKeySecret token:(NSString *)token tokenSecret:(NSString *)tokenSecret verifier:(NSString *)verifier postParameters:(NSDictionary *)postParameters
 {
-	// Check whether the URL contains URL query parameters
-	NSUInteger queryParametersLocation = [URL rangeOfString: @"?"].location ;
-	NSArray *queryParameters = nil ;
+	// first generate the OAuth parameters
+	NSDictionary *oauthParameters = [self getOAuthParametersForMethod: method
+																  URL: URL
+															 callback: callback
+														  consumerKey: consumerKey
+													consumerKeySecret: consumerKeySecret
+																token: token
+														  tokenSecret: tokenSecret
+															 verifier: verifier
+													   postParameters: postParameters] ;
 	
-	// if the URL has query parameters
-	if (queryParametersLocation != NSNotFound)
+	NSMutableString *authorization = [NSMutableString string] ;
+	
+	// add the protocol name
+	[authorization appendString: @"OAuth "] ;
+	
+	// append all OAuth paramters
+	NSInteger count = 1 ;
+	for (NSString *name in oauthParameters)
 	{
-		// get the parameters part of the URL
-		NSString *queryString = [URL substringFromIndex: queryParametersLocation] ;
-		
-		// get the name=value parameters
-		queryParameters = [queryString componentsSeparatedByString: @"&"] ;
+		[authorization appendFormat: @"%@=\"%@\"", name, [oauthParameters objectForKey: name]] ;
+		if (count < [oauthParameters count])
+			[authorization appendString: @", "] ;
+		count++ ;
 	}
 	
+	return authorization ;
+}
+
++ (NSString *)generateOAuthQueryParametersForMethod:(NSString *)method URL:(NSString *)URL callback:(NSString *)callback consumerKey:(NSString *)consumerKey consumerKeySecret:(NSString *)consumerKeySecret token:(NSString *)token tokenSecret:(NSString *)tokenSecret verifier:(NSString *)verifier postParameters:(NSDictionary *)postParameters
+{
+	// first generate the OAuth parameters
+	NSDictionary *oauthParameters = [self getOAuthParametersForMethod: method
+																  URL: URL
+															 callback: callback
+														  consumerKey: consumerKey
+													consumerKeySecret: consumerKeySecret
+																token: token
+														  tokenSecret: tokenSecret
+															 verifier: verifier
+													   postParameters: postParameters] ;
+	
+	NSMutableString *authorization = [NSMutableString string] ;
+	
+	// append all OAuth paramters
+	NSInteger count = 1 ;
+	for (NSString *name in oauthParameters)
+	{
+		[authorization appendFormat: @"%@=%@", name, [oauthParameters objectForKey: name]] ;
+		if (count < [oauthParameters count])
+			[authorization appendString: @"&"] ;
+		count++ ;
+	}
+	
+	return authorization ;
+}
+
++ (NSDictionary *)getOAuthParametersForMethod:(NSString *)method URL:(NSString *)URL callback:(NSString *)callback consumerKey:(NSString *)consumerKey consumerKeySecret:(NSString *)consumerKeySecret token:(NSString *)token tokenSecret:(NSString *)tokenSecret verifier:(NSString *)verifier postParameters:(NSDictionary *)postParameters
+{
+	NSString *parameterName ;
+	NSString *parameterValue ;
 	NSMutableDictionary *parameters = [NSMutableDictionary dictionary] ;
-	NSMutableDictionary *encodedParameters = [NSMutableDictionary dictionary] ;
-	
-	// get the query parameters
-	for (NSString *subString in queryParameters)
-	{
-		NSArray *parameter = [subString componentsSeparatedByString: @"="] ;
-		if ([parameter count] > 1)
-		{
-			NSString *name = [[parameter objectAtIndex: 0] stringByReplacingPercentEscapesUsingEncoding: NSUTF8StringEncoding] ;
-			NSString *value = [[parameter objectAtIndex: 1] stringByReplacingPercentEscapesUsingEncoding: NSUTF8StringEncoding] ;
-			[parameters setObject: value forKey: name] ;
-		}
-	}
-	
-	// get the eventual POST parameters
-	if (postParameters)
-		[parameters addEntriesFromDictionary: postParameters] ;
+	NSMutableDictionary *protocolParameters = [NSMutableDictionary dictionary] ;
 	
 	// Assign values to the OAuth protocol parameters (some are optional)
 	
-	// OAuth consumer key
-	if (consumerKey)
-		[parameters setObject: consumerKey forKey: @"oauth_consumer_key"] ;
-	
-	// OAuth token
-	if (token)
-		[parameters setObject: token forKey: @"oauth_token"] ;
-	
-	// OAuth callback
-	if (callback)
-		[parameters setObject: callback forKey: @"oauth_callback"] ;
-	
-	// OAuth verifier
-	if (verifier)
-		[parameters setObject: verifier forKey: @"oauth_verifier"] ;
+	// OAuth version
+	parameterName = [@"oauth_version" percentEncode] ;
+	parameterValue = [@"1.0" percentEncode] ;
+	[protocolParameters setObject: parameterValue forKey: parameterName] ;
 	
 	// OAuth signature method
-	[parameters setObject: @"HMAC-SHA1" forKey: @"oauth_signature_method"] ;
+	parameterName = [@"oauth_signature_method" percentEncode] ;
+	parameterValue = [@"HMAC-SHA1" percentEncode] ;
+	[protocolParameters setObject: parameterValue forKey: parameterName] ;
 	
 	// OAuth time stamp
 	NSString *timeStamp = [NSString stringWithFormat: @"%.0f", [[NSDate date] timeIntervalSince1970]] ;
-	[parameters setObject: timeStamp forKey: @"oauth_timestamp"] ;
+	parameterName = [@"oauth_timestamp" percentEncode] ;
+	parameterValue = [timeStamp percentEncode] ;
+	[protocolParameters setObject: parameterValue forKey: parameterName] ;
 	
 	// OAuth nonce
 	srandomdev() ;
 	unsigned long nonce1 = (unsigned long) random() ;
 	unsigned long nonce2 = (unsigned long) random() ;
 	NSString *nonce = [NSString stringWithFormat: @"%08lx%08lx", nonce1, nonce2] ;
-	[parameters setObject: nonce forKey: @"oauth_nonce"] ;
+	parameterName = [@"oauth_nonce" percentEncode] ;
+	parameterValue = [nonce percentEncode] ;
+	[protocolParameters setObject: parameterValue forKey: parameterName] ;
 	
-	// OAuth version
-	[parameters setObject: @"1.0" forKey: @"oauth_version"] ;
-	
-	// Percent-encode and concatenate the parameter lists
-	for (NSString *name in [parameters allKeys])
+	// OAuth consumer key
+	if (consumerKey)
 	{
-		NSString *value = [parameters objectForKey: name] ;
-		[encodedParameters setObject: [value percentEncode] forKey: [name percentEncode]] ;
+		parameterName = [@"oauth_consumer_key" percentEncode] ;
+		parameterValue = [consumerKey percentEncode] ;
+		[protocolParameters setObject: parameterValue forKey: parameterName] ;
 	}
 	
-	// Sort the encoded parameters
-	NSMutableArray *sortedEncodedNames = [[encodedParameters allKeys] mutableCopy] ;
-	[sortedEncodedNames sortUsingSelector: @selector(compare:)] ;
+	// OAuth token
+	if (token)
+	{
+		parameterName = [@"oauth_token" percentEncode] ;
+		parameterValue = [token percentEncode] ;
+		[protocolParameters setObject: parameterValue forKey: parameterName] ;
+	}
+	
+	// OAuth callback
+	if (callback)
+	{
+		parameterName = [@"oauth_callback" percentEncode] ;
+		parameterValue = [callback percentEncode] ;
+		[protocolParameters setObject: parameterValue forKey: parameterName] ;
+	}
+	
+	// OAuth verifier
+	if (verifier)
+	{
+		parameterName = [@"oauth_verifier" percentEncode] ;
+		parameterValue = [verifier percentEncode] ;
+		[protocolParameters setObject: parameterValue forKey: parameterName] ;
+	}
+	
+	// add the protocol parameters to the global list of parameters
+	[parameters addEntriesFromDictionary: protocolParameters] ;
+	
+	// Check whether the URL contains URL query parameters
+	NSUInteger queryParametersLocation = [URL rangeOfString: @"?"].location ;
+	
+	// if the URL has query parameters
+	if (queryParametersLocation != NSNotFound && [URL length] > queryParametersLocation)
+	{
+		// get the parameters part of the URL
+		NSString *parametersString = [URL substringFromIndex: queryParametersLocation + 1] ;
+		
+		// get the name=value parameters
+		NSArray *queryParameters = [parametersString componentsSeparatedByString: @"&"] ;
+		
+		// get the query parameters
+		for (NSString *subString in queryParameters)
+		{
+			NSArray *parameter = [subString componentsSeparatedByString: @"="] ;
+			if ([parameter count] > 1)
+			{
+				parameterName = [[[parameter objectAtIndex: 0] stringByReplacingPercentEscapesUsingEncoding: NSUTF8StringEncoding] percentEncode] ;
+				parameterValue = [[[parameter objectAtIndex: 1] stringByReplacingPercentEscapesUsingEncoding: NSUTF8StringEncoding] percentEncode] ;
+				[parameters setObject: parameterValue forKey: parameterName] ;
+			}
+		}
+	}
+	
+	// get the eventual POST parameters
+	for (NSString *name in [postParameters allKeys])
+	{
+		parameterName = [name percentEncode] ;
+		parameterValue = [[postParameters objectForKey: name] percentEncode] ;
+		[parameters setObject: parameterValue forKey: parameterName] ;
+	}
+	
+	// Sort the parameters
+	NSMutableArray *sortedNames = [[parameters allKeys] mutableCopy] ;
+	[sortedNames sortUsingSelector: @selector(compare:)] ;
 	
 	// Construct the signature base string first getting the Base URL
-	NSString *baseURL ;
+	NSString *baseURL = URL ;
 	if (queryParametersLocation != NSNotFound)
 		baseURL = [URL substringToIndex: queryParametersLocation] ;
-	else
-		baseURL = URL ;
 	
-	NSString *encodedBaseURL = [URL percentEncode] ;
+	NSString *encodedBaseURL = [baseURL percentEncode] ;
 	
 	// Next make the parameters string
 	NSMutableString *parametersString = [NSMutableString string] ;
-	NSUInteger index = 1 ;
-	for (NSString *encodedName in sortedEncodedNames)
+	NSUInteger count = 1 ;
+	for (NSString *name in sortedNames)
 	{
-		[parametersString appendFormat: @"%@=%@", encodedName, [encodedParameters objectForKey: encodedName]] ;
-		if (index < [sortedEncodedNames count])
+		[parametersString appendFormat: @"%@=%@", name, [parameters objectForKey: name]] ;
+		if (count < [sortedNames count])
 			[parametersString appendString: @"&"] ;
-		index++ ;
+		count++ ;
 	}
 	
 	// percent encode the string
@@ -135,32 +217,10 @@
 	NSData *HMACData = [[NSData alloc] initWithBytes: HMAC_string length: sizeof(HMAC_string)] ;
 	NSString *oauthSignature = [HMACData base64EncodeWithLength: CC_SHA1_DIGEST_LENGTH] ;
 	
-	// In function of whether the signature is a authorization header or plain normalized parameters
-	NSMutableString *authorization = [NSMutableString string] ;
-	if (headerStyle == YES)
-		[authorization appendString: @"OAuth "] ;
+	// add the signature to the parameters
+	[protocolParameters setObject: [oauthSignature percentEncode] forKey: [@"oauth_signature" percentEncode]] ;
 	
-	// add all paramters
-	for (NSString *encodedName in sortedEncodedNames)
-	{
-		if (headerStyle)
-			[authorization appendFormat: @"%@=\"%@\"", encodedName, [encodedParameters objectForKey: encodedName]] ;
-		else
-			[authorization appendFormat: @"%@=%@", encodedName, [encodedParameters objectForKey: encodedName]] ;
-		
-		if (headerStyle)
-			[authorization appendString: @", "] ;
-		else
-			[authorization appendString: @"&"] ;
-	}
-	
-	// finally append the signature
-	if (headerStyle)
-		[authorization appendFormat: @"%@=\"%@\"", [@"oauth_signature" percentEncode], [oauthSignature percentEncode]] ;
-	else
-		[authorization appendFormat: @"%@=%@", [@"oauth_signature" percentEncode], [oauthSignature percentEncode]] ;
-	
-	return authorization ;
+	return protocolParameters ;
 }
 
 @end

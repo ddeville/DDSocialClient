@@ -117,16 +117,16 @@
 	NSString *URL = @"https://api.twitter.com/oauth/request_token" ;
 	
 	// Create the authorization header
-	NSString *oauth_header = [OAuthSign getOAuthSignatureForMethod: @"GET"
-															   URL: URL 
-														  callback: @"about-blank"
-													   consumerKey: TWITTER_CONSUMER_KEY
-												 consumerKeySecret: TWITTER_CONSUMER_SECRET
-															 token: nil
-													   tokenSecret: nil
-														  verifier: nil
-													postParameters: nil
-													   headerStyle: YES] ;
+	NSString *oauth_header = [OAuthSign generateOAuthAuthorizationHeaderForMethod: @"GET"
+																			  URL: URL 
+																		 callback: @"about-blank"
+																	  consumerKey: TWITTER_CONSUMER_KEY
+																consumerKeySecret: TWITTER_CONSUMER_SECRET
+																			token: nil
+																	  tokenSecret: nil
+																		 verifier: nil
+																   postParameters: nil] ;
+	
 	ASIHTTPRequest *request = [ASIHTTPRequest requestWithURL: [NSURL URLWithString: URL]] ;
 	[request setRequestMethod: @"GET"] ;
 	[request addRequestHeader: @"Authorization" value: oauth_header] ;
@@ -183,16 +183,15 @@
 {
 	NSString *URL = @"https://api.twitter.com/oauth/access_token" ;
 	
-	NSString *oauth_header = [OAuthSign getOAuthSignatureForMethod: @"GET"
-															   URL: URL 
-														  callback: nil
-													   consumerKey: TWITTER_CONSUMER_KEY
-												 consumerKeySecret: TWITTER_CONSUMER_SECRET
-															 token: tempOAuthToken
-													   tokenSecret: nil
-														  verifier: tempOAuthIdentifier
-													postParameters: nil
-													   headerStyle: YES] ;
+	NSString *oauth_header = [OAuthSign generateOAuthAuthorizationHeaderForMethod: @"GET"
+																			  URL: URL 
+																		 callback: nil
+																	  consumerKey: TWITTER_CONSUMER_KEY
+																consumerKeySecret: TWITTER_CONSUMER_SECRET
+																			token: tempOAuthToken
+																	  tokenSecret: nil
+																		 verifier: tempOAuthIdentifier
+																   postParameters: nil] ;
 	
 	ASIHTTPRequest *request = [ASIHTTPRequest requestWithURL: [NSURL URLWithString: URL]] ;
 	[request setRequestMethod: @"GET"] ;
@@ -264,16 +263,15 @@
 	
 	NSString *postURL = @"https://api.twitter.com/1/statuses/update.json" ;
 	
-	NSString *oauth_header = [OAuthSign getOAuthSignatureForMethod: @"POST"
-															   URL: postURL
-														  callback: nil
-													   consumerKey: TWITTER_CONSUMER_KEY
-												 consumerKeySecret: TWITTER_CONSUMER_SECRET
-															 token: token.key
-													   tokenSecret: token.secret
-														  verifier: nil
-													postParameters: postBody
-													   headerStyle: YES] ;
+	NSString *oauth_header = [OAuthSign generateOAuthAuthorizationHeaderForMethod: @"POST"
+																			  URL: postURL
+																		 callback: nil
+																	  consumerKey: TWITTER_CONSUMER_KEY
+																consumerKeySecret: TWITTER_CONSUMER_SECRET
+																			token: token.key
+																	  tokenSecret: token.secret
+																		 verifier: nil
+																   postParameters: postBody] ;
 	
 	ASIFormDataRequest *post = [ASIFormDataRequest requestWithURL: [NSURL URLWithString: postURL]] ;
 	for (NSString *key in postBody)

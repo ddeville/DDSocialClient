@@ -9,8 +9,8 @@
 #import <Foundation/Foundation.h>
 
 /*
-	OAuthSign defines a single method than compute a HMAC-SHA1 signature
-	and returns an authorization string according to the OAuth protocol
+	OAuthSign defines methods than compute a HMAC-SHA1 signature and
+	return an authorization string according to the OAuth protocol.
 	Arguments are optional so you are free to pass nil if
 	you don't have or require something.
 	
@@ -24,8 +24,6 @@
 		- tokenSecret		--> the OAuth token secret
 		- verifier			-->	the verifier token
 		- postParameters	--> the POST parameters
-		- headerStyle		--> if YES, returns a string to be used as a HTTP header:	OAuth param1="xxx", param2="xxx", sig="xxx"
-							--> if NO, returns a string to be used as a URL parameter:	param1=xxx&param2=xxx&sig=xxx
  */
 
 @interface OAuthSign : NSObject
@@ -33,15 +31,45 @@
 
 }
 
-+ (NSString *)getOAuthSignatureForMethod:(NSString *)method 
-									 URL:(NSString *)URL 
-								callback:(NSString *)callback 
-							 consumerKey:(NSString *)consumerKey 
-					   consumerKeySecret:(NSString *)consumerKeySecret 
-								   token:(NSString *)token 
-							 tokenSecret:(NSString *)tokenSecret
-								verifier:(NSString *)verifier
-						  postParameters:(NSDictionary *)postParameters
-							 headerStyle:(BOOL)headerStyle ;
+/*
+	Returns the OAuth parameters already arranged to be used as an
+	authorization header in a POST.
+ */
++ (NSString *)generateOAuthAuthorizationHeaderForMethod:(NSString *)method
+													URL:(NSString *)URL
+											   callback:(NSString *)callback
+											consumerKey:(NSString *)consumerKey
+									  consumerKeySecret:(NSString *)consumerKeySecret
+												  token:(NSString *)token
+											tokenSecret:(NSString *)tokenSecret
+											   verifier:(NSString *)verifier
+										 postParameters:(NSDictionary *)postParameters ;
+
+/*
+	Returns the OAuth parameters already arranged to be appended to a URL
+	as query parameters.
+ */
++ (NSString *)generateOAuthQueryParametersForMethod:(NSString *)method
+												URL:(NSString *)URL
+										   callback:(NSString *)callback
+										consumerKey:(NSString *)consumerKey
+								  consumerKeySecret:(NSString *)consumerKeySecret
+											  token:(NSString *)token
+										tokenSecret:(NSString *)tokenSecret
+										   verifier:(NSString *)verifier
+									 postParameters:(NSDictionary *)postParameters ;
+
+/*
+	Returns the OAuth parameters arranged in a dictionary.
+ */
++ (NSDictionary *)getOAuthParametersForMethod:(NSString *)method
+										  URL:(NSString *)URL
+									 callback:(NSString *)callback
+								  consumerKey:(NSString *)consumerKey
+							consumerKeySecret:(NSString *)consumerKeySecret
+										token:(NSString *)token
+								  tokenSecret:(NSString *)tokenSecret
+									 verifier:(NSString *)verifier
+							   postParameters:(NSDictionary *)postParameters ;
 
 @end

@@ -16,22 +16,22 @@
 	NOTE: You will need to change these ones to
 	match your application details.
  */
-#define FACEBOOK_API_ID			@"191797904179793"
+#define FACEBOOK_API_ID			@"nil"
 
-#define TWITTER_API_KEY			@"3Wy6LR7Q2uwOF1CNtZq3Pw"
-#define TWITTER_CONSUMER_KEY	@"3Wy6LR7Q2uwOF1CNtZq3Pw"
-#define TWITTER_CONSUMER_SECRET	@"1DXwKW4WyKgUpypNyXueDnfPE2BbEu3y32Ydm96TQ"
+#define TWITTER_API_KEY			@"nil"
+#define TWITTER_CONSUMER_KEY	@"nil"
+#define TWITTER_CONSUMER_SECRET	@"nil"
 
-#define BIT_LY_LOGIN			@"snappycodetest"
-#define BIT_LY_API_KEY			@"R_4bea911bf467b617965f8ebf0f2af305"
+#define BIT_LY_LOGIN			@"nil"
+#define BIT_LY_API_KEY			@"nil"
 
-#define TWITPIC_API_KEY			@"d7076255f6417c098fc283a4d6609576"
+#define TWITPIC_API_KEY			@"nil"
 
-#define FLICKR_API_KEY			@"9d539e412c0a676af0d501067eae4709"
-#define FLICKR_API_SECRET		@"a5cf847a12b6b1b5"
+#define FLICKR_API_KEY			@"nil"
+#define FLICKR_API_SECRET		@"nil"
 
-#define LINKEDIN_API_KEY		@"98MetWOOJv5HfSzU3HKeSBkXEGsMX72Ncx6PC0QsCs1he4HHrTMZsheYdvdAeQBI"
-#define LINKEDIN_API_SECRET		@"FvXNzjjc8Q2Hi5M0uBp_Rxwb5lynCuwJgFwKajkC0NtWhiahaTQwNiqwq-GiPyLU"
+#define LINKEDIN_API_KEY		@"nil"
+#define LINKEDIN_API_SECRET		@"nil"
 
 // ---------------------------------------------------------------------------------------------------
 

@@ -108,16 +108,15 @@
 	NSString *URL = @"https://api.linkedin.com/uas/oauth/requestToken" ;
 	
 	// Create the authorization header
-	NSString *oauth_header = [OAuthSign getOAuthSignatureForMethod: @"POST"
-															   URL: URL
-														  callback: @"about-blank"
-													   consumerKey: LINKEDIN_API_KEY
-												 consumerKeySecret: LINKEDIN_API_SECRET
-															 token: nil
-													   tokenSecret: nil
-														  verifier: nil
-													postParameters: nil
-													   headerStyle: YES] ;
+	NSString *oauth_header = [OAuthSign generateOAuthAuthorizationHeaderForMethod: @"POST"
+																			  URL: URL
+																		 callback: @"about-blank"
+																	  consumerKey: LINKEDIN_API_KEY
+																consumerKeySecret: LINKEDIN_API_SECRET
+																			token: nil
+																	  tokenSecret: nil
+																		 verifier: nil
+																   postParameters: nil] ;
 	
 	ASIHTTPRequest *request = [ASIHTTPRequest requestWithURL: [NSURL URLWithString: URL]] ;
 	[request setRequestMethod: @"POST"] ;
@@ -175,16 +174,15 @@
 {
 	NSString *URL = @"https://api.linkedin.com/uas/oauth/accessToken" ;
 	
-	NSString *oauth_header = [OAuthSign getOAuthSignatureForMethod: @"POST"
-															   URL: URL 
-														  callback: nil
-													   consumerKey: LINKEDIN_API_KEY
-												 consumerKeySecret: LINKEDIN_API_SECRET
-															 token: tempOAuthToken
-													   tokenSecret: initialTokenSecret
-														  verifier: tempOAuthIdentifier
-													postParameters: nil
-													   headerStyle: YES] ;
+	NSString *oauth_header = [OAuthSign generateOAuthAuthorizationHeaderForMethod: @"POST"
+																			  URL: URL
+																		 callback: nil
+																	  consumerKey: LINKEDIN_API_KEY
+																consumerKeySecret: LINKEDIN_API_SECRET
+																			token: tempOAuthToken
+																	  tokenSecret: initialTokenSecret
+																		 verifier: tempOAuthIdentifier
+																   postParameters: nil] ;
 	
 	ASIHTTPRequest *request = [ASIHTTPRequest requestWithURL: [NSURL URLWithString: URL]] ;
 	[request setRequestMethod: @"POST"] ;
@@ -208,16 +206,15 @@
 	if (tokenLI)
 	{
 		NSString *URL = @"https://api.linkedin.com/uas/oauth/invalidateToken" ;
-		NSString *oauth_header = [OAuthSign getOAuthSignatureForMethod: @"GET"
-																   URL: URL 
-															  callback: nil
-														   consumerKey: LINKEDIN_API_KEY
-													 consumerKeySecret: LINKEDIN_API_SECRET
-																 token: tokenLI.key
-														   tokenSecret: tokenLI.secret
-															  verifier: nil
-														postParameters: nil
-														   headerStyle: YES] ;
+		NSString *oauth_header = [OAuthSign generateOAuthAuthorizationHeaderForMethod: @"GET"
+																				  URL: URL 
+																			 callback: nil
+																		  consumerKey: LINKEDIN_API_KEY
+																	consumerKeySecret: LINKEDIN_API_SECRET
+																				token: tokenLI.key
+																		  tokenSecret: tokenLI.secret
+																			 verifier: nil
+																	   postParameters: nil] ;
 		
 		ASIHTTPRequest *request = [ASIHTTPRequest requestWithURL: [NSURL URLWithString: URL]] ;
 		[request setRequestMethod: @"GET"] ;
@@ -278,16 +275,15 @@
 	
 	NSString *postURL = @"http://api.linkedin.com/v1/people/~/shares" ;
 	
-	NSString *oauth_header = [OAuthSign getOAuthSignatureForMethod: @"POST"
-															   URL: postURL
-														  callback: nil
-													   consumerKey: LINKEDIN_API_KEY
-												 consumerKeySecret: LINKEDIN_API_SECRET
-															 token: token.key
-													   tokenSecret: token.secret
-														  verifier: nil
-													postParameters: nil
-													   headerStyle: YES] ;
+	NSString *oauth_header = [OAuthSign generateOAuthAuthorizationHeaderForMethod: @"POST"
+																			  URL: postURL
+																		 callback: nil
+																	  consumerKey: LINKEDIN_API_KEY
+																consumerKeySecret: LINKEDIN_API_SECRET
+																			token: token.key
+																	  tokenSecret: token.secret
+																		 verifier: nil
+																   postParameters: nil] ;
 	
 	ASIHTTPRequest *post = [ASIHTTPRequest requestWithURL: [NSURL URLWithString: postURL]] ;
 	[post setRequestMethod: @"POST"] ;
@@ -339,16 +335,15 @@
 	
 	NSString *postURL = @"http://api.linkedin.com/v1/people/~/shares" ;
 	
-	NSString *oauth_header = [OAuthSign getOAuthSignatureForMethod: @"POST"
-															   URL: postURL
-														  callback: nil
-													   consumerKey: LINKEDIN_API_KEY
-												 consumerKeySecret: LINKEDIN_API_SECRET
-															 token: token.key
-													   tokenSecret: token.secret
-														  verifier: nil
-													postParameters: nil
-													   headerStyle: YES] ;
+	NSString *oauth_header = [OAuthSign generateOAuthAuthorizationHeaderForMethod: @"POST"
+																			  URL: postURL
+																		 callback: nil
+																	  consumerKey: LINKEDIN_API_KEY
+																consumerKeySecret: LINKEDIN_API_SECRET
+																			token: token.key
+																	  tokenSecret: token.secret
+																		 verifier: nil
+																   postParameters: nil] ;
 	
 	ASIHTTPRequest *post = [ASIHTTPRequest requestWithURL: [NSURL URLWithString: postURL]] ;
 	[post setRequestMethod: @"POST"] ;
@@ -419,16 +414,15 @@
 	
 	NSString *postURL = @"http://api.linkedin.com/v1/people/~/shares" ;
 	
-	NSString *oauth_header = [OAuthSign getOAuthSignatureForMethod: @"POST"
-															   URL: postURL
-														  callback: nil
-													   consumerKey: LINKEDIN_API_KEY
-												 consumerKeySecret: LINKEDIN_API_SECRET
-															 token: token.key
-													   tokenSecret: token.secret
-														  verifier: nil
-													postParameters: nil
-													   headerStyle: YES] ;
+	NSString *oauth_header = [OAuthSign generateOAuthAuthorizationHeaderForMethod: @"POST"
+																			  URL: postURL
+																		 callback: nil
+																	  consumerKey: LINKEDIN_API_KEY
+																consumerKeySecret: LINKEDIN_API_SECRET
+																			token: token.key
+																	  tokenSecret: token.secret
+																		 verifier: nil
+																   postParameters: nil] ;
 	
 	ASIHTTPRequest *post = [ASIHTTPRequest requestWithURL: [NSURL URLWithString: postURL]] ;
 	[post setRequestMethod: @"POST"] ;

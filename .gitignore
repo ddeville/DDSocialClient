@@ -1,12 +1,37 @@
-build
-*xcodeproj/*mode*
-*xcodeproj/*pbxuser
-*xcodeproj/*per*
-*xcodeproj/project.xcworkspace
-*xcodeproj/xcuserdata
-*tmproj
-*.pbxuser
-profile
-*.mode1v3
+# Mac OS X Finder and whatnot
 .DS_Store
+
+# XCode (and ancestors) per-user config (very noisy, and not relevant)
+*.mode1
+*.mode1v3
+*.mode2v3
+*.perspective
+*.perspectivev3
+*.pbxuser
+
+#for Xcode 4
+xcuserdata
+*.xcworkspace
+
+# Generated files
+VersionX-revision.h
+
+
+# build products
+build/
+*.o
+
+# Other source repository archive directories (protects when importing)
+.hg
 .svn
+CVS
+
+
+# automatic backup files
+*~.nib
+*.swp
+*~
+*(Autosaved).rtfd/
+Backup[ ]of[ ]*.pages/
+Backup[ ]of[ ]*.key/
+Backup[ ]of[ ]*.numbers/

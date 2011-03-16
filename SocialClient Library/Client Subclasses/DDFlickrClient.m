@@ -35,7 +35,7 @@
 
 - (id)initWithDelegate:(id <DDFlickrClientDelegate>)theDelegate
 {
-	if (self = [super initWithDelegate: theDelegate])
+	if ((self = [super initWithDelegate: theDelegate]))
 	{
 		[self setDelegate: theDelegate] ;
 	}

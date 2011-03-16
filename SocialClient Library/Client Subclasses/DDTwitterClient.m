@@ -39,7 +39,7 @@
 
 - (id)initWithDelegate:(id <DDTwitterClientDelegate>)theDelegate
 {
-	if (self = [super initWithDelegate: theDelegate])
+	if ((self = [super initWithDelegate: theDelegate]))
 	{
 		[self setDelegate: theDelegate] ;
 	}

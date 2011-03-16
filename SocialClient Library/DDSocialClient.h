@@ -89,7 +89,7 @@ DDSocialClientType ;
 	DDSocialClientLogin *loginDialog ;
 }
 
-@property (getter=delegate,setter=setDelegate,nonatomic,assign) id <DDSocialClientDelegate> delegate ;
+@property (getter=delegate,setter=setDelegate:,nonatomic,assign) id <DDSocialClientDelegate> delegate ;
 @property (nonatomic,retain) OAuthToken *token ;
 
 - (id)initWithDelegate:(id<DDSocialClientDelegate>)aDelegate ;

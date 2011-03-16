@@ -98,7 +98,7 @@
 	[bar release] ;
 	
 	// get the service name from the delegate
-	NSString *name ;
+	NSString *name = nil ;
 	if (delegate && [delegate respondsToSelector: @selector(serviceName)])
 		name = [delegate serviceName] ;
 	
@@ -327,14 +327,14 @@
 - (void)checkForAccessToken:(NSString *)urlString
 {
 	// we ask the delegate to parse this one itself
-	NSDictionary *responseDictionary ;
+	NSDictionary *responseDictionary = nil ;
 	if (delegate && [delegate respondsToSelector: @selector(parseURL:)])
 		responseDictionary = [delegate parseURL: urlString] ;
 	
 	if (responseDictionary)
 	{
 		NSString *accessToken = nil ;
-		if (accessToken = [responseDictionary objectForKey: @"AccessToken"])
+		if ((accessToken = [responseDictionary objectForKey: @"AccessToken"]))
 		{
 			/*
 				NOTE: we create a token and return it. for now, we do not set

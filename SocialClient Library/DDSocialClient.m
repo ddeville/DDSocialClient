@@ -16,7 +16,7 @@
 
 - (id)initWithDelegate:(id<DDSocialClientDelegate>)aDelegate
 {
-	if(self = [super init])
+	if ((self = [super init]))
 	{
 		[self setDelegate: aDelegate] ;
 		[[Reachability reachabilityForInternetConnection] startNotifier] ;

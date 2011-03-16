@@ -210,11 +210,16 @@
 	NSString *serviceName = [OAuthToken serviceNameForAppName: name andProvider: provider] ;
 	NSString *keychainLabel = @"OAuth Access Token" ;
 	
+	OSStatus status ;
+	
 	// remove the old token key and secret from the keychain
 	NSArray *keys = [NSArray arrayWithObjects: (id)kSecClass, kSecAttrService, nil] ;
 	NSArray *objects = [NSArray arrayWithObjects: (id)kSecClassGenericPassword, serviceName, nil] ;
 	NSDictionary *query = [NSDictionary dictionaryWithObjects: objects forKeys: keys] ;
-	OSStatus status = SecItemDelete((CFDictionaryRef)query) ;
+	status = SecItemDelete((CFDictionaryRef)query) ;
+	
+	if (status != noErr)
+		return NO ;
 	
 	// add the token key and secret to the keychain
 	keys = [NSArray arrayWithObjects: (id)kSecClass, kSecAttrService, kSecAttrLabel, kSecAttrAccount, kSecAttrGeneric, nil] ;
@@ -229,11 +234,13 @@
 {
 	NSString *serviceName = [OAuthToken serviceNameForAppName: name andProvider: provider] ;
 	
+	OSStatus status ;
+	
 	// remove the token key and secret from the keychain
 	NSArray *keys = [NSArray arrayWithObjects: (id)kSecClass, kSecAttrService, nil] ;
 	NSArray *objects = [NSArray arrayWithObjects: (id)kSecClassGenericPassword, serviceName, nil] ;
 	NSDictionary *query = [NSDictionary dictionaryWithObjects: objects forKeys: keys] ;
-	OSStatus status = SecItemDelete((CFDictionaryRef)query) ;
+	status = SecItemDelete((CFDictionaryRef)query) ;
 	
 	return (status == noErr) ;
 }
@@ -242,16 +249,19 @@
 {
 	NSString *serviceName = [OAuthToken serviceNameForAppName: name andProvider: provider] ;
 	
+	OSStatus status ;
+	
 	// get the token key and secret from the keychain
 	NSArray *keys = [NSArray arrayWithObjects: (id)kSecClass, kSecAttrService, kSecReturnAttributes, nil] ;
 	NSArray *objects = [NSArray arrayWithObjects: (id)kSecClassGenericPassword, serviceName, kCFBooleanTrue, nil] ;
 	NSDictionary *query = [NSDictionary dictionaryWithObjects: objects forKeys: keys] ;
 	
 	NSMutableDictionary *result = nil ;
-	OSStatus status = SecItemCopyMatching((CFDictionaryRef)query, (CFTypeRef *)&result) ;
+	status = SecItemCopyMatching((CFDictionaryRef)query, (CFTypeRef *)&result) ;
 	
 	if (status != noErr)
 		return nil ;
+	
 	return result ;
 }
 

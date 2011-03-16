@@ -36,7 +36,7 @@
 
 - (id)initWithDelegate:(id <DDFacebookClientDelegate>)theDelegate
 {
-	if (self = [super initWithDelegate: theDelegate])
+	if ((self = [super initWithDelegate: theDelegate]))
 	{
 		[self setDelegate: theDelegate] ;
 	}

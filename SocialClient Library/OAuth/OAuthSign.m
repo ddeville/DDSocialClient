@@ -170,8 +170,9 @@
 	// get the eventual POST parameters
 	for (NSString *name in postParameters)
 	{
-		parameterName = [name percentEncode] ;
-		parameterValue = [[postParameters objectForKey: name] percentEncode] ;
+		parameterName = [name stringByAddingPercentEscapesUsingEncoding: NSUTF8StringEncoding] ;
+		parameterValue = [[[postParameters objectForKey: name] stringByReplacingPercentEscapesUsingEncoding: NSUTF8StringEncoding] percentEncode] ;
+		
 		[allParameters setObject: parameterValue forKey: parameterName] ;
 	}
 	
@@ -198,6 +199,8 @@
 		count++ ;
 	}
 	
+	[sortedNames release] ;
+	
 	// percent encode the parameters string
 	NSString *encodedParametersString = [parametersString percentEncode] ;
 	
@@ -217,6 +220,7 @@
 	CCHmac(kCCHmacAlgSHA1, [key UTF8String], [key lengthOfBytesUsingEncoding: NSUTF8StringEncoding], [baseString UTF8String], [baseString lengthOfBytesUsingEncoding: NSUTF8StringEncoding], HMACString) ;
 	NSData *HMACData = [[NSData alloc] initWithBytes: HMACString length: sizeof(HMACString)] ;
 	NSString *oauthSignature = [HMACData base64EncodeWithLength: CC_SHA1_DIGEST_LENGTH] ;
+	[HMACData release] ;
 	
 	// add the signature to the parameters
 	[protocolParameters setObject: [oauthSignature percentEncode] forKey: [@"oauth_signature" percentEncode]] ;

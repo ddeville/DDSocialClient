@@ -13,6 +13,7 @@
 @class DDTwitterClient ;
 @class DDFlickrClient ;
 @class DDLinkedInClient ;
+@class DDFoursquareClient ;
 
 @interface DDiPhoneViewController : UIViewController <DDSocialClientDelegate, UINavigationControllerDelegate, UIImagePickerControllerDelegate>
 {
@@ -31,6 +32,7 @@
 	DDTwitterClient *twitterClient ;
 	DDFlickrClient *flickrClient ;
 	DDLinkedInClient *linkedInClient ;
+	DDFoursquareClient *foursquareClient ;
 }
 
 @property (nonatomic,retain) IBOutlet UISegmentedControl *segmentedControl ;

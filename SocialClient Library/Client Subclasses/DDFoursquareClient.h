@@ -8,6 +8,7 @@
 
 #import <Foundation/Foundation.h>
 #import "DDSocialClient.h"
+#import "ASIHTTPRequest.h"
 
 @class DDFoursquareClient ;
 

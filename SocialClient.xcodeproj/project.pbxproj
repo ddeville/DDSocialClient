@@ -20,6 +20,7 @@
 		6D0E83DA12EC285900B760CA /* CFNetwork.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6D0E83D912EC285900B760CA /* CFNetwork.framework */; };
 		6D0E841012EC28FE00B760CA /* DDiPadViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6D0E840E12EC28FE00B760CA /* DDiPadViewController.m */; };
 		6D0E841112EC28FE00B760CA /* DDiPadView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 6D0E840F12EC28FE00B760CA /* DDiPadView.xib */; };
+		6D367DDF1339091400350867 /* Foursquare.png in Resources */ = {isa = PBXBuildFile; fileRef = 6D367DDE1339091400350867 /* Foursquare.png */; };
 		6DEA0AC0131061E9008EF2D6 /* Security.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6DEA0ABF131061E9008EF2D6 /* Security.framework */; };
 		6DF67E791338F6100027FE7E /* DDFoursquareClient.m in Sources */ = {isa = PBXBuildFile; fileRef = 6DF67E781338F6100027FE7E /* DDFoursquareClient.m */; };
 		7000D14712EF42570073891A /* Default.png in Resources */ = {isa = PBXBuildFile; fileRef = 7000D14412EF42570073891A /* Default.png */; };
@@ -85,6 +86,7 @@
 		6D0E840D12EC28FE00B760CA /* DDiPadViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DDiPadViewController.h; sourceTree = "<group>"; };
 		6D0E840E12EC28FE00B760CA /* DDiPadViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DDiPadViewController.m; sourceTree = "<group>"; };
 		6D0E840F12EC28FE00B760CA /* DDiPadView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = DDiPadView.xib; sourceTree = "<group>"; };
+		6D367DDE1339091400350867 /* Foursquare.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Foursquare.png; sourceTree = "<group>"; };
 		6DEA0ABF131061E9008EF2D6 /* Security.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Security.framework; path = System/Library/Frameworks/Security.framework; sourceTree = SDKROOT; };
 		6DF67E771338F60F0027FE7E /* DDFoursquareClient.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DDFoursquareClient.h; sourceTree = "<group>"; };
 		6DF67E781338F6100027FE7E /* DDFoursquareClient.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DDFoursquareClient.m; sourceTree = "<group>"; };
@@ -404,6 +406,7 @@
 				706BEDB01327EF4F001E8DAB /* close@2x.png */,
 				706BEDB11327EF4F001E8DAB /* Facebook.png */,
 				706BEDB21327EF4F001E8DAB /* Flickr.png */,
+				6D367DDE1339091400350867 /* Foursquare.png */,
 				706BEDB31327EF4F001E8DAB /* LinkedIn.png */,
 				706BEDB41327EF4F001E8DAB /* Twitter.png */,
 			);
@@ -476,6 +479,7 @@
 				706BEDD21327EF4F001E8DAB /* Flickr.png in Resources */,
 				706BEDD31327EF4F001E8DAB /* LinkedIn.png in Resources */,
 				706BEDD41327EF4F001E8DAB /* Twitter.png in Resources */,
+				6D367DDF1339091400350867 /* Foursquare.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

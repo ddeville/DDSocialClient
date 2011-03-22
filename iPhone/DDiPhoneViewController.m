@@ -12,6 +12,7 @@
 #import "DDTwitterClient.h"
 #import "DDFlickrClient.h"
 #import "DDLinkedInClient.h"
+#import "DDFoursquareClient.h"
 
 @implementation DDiPhoneViewController
 
@@ -34,6 +35,7 @@
 		twitterClient = [[DDTwitterClient alloc] initWithDelegate: self] ;
 		flickrClient = [[DDFlickrClient alloc] initWithDelegate: self] ;
 		linkedInClient = [[DDLinkedInClient alloc] initWithDelegate: self] ;
+		foursquareClient = [[DDFoursquareClient alloc] initWithDelegate: self] ;
 	}
 	
 	return self ;
@@ -94,6 +96,8 @@
 			break ;
 		case 3:
 			break ;
+		case 4:
+			break ;
 		default:
 			break ;
 	}
@@ -139,6 +143,8 @@
 		case 3:
 			[linkedInClient login] ;
 			break ;
+		case 4:
+			[foursquareClient login] ;
 		default:
 			break ;
 	}
@@ -160,6 +166,8 @@
 		case 3:
 			[DDLinkedInClient logout] ;
 			break ;
+		case 4:
+			[DDFoursquareClient logout] ;
 		default:
 			break ;
 	}
@@ -279,6 +287,11 @@
 				else
 					[self appendToLog: @"You need to specify a message"] ;
 			}
+		}
+			break ;
+		case 4:
+		{
+			
 		}
 			break ;
 		default:

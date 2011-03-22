@@ -33,6 +33,10 @@
 #define LINKEDIN_API_KEY		@"nil"
 #define LINKEDIN_API_SECRET		@"nil"
 
+#define FOURSQUARE_API_KEY		@"nil"
+#define FOURSQUARE_API_SECRET	@"nil"
+#define FOURSQUARE_CALLBACK		@"nil"
+
 // ---------------------------------------------------------------------------------------------------
 
 typedef enum
@@ -42,6 +46,7 @@ typedef enum
 	kDDSocialClientTwitter,
 	kDDSocialClientFlickr,
 	kDDSocialClientLinkedIn,
+	kDDSocialClientFoursquare,
 }
 DDSocialClientType ;
 
@@ -49,11 +54,13 @@ DDSocialClientType ;
 #define TWITTER_DOMAIN			@"twitter.com"
 #define FLICKR_DOMAIN			@"flickr.com"
 #define LINKEDIN_DOMAIN			@"linkedin.com"
+#define FOURSQUARE_DOMAIN		@"foursquare.com"
 
 #define FACEBOOK_SERVICE_KEY	@"Facebook"
 #define TWITTER_SERVICE_KEY		@"Twitter"
 #define FLICKR_SERVICE_KEY		@"Flickr"
 #define LINKEDIN_SERVICE_KEY	@"LinkedIn"
+#define FOURSQUARE_SERVICE_KEY	@"Foursquare"
 
 
 #define DDAuthenticationError	@"DDAuthenticationError"

@@ -11,29 +11,9 @@
 #import "DDSocialClient.h"
 #import "ASIHTTPRequest.h"
 
+@class DDTwitterClient ;
 
-@protocol DDTwitterClientDelegate ;
-
-@interface DDTwitterClient : DDSocialClient <ASIHTTPRequestDelegate>
-{
-	@private
-	NSString *initialToken ;
-}
-
-@property (getter=delegate,setter=setDelegate,nonatomic,assign) id <DDTwitterClientDelegate> delegate ;
-
-- (id)initWithDelegate:(id <DDTwitterClientDelegate>)theDelegate ;
-
-- (void)postMessageToTwitter:(NSString *)message ;
-- (void)postMessageToTwitter:(NSString *)message withURL:(NSString *)URL ;
-- (void)postImageToTwitter:(UIImage *)image withMessage:(NSString *)message ;
-
-
-@end
-
-
-
-@protocol DDTwitterClientDelegate <DDSocialClientDelegate, NSObject>
+@protocol DDTwitterClientDelegate <NSObject, DDSocialClientDelegate>
 
 @optional
 /*
@@ -45,5 +25,22 @@
 - (BOOL)shouldGeolocalizeTweet:(NSString *)tweetMessage ;
 - (void)twitterPostDidSucceedAndReturned:(NSMutableDictionary *)response ;
 - (void)twitterPostFailedWithError:(NSError *)error ;
+
+@end
+
+@interface DDTwitterClient : DDSocialClient <ASIHTTPRequestDelegate>
+{
+	@private
+	NSString *initialToken ;
+}
+
+@property (nonatomic,assign) id <DDTwitterClientDelegate> delegate ;
+
+- (id)initWithDelegate:(id <DDTwitterClientDelegate>)theDelegate ;
+
+- (void)postMessageToTwitter:(NSString *)message ;
+- (void)postMessageToTwitter:(NSString *)message withURL:(NSString *)URL ;
+- (void)postImageToTwitter:(UIImage *)image withMessage:(NSString *)message ;
+
 
 @end

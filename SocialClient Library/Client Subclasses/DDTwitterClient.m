@@ -37,6 +37,8 @@
 
 @implementation DDTwitterClient
 
+@synthesize delegate ;
+
 - (id)initWithDelegate:(id <DDTwitterClientDelegate>)theDelegate
 {
 	if ((self = [super initWithDelegate: theDelegate]))

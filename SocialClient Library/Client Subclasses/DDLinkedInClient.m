@@ -33,6 +33,8 @@
 
 @implementation DDLinkedInClient
 
+@synthesize delegate ;
+
 - (id)initWithDelegate:(id <DDLinkedInClientDelegate>)theDelegate
 {
 	if ((self = [super initWithDelegate: theDelegate]))

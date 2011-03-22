@@ -19,7 +19,15 @@ typedef enum
 DDLinkedInPostType ;
 
 
-@protocol DDLinkedInClientDelegate ;
+@class DDLinkedInClient ;
+
+@protocol DDLinkedInClientDelegate <NSObject, DDSocialClientDelegate>
+
+@optional
+- (void)linkedInPostDidSucceed:(DDLinkedInPostType)type ;
+- (void)linkedInPost:(DDLinkedInPostType)type failedWithError:(NSError *)error ;
+
+@end
 
 @interface DDLinkedInClient : DDSocialClient <ASIHTTPRequestDelegate>
 {
@@ -28,7 +36,7 @@ DDLinkedInPostType ;
 	NSString *initialTokenSecret ;
 }
 
-@property (getter=delegate,setter=setDelegate,nonatomic,assign) id <DDLinkedInClientDelegate> delegate ;
+@property (nonatomic,assign) id <DDLinkedInClientDelegate> delegate ;
 
 - (id)initWithDelegate:(id <DDLinkedInClientDelegate>)theDelegate ;
 
@@ -36,15 +44,5 @@ DDLinkedInPostType ;
 - (void)postLinkWithTitle:(NSString *)linkTitle andLink:(NSString *)URL andLinkImage:(NSString *)imageURL andLinkDescription:(NSString *)description visibilityConnectionsOnly:(BOOL)connectionsOnly ;
 - (void)postMessage:(NSString *)message withLinkTitle:(NSString *)linkTitle andLink:(NSString *)URL andLinkImage:(NSString *)imageURL andLinkDescription:(NSString *)description visibilityConnectionsOnly:(BOOL)connectionsOnly ;
 
-
-@end
-
-
-@protocol DDLinkedInClientDelegate <DDSocialClientDelegate, NSObject>
-
-@optional
-
-- (void)linkedInPostDidSucceed:(DDLinkedInPostType)type ;
-- (void)linkedInPost:(DDLinkedInPostType)type failedWithError:(NSError *)error ;
 
 @end

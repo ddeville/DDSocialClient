@@ -33,15 +33,25 @@ typedef enum
 DDFlickrPostType ;
 
 
-@protocol DDFlickrClientDelegate ;
+@class DDFlickrClient ;
+
+@protocol DDFlickrClientDelegate <NSObject, DDSocialClientDelegate>
+
+@optional
+- (void)flickrPost:(DDFlickrPostType)postType didSucceedAndReturned:(NSMutableDictionary *)response ;
+- (void)flickrPost:(DDFlickrPostType)postType failedWithError:(NSError *)error ;
+- (void)flickrRequest:(DDFlickrRequestType)requestType didSucceedAndReturned:(NSMutableDictionary *)response ;
+- (void)flickrRequest:(DDFlickrRequestType)requestType failedWithError:(NSError *)error ;
+
+@end
 
 @interface DDFlickrClient : DDSocialClient <ASIHTTPRequestDelegate>
 {
-	@private
+@private
 	NSString *frob ;
 }
 
-@property (getter=delegate,setter=setDelegate,nonatomic,assign) id <DDFlickrClientDelegate> delegate ;
+@property (nonatomic,assign) id <DDFlickrClientDelegate> delegate ;
 
 - (void)getUserInfo ;
 - (void)postImageToFlickr:(UIImage *)image withTitle:(NSString *)title andDescription:(NSString *)description ;
@@ -59,17 +69,5 @@ DDFlickrPostType ;
 - (void)getListOfPhotosets ;
 - (void)createPhotoset:(NSString *)photosetName withDescription:(NSString *)description withPrimaryPhoto:(NSString *)photoID ;
 - (void)postImage:(NSString *)imageID toPhotoset:(NSString *)photosetID ;
-
-@end
-
-
-
-@protocol DDFlickrClientDelegate <DDSocialClientDelegate, NSObject>
-
-@optional
-- (void)flickrPost:(DDFlickrPostType)postType didSucceedAndReturned:(NSMutableDictionary *)response ;
-- (void)flickrPost:(DDFlickrPostType)postType failedWithError:(NSError *)error ;
-- (void)flickrRequest:(DDFlickrRequestType)requestType didSucceedAndReturned:(NSMutableDictionary *)response ;
-- (void)flickrRequest:(DDFlickrRequestType)requestType failedWithError:(NSError *)error ;
 
 @end

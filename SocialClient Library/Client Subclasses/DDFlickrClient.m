@@ -33,6 +33,8 @@
 
 @implementation DDFlickrClient
 
+@synthesize delegate ;
+
 - (id)initWithDelegate:(id <DDFlickrClientDelegate>)theDelegate
 {
 	if ((self = [super initWithDelegate: theDelegate]))

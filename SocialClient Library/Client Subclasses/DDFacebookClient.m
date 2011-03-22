@@ -34,6 +34,8 @@
 
 @implementation DDFacebookClient
 
+@synthesize delegate ;
+
 - (id)initWithDelegate:(id <DDFacebookClientDelegate>)theDelegate
 {
 	if ((self = [super initWithDelegate: theDelegate]))

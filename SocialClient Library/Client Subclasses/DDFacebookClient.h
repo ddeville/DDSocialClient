@@ -39,14 +39,24 @@ typedef enum
 DDFacebookPostType ;
 
 
-@protocol DDFacebookClientDelegate ;
+@class DDFacebookClient ;
+
+@protocol DDFacebookClientDelegate <NSObject, DDSocialClientDelegate>
+
+@optional
+- (void)facebookGotResponse:(NSMutableDictionary *)response forRequestType:(DDFacebookRequestType)requestType ;
+- (void)facebookRequest:(DDFacebookRequestType)requestType failedWithError:(NSError *)error ;
+- (void)facebookPostDidSucceed:(DDFacebookPostType)postType andReturned:(NSMutableDictionary *)response ;
+- (void)facebookPost:(DDFacebookPostType)postType failedWithError:(NSError *)error ;
+
+@end
 
 @interface DDFacebookClient : DDSocialClient <ASIHTTPRequestDelegate>
 {
 	
 }
 
-@property (getter=delegate,setter=setDelegate,nonatomic,assign) id <DDFacebookClientDelegate> delegate ;
+@property (nonatomic,assign) id <DDFacebookClientDelegate> delegate ;
 
 - (id)initWithDelegate:(id <DDFacebookClientDelegate>)theDelegate ;
 
@@ -75,18 +85,5 @@ DDFacebookPostType ;
 - (void)postPhotos:(NSArray *)photoArray toAlbum:(NSString *)albumID ;
 - (void)postLinkToFacebook:(NSString *)linkString withName:(NSString *)linkName withCaption:(NSString *)linkCaption withDescription:(NSString *)linkDescription withMessage:(NSString *)linkMessage withPicture:(NSString *)linkPicture ;
 - (void)postNoteToFacebook:(NSString *)noteText withSubjectMessage:(NSString *)subject ;
-
-
-@end
-
-
-
-@protocol DDFacebookClientDelegate <DDSocialClientDelegate, NSObject>
-
-@optional
-- (void)facebookGotResponse:(NSMutableDictionary *)response forRequestType:(DDFacebookRequestType)requestType ;
-- (void)facebookRequest:(DDFacebookRequestType)requestType failedWithError:(NSError *)error ;
-- (void)facebookPostDidSucceed:(DDFacebookPostType)postType andReturned:(NSMutableDictionary *)response ;
-- (void)facebookPost:(DDFacebookPostType)postType failedWithError:(NSError *)error ;
 
 @end

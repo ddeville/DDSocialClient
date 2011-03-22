@@ -33,7 +33,7 @@
 
 @implementation DDLinkedInClient
 
-@synthesize delegate ;
+@dynamic delegate ;
 
 - (id)initWithDelegate:(id <DDLinkedInClientDelegate>)theDelegate
 {

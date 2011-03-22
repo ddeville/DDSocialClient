@@ -33,7 +33,7 @@
 
 @implementation DDFlickrClient
 
-@synthesize delegate ;
+@dynamic delegate ;
 
 - (id)initWithDelegate:(id <DDFlickrClientDelegate>)theDelegate
 {

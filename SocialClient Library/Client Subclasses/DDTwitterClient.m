@@ -37,7 +37,7 @@
 
 @implementation DDTwitterClient
 
-@synthesize delegate ;
+@dynamic delegate ;
 
 - (id)initWithDelegate:(id <DDTwitterClientDelegate>)theDelegate
 {

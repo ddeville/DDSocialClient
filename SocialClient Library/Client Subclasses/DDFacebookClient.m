@@ -34,7 +34,7 @@
 
 @implementation DDFacebookClient
 
-@synthesize delegate ;
+@dynamic delegate ;
 
 - (id)initWithDelegate:(id <DDFacebookClientDelegate>)theDelegate
 {

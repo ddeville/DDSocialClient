@@ -531,6 +531,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: Damien Deville (689PB4N5HY)";
 				COPY_PHASE_STRIP = NO;
 				GCC_DYNAMIC_NO_PIC = NO;
 				GCC_OPTIMIZATION_LEVEL = 0;
@@ -538,6 +539,7 @@
 				GCC_PREFIX_HEADER = SocialClient_Prefix.pch;
 				INFOPLIST_FILE = "SocialClient-Info.plist";
 				PRODUCT_NAME = "Social Client";
+				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "B9EB34BB-8508-4502-94F6-C756B72F513B";
 			};
 			name = Debug;
 		};

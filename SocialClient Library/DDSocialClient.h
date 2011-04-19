@@ -16,26 +16,26 @@
 	NOTE: You will need to change these ones to
 	match your application details.
  */
-#define FACEBOOK_API_ID			@"nil"
+#define FACEBOOK_API_ID			@""
 
-#define TWITTER_API_KEY			@"nil"
-#define TWITTER_CONSUMER_KEY	@"nil"
-#define TWITTER_CONSUMER_SECRET	@"nil"
+#define TWITTER_API_KEY			@""
+#define TWITTER_CONSUMER_KEY	@""
+#define TWITTER_CONSUMER_SECRET	@""
 
-#define BIT_LY_LOGIN			@"nil"
-#define BIT_LY_API_KEY			@"nil"
+#define BIT_LY_LOGIN			@""
+#define BIT_LY_API_KEY			@""
 
-#define TWITPIC_API_KEY			@"nil"
+#define TWITPIC_API_KEY			@""
 
-#define FLICKR_API_KEY			@"nil"
-#define FLICKR_API_SECRET		@"nil"
+#define FLICKR_API_KEY			@""
+#define FLICKR_API_SECRET		@""
 
-#define LINKEDIN_API_KEY		@"nil"
-#define LINKEDIN_API_SECRET		@"nil"
+#define LINKEDIN_API_KEY		@""
+#define LINKEDIN_API_SECRET		@""
 
-#define FOURSQUARE_API_KEY		@"nil"
-#define FOURSQUARE_API_SECRET	@"nil"
-#define FOURSQUARE_CALLBACK		@"nil"
+#define FOURSQUARE_API_KEY		@""
+#define FOURSQUARE_API_SECRET	@""
+#define FOURSQUARE_CALLBACK		@""
 
 // ---------------------------------------------------------------------------------------------------
 

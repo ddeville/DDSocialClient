@@ -218,7 +218,7 @@
 	NSDictionary *query = [NSDictionary dictionaryWithObjects: objects forKeys: keys] ;
 	status = SecItemDelete((CFDictionaryRef)query) ;
 	
-	if (status != noErr)
+	if (status != noErr && status != errSecItemNotFound)
 		return NO ;
 	
 	// add the token key and secret to the keychain

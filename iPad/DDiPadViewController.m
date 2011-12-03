@@ -13,6 +13,10 @@
 #import "DDFlickrClient.h"
 #import "DDLinkedInClient.h"
 
+@interface DDiPadViewController() <DDFacebookClientDelegate, DDTwitterClientDelegate, DDLinkedInClientDelegate>
+@end
+
+
 @implementation DDiPadViewController
 
 @synthesize segmentedControl ;

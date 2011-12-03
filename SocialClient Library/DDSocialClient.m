@@ -66,10 +66,10 @@
 
 - (BOOL)serviceHasValidToken
 {
-	// Watch, the token is also assigned here!
-	if (self.token = [OAuthToken tokenForService: [[self class] clientServiceKey]])
-		return YES ;
-	return NO ;
+	self.token = [OAuthToken tokenForService: [[self class] clientServiceKey]];
+	if (self.token)
+		return YES;
+	return NO;
 }
 
 + (void)logout

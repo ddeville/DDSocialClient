@@ -128,20 +128,20 @@ static const NSUInteger kDomainSection = 1;
 - (void)orientationChanged:(NSNotification *)notification
 {
 	[self showTitle];
-	
-	UIDeviceOrientation o = [[UIApplication sharedApplication] statusBarOrientation];
+
+	UIInterfaceOrientation o = [[UIApplication sharedApplication] statusBarOrientation];
 	CGFloat angle = 0;
 	switch (o) {
-		case UIDeviceOrientationLandscapeLeft: angle = 90; break;
-		case UIDeviceOrientationLandscapeRight: angle = -90; break;
-		case UIDeviceOrientationPortraitUpsideDown: angle = 180; break;
+		case UIInterfaceOrientationLandscapeLeft: angle = 90; break;
+		case UIInterfaceOrientationLandscapeRight: angle = -90; break;
+		case UIInterfaceOrientationPortraitUpsideDown: angle = 180; break;
 		default: break;
 	}
 
 	CGRect f = [[UIScreen mainScreen] applicationFrame];
 
 	// Swap the frame height and width if necessary
- 	if (UIDeviceOrientationIsLandscape(o)) {
+	if (UIInterfaceOrientationIsLandscape(o)) {
 		CGFloat t;
 		t = f.size.width;
 		f.size.width = f.size.height;

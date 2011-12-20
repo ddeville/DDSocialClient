@@ -14,6 +14,10 @@
 #import "DDLinkedInClient.h"
 #import "DDFoursquareClient.h"
 
+@interface DDiPhoneViewController() <DDFacebookClientDelegate, DDTwitterClientDelegate, DDLinkedInClientDelegate, DDFoursquareClientDelegate>
+@end
+
+
 @implementation DDiPhoneViewController
 
 @synthesize segmentedControl ;

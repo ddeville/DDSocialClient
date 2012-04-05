@@ -64,6 +64,7 @@
 		7096DF3312EF2F680096310B /* Icon-72.png in Resources */ = {isa = PBXBuildFile; fileRef = 7096DF3012EF2F680096310B /* Icon-72.png */; };
 		7096DF3412EF2F680096310B /* Icon.png in Resources */ = {isa = PBXBuildFile; fileRef = 7096DF3112EF2F680096310B /* Icon.png */; };
 		7096DF3512EF2F680096310B /* Icon@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 7096DF3212EF2F680096310B /* Icon@2x.png */; };
+		82D5FCD71529B09A0033237E /* DDSkyrockClient.m in Sources */ = {isa = PBXBuildFile; fileRef = 82D5FCD51529B09A0033237E /* DDSkyrockClient.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -162,6 +163,8 @@
 		7096DF3012EF2F680096310B /* Icon-72.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "Icon-72.png"; path = "Shared/Icon-72.png"; sourceTree = "<group>"; };
 		7096DF3112EF2F680096310B /* Icon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = Icon.png; path = Shared/Icon.png; sourceTree = "<group>"; };
 		7096DF3212EF2F680096310B /* Icon@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "Icon@2x.png"; path = "Shared/Icon@2x.png"; sourceTree = "<group>"; };
+		82D5FCD51529B09A0033237E /* DDSkyrockClient.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DDSkyrockClient.m; sourceTree = "<group>"; };
+		82D5FCD61529B09A0033237E /* DDSkyrockClient.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DDSkyrockClient.h; sourceTree = "<group>"; };
 		8D1107310486CEB800E47090 /* SocialClient-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "SocialClient-Info.plist"; plistStructureDefinitionIdentifier = "com.apple.xcode.plist.structure-definition.iphone.info-plist"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -290,6 +293,8 @@
 		706BED6E1327EF4F001E8DAB /* Client Subclasses */ = {
 			isa = PBXGroup;
 			children = (
+				82D5FCD51529B09A0033237E /* DDSkyrockClient.m */,
+				82D5FCD61529B09A0033237E /* DDSkyrockClient.h */,
 				706BED6F1327EF4F001E8DAB /* DDFacebookClient.h */,
 				706BED701327EF4F001E8DAB /* DDFacebookClient.m */,
 				706BED711327EF4F001E8DAB /* DDFlickrClient.h */,
@@ -526,6 +531,7 @@
 				706BEDCC1327EF4F001E8DAB /* OAuthSign.m in Sources */,
 				706BEDCD1327EF4F001E8DAB /* OAuthToken.m in Sources */,
 				6DF67E791338F6100027FE7E /* DDFoursquareClient.m in Sources */,
+				82D5FCD71529B09A0033237E /* DDSkyrockClient.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

@@ -1,3 +1,7 @@
+DDSocialClient is not maintained anymore. It was a fun project to work on at its time but things have changed quite a bit with all the new Social stuff on iOS.
+
+======================
+
 DDSocialNetworkClient is a handy library that makes access to social networking clients easy!
 
 At the moment, it supports Facebook, Twitter, Flickr and LinkedIn.
